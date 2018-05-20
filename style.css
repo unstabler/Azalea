@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans|Shadows+Into+Light+Two');
+
+html {
+    width: 100%; min-height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,196,215,1) 100%);
+}
+
+body {
+    padding: 1em;
+}
+
+header, main {
+    display: block;
+    max-width: 800px;
+    margin: 1em auto;
+
+    box-sizing: border-box;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+header h1.azalea {
+    margin: 0;
+    font-family: 'Shadows Into Light Two', 'Arial';
+    color: white;
+    text-shadow: 4px 4px 0 rgba(244, 153, 186, 1),
+                 0 0 2px rgba(0, 0, 0, 0.24);
+
+    font-size: 3.5em;
+}
+
+header p.description {
+    margin: 0;
+    font-family: 'Shadows Into Light Two', 'Arial';
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 1em;
+
+    color: rgba(244, 153, 186, 1);
+}
+
+main {
+    padding: 1em;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.08);
+
+    border-radius: 8px;
+    z-index: 1;
+}
+
+main h1 {
+    color: #3a3a3a;
+}
+
+main p {
+    color: #4c4c4c;
+}
+
+footer.yay {
+    position: fixed;
+    bottom: 0; left: 0;
+    z-index: -1;
+
+    font-family: 'Fira Sans', 'sans-serif';
+    font-size: 128px;
+    color: rgba(255, 255, 255, 0.6);
+}
