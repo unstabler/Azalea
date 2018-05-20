@@ -3,4 +3,4 @@ CONFIG += c++14 testcase
 
 QMAKE_RPATHDIR += ../azalea
 SOURCES = \
-    test_hello_world.cpp
+    test_deserialize.cpp

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT     += core gui
+QT     += core gui network
 CONFIG += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -26,10 +26,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        ui/mainwindow.cpp
+        ui/mainwindow.cpp \
+        mastodon/apicontext.cpp \
+        mastodon/mastodonapi.cpp \
+        mastodon/apibase.cpp \
+        mastodon/v1/appsapi.cpp \
+        __serialization.cpp \
+        mastodon/v1/entities/application.cpp
 
 HEADERS += \
-        ui/mainwindow.hpp
+        ui/mainwindow.hpp \
+        mastodon/apicontext.hpp \
+        mastodon/mastodonapi.hpp \
+        mastodon/apibase.hpp \
+        mastodon/v1/entities/application.hpp \
+        mastodon/v1/appsapi.hpp
 
 FORMS += \
         ui/mainwindow.ui

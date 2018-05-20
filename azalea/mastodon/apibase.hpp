@@ -1,0 +1,95 @@
+#pragma once
+
+#include <sstream>
+
+#include <QScopedPointer>
+#include <QMap>
+#include <QObject>
+#include <QNetworkReply>
+
+#include <cereal/archives/json.hpp>
+
+#include "mastodonapi.hpp"
+
+// FIXME: 이거 대체 뭔데 C++ 코드를 include 하지 않으면 빌드가 안되는걸까..
+#include "../__serialization.cpp"
+
+using ParamMap = QMap<QString, QString>;
+
+class APIFutureResponse : public QObject
+{
+        Q_OBJECT
+        Q_DISABLE_COPY(APIFutureResponse)
+
+    public:
+        APIFutureResponse(QNetworkReply* reply);
+        QString body() const;
+
+
+    protected:
+        QNetworkReply* reply() const;
+
+    signals:
+        void resolved();
+        void rejected(int code, QString content);
+
+    private slots:
+        void requestFinished();
+        void requestError();
+
+    private:
+        QNetworkReply* _reply;
+        QString _body;
+};
+
+
+/**
+ * FIXME: 왜 이거 코드가 헤더에 없으면 undefined reference 오류가 나는지 모르겠어요 X(
+ */
+template<class T>
+class APIFutureResource : public APIFutureResponse
+{
+    public:
+        APIFutureResource(QNetworkReply* reply) :
+            APIFutureResponse(reply)
+        {
+
+        }
+
+        QSharedPointer<T> tryDeserialize()
+        {
+            std::stringstream stream(body().toStdString());
+            T* instance = new T();
+            cereal::JSONInputArchive archive(stream);
+
+            instance->serialize(archive);
+            return QSharedPointer<T>(instance);
+        }
+};
+
+class APIBase : public QObject
+{
+        Q_OBJECT
+    public:
+        explicit APIBase(APIContext *context);
+
+    protected:
+        APIContext* context() const;
+        QNetworkAccessManager* httpClient() const;
+
+        QUrl buildUrl(const QString endpoint);
+        QNetworkRequest buildRequest(const QString endpoint);
+        QNetworkRequest buildRequest(const QUrl url);
+
+        QByteArray serializeParamMap(const ParamMap& paramMap);
+
+        QNetworkReply* GET(const QString endpoint,
+                           const ParamMap& params);
+        QNetworkReply* POST(const QString endpoint,
+                            const ParamMap& form);
+
+        // TODO: MULTIPART 대응
+    private:
+        APIContext* _context;
+};
+

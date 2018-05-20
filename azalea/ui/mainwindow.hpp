@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_HPP
-#define MAINWINDOW_HPP
+#pragma once
 
 #include <QMainWindow>
 
@@ -18,5 +17,3 @@ class MainWindow : public QMainWindow
     private:
         Ui::MainWindow *ui;
 };
-
-#endif // MAINWINDOW_HPP
