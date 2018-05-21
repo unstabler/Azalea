@@ -1,6 +1,9 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 
+#include <QLineEdit>
+#include <QMenuBar>
+
 #include "../mastodon/apicontext.hpp"
 #include "../mastodon/mastodonapi.hpp"
 #include "serialization.hpp"
@@ -10,23 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    lengthMenu = ui->menuBar->addMenu(tr("0"));
 
-    APIContext* context = new APIContext();
-    context->setHost("twingyeo.kr");
-    MastodonAPI* api = new MastodonAPI(context);
-    auto* futureApplication = api->apps()->post(
-        "Azalea",
-        v1::AppsAPI::NO_REDIRECT_URIS,
-        "read",
-        "https://azalea.unstabler.pl"
-    );
-    connect(futureApplication, &APIFutureResponse::resolved, [=]() {
-        auto application = futureApplication->tryDeserialize();
-        qDebug() << application->id;
-        qDebug() << application->clientId;
-        qDebug() << application->clientSecret;
-        qDebug() << "OK!";
-    });
+    connect(ui->simpleTootEdit, &QLineEdit::textChanged, this, &MainWindow::updateTextLength);
+}
+
+void MainWindow::updateTextLength(const QString& text)
+{
+    auto lengthLeft = 500 - text.length();
+    lengthMenu->setTitle(QString::number(lengthLeft));
 }
 
 MainWindow::~MainWindow()

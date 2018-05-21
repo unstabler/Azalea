@@ -14,6 +14,10 @@ class MainWindow : public QMainWindow
         explicit MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
 
+    public slots:
+        void updateTextLength(const QString& text);
+
     private:
         Ui::MainWindow *ui;
+        QMenu* lengthMenu;
 };

@@ -2,6 +2,8 @@
 
 #include "application.hpp"
 
+using namespace v1;
+
 template<class Archive>
 void serialize(Archive &archive, Application &application)
 {

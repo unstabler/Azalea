@@ -3,9 +3,11 @@
 #include <QString>
 #include <cereal/cereal.hpp>
 
-struct Application
-{
-        QString id;
-        QString clientId;
-        QString clientSecret;
-};
+namespace v1 {
+    struct Application
+    {
+            QString id;
+            QString clientId;
+            QString clientSecret;
+    };
+}
