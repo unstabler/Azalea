@@ -31,6 +31,8 @@ SOURCES += \
         mastodon/mastodonapi.cpp \
         mastodon/apibase.cpp \
         mastodon/v1/appsapi.cpp \
+        ui/postarea.cpp \
+    singleton.cpp
 
 HEADERS += \
         serialization.hpp \
@@ -41,10 +43,13 @@ HEADERS += \
         mastodon/v1/entities/__serialization_helper.hpp \
         mastodon/v1/entities/application.hpp \
         mastodon/v1/appsapi.hpp \
-    mastodon/v1.hpp
+        mastodon/v1.hpp \
+        ui/postarea.hpp \
+    singleton.hpp
 
 FORMS += \
-        ui/mainwindow.ui
+        ui/mainwindow.ui \
+        ui/postarea.ui
 
 
 INSTALLS += target 
