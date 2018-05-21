@@ -3,12 +3,7 @@
 
 #include "../mastodon/apicontext.hpp"
 #include "../mastodon/mastodonapi.hpp"
-#include "../mastodon/apibase.hpp"
-#include "../mastodon/v1/appsapi.hpp"
-
-// FIXME: 이거 대체 뭔데 C++ 코드를 include 하지 않으면 빌드가 안되는걸까..
-#include "../mastodon/v1/entities/application.cpp"
-#include "../mastodon/v1/entities/application.hpp"
+#include "serialization.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,10 +13,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     APIContext* context = new APIContext();
     context->setHost("twingyeo.kr");
-    AppsAPI* api = new AppsAPI(context);
-    auto* futureApplication = api->post(
+    MastodonAPI* api = new MastodonAPI(context);
+    auto* futureApplication = api->apps()->post(
         "Azalea",
-        AppsAPI::NO_REDIRECT_URIS,
+        v1::AppsAPI::NO_REDIRECT_URIS,
         "read",
         "https://azalea.unstabler.pl"
     );

@@ -5,9 +5,8 @@
 
 #include <cereal/archives/json.hpp>
 
-#include "../azalea/__serialization.cpp"
+#include "../azalea/serialization.hpp"
 #include "../azalea/mastodon/v1/entities/application.hpp"
-#include "../azalea/mastodon/v1/entities/application.cpp"
 
 class TestDeserialization : public QObject
 {
@@ -24,7 +23,7 @@ class TestDeserialization : public QObject
 
             Application application;
             cereal::JSONInputArchive archive(stream);
-            application.serialize(archive);
+            serialize(archive, application);
 
             QCOMPARE(application.id, "TEST_ID");
             QCOMPARE(application.clientId, "TEST_CLIENT_ID");

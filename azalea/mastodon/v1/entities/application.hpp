@@ -8,7 +8,4 @@ struct Application
         QString id;
         QString clientId;
         QString clientSecret;
-
-        template<class Archive>
-        void serialize(Archive& archive);
 };

@@ -9,10 +9,8 @@
 
 #include <cereal/archives/json.hpp>
 
-#include "mastodonapi.hpp"
-
-// FIXME: 이거 대체 뭔데 C++ 코드를 include 하지 않으면 빌드가 안되는걸까..
-#include "../__serialization.cpp"
+#include "apicontext.hpp"
+#include "serialization.hpp"
 
 using ParamMap = QMap<QString, QString>;
 
@@ -44,7 +42,7 @@ class APIFutureResponse : public QObject
 
 
 /**
- * FIXME: 왜 이거 코드가 헤더에 없으면 undefined reference 오류가 나는지 모르겠어요 X(
+ * FIXME: 왜 이거 함수가 코드로 분리되어 있으면 undefined reference 오류가 나는지 모르겠어요 X(
  */
 template<class T>
 class APIFutureResource : public APIFutureResponse
@@ -62,7 +60,7 @@ class APIFutureResource : public APIFutureResponse
             T* instance = new T();
             cereal::JSONInputArchive archive(stream);
 
-            instance->serialize(archive);
+            serialize(archive, *instance);
             return QSharedPointer<T>(instance);
         }
 };

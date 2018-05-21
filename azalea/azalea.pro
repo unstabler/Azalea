@@ -31,16 +31,17 @@ SOURCES += \
         mastodon/mastodonapi.cpp \
         mastodon/apibase.cpp \
         mastodon/v1/appsapi.cpp \
-        __serialization.cpp \
-        mastodon/v1/entities/application.cpp
 
 HEADERS += \
+        serialization.hpp \
         ui/mainwindow.hpp \
         mastodon/apicontext.hpp \
         mastodon/mastodonapi.hpp \
         mastodon/apibase.hpp \
+        mastodon/v1/entities/__serialization_helper.hpp \
         mastodon/v1/entities/application.hpp \
-        mastodon/v1/appsapi.hpp
+        mastodon/v1/appsapi.hpp \
+    mastodon/v1.hpp
 
 FORMS += \
         ui/mainwindow.ui
