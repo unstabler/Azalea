@@ -17,7 +17,6 @@ public:
     AzaleaApplication(int &argc, char **argv);
 
     int exec();
-
 private:
     MainWindow* mainWindow;
 

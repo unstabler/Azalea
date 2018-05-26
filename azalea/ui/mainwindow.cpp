@@ -4,8 +4,11 @@
 #include <QLineEdit>
 #include <QMenuBar>
 
-#include "../mastodon/apicontext.hpp"
-#include "../mastodon/mastodonapi.hpp"
+#include "mastodon/apicontext.hpp"
+#include "mastodon/mastodonapi.hpp"
+
+#include "singleton.hpp"
+#include "configmanager.hpp"
 #include "serialization.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :

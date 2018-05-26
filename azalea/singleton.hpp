@@ -11,6 +11,9 @@
 #include <functional>
 #include <mutex>
 
+#include <QtGlobal>
+#include <QScopedPointer>
+
 class SingletonFinalizer
 {
     public:
@@ -29,6 +32,7 @@ class SingletonFinalizer
         static void finalize();
 };
 
+
 /**
  * Mozc식 싱글톤 클래스
  */
@@ -39,7 +43,7 @@ class Singleton final
         static T& getInstance()
         {
             std::call_once(initFlag, create);
-            assert(instance);
+            Q_ASSERT(instance);
             return *instance;
         }
 
@@ -58,3 +62,6 @@ class Singleton final
         static std::once_flag initFlag;
         static T* instance;
 };
+
+template <class T> std::once_flag Singleton<T>::initFlag;
+template <class T> T* Singleton<T>::instance = nullptr;
