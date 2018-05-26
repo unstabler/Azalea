@@ -1,22 +1,14 @@
-#include "ui/mainwindow.hpp"
 #include <QApplication>
 
+#include "azaleaapplication.hpp"
 #include "singleton.hpp"
-
-static const QString applicationName = "Azalea";
 
 int main(int argc, char *argv[])
 {
-    QApplication application(argc, argv);
-    application.setApplicationName(applicationName);
-#ifndef AZALEA_VERSION
-    application.setApplicationVersion("unstable");
-#elif
-    application.setApplicationVersion(AZALEA_VERSION);
-#endif
+    AzaleaApplication app(argc, argv);
     MainWindow window;
     window.show();
-    const auto returnValue = application.exec();
+    const auto returnValue = app.exec();
 
     SingletonFinalizer::finalize();
     return returnValue;

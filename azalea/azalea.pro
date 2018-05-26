@@ -32,7 +32,8 @@ SOURCES += \
         mastodon/apibase.cpp \
         mastodon/v1/appsapi.cpp \
         ui/postarea.cpp \
-    singleton.cpp
+    singleton.cpp \
+    azaleaapplication.cpp
 
 HEADERS += \
         serialization.hpp \
@@ -45,7 +46,8 @@ HEADERS += \
         mastodon/v1/appsapi.hpp \
         mastodon/v1.hpp \
         ui/postarea.hpp \
-    singleton.hpp
+    singleton.hpp \
+    azaleaapplication.hpp
 
 FORMS += \
         ui/mainwindow.ui \
