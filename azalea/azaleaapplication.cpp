@@ -1,16 +1,16 @@
 #include "azaleaapplication.hpp"
 
-QString AzaleaApplication::APPLICATION_NAME = "Azalea";
+const QString AzaleaApplication::APPLICATION_NAME = "Azalea";
 
 #ifndef AZALEA_VERSION
-QString AzaleaApplication::APPLICATION_VERSION = AZALEA_VERSION;
+const QString AzaleaApplication::APPLICATION_VERSION = "unknown-unstable";
 #elif
-QString AzaleaApplication::APPLICATION_VERSION = "unknown-unstable";
+const QString AzaleaApplication::APPLICATION_VERSION = AZALEA_VERSION;
 #endif
 
-AzaleaApplication::AzaleaApplication(int argc, char* argv[]) :
+AzaleaApplication::AzaleaApplication(int &argc, char **argv) :
     QApplication(argc, argv),
-    mainWindow(this)
+    mainWindow(new MainWindow)
 {
     setApplicationName(APPLICATION_NAME);
     setApplicationVersion(APPLICATION_VERSION);

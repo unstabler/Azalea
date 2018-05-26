@@ -14,7 +14,7 @@ public:
     static const QString APPLICATION_NAME;
     static const QString APPLICATION_VERSION;
 
-    AzaleaApplication(int argc, char* argv[]);
+    AzaleaApplication(int &argc, char **argv);
 
     int exec();
 
