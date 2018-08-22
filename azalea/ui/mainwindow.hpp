@@ -16,6 +16,10 @@ class MainWindow : public QMainWindow
         explicit MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
 
+        void addAccount();
+    signals:
+        void quit();
+
     public slots:
         void updateTextLength(const QString& text);
 
@@ -23,4 +27,6 @@ class MainWindow : public QMainWindow
         Ui::MainWindow *ui;
         ConfigManager *_configManager;
         QMenu *_lengthMenu;
+
+        void initialize();
 };

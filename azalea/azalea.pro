@@ -34,7 +34,8 @@ SOURCES += \
         ui/postarea.cpp \
     singleton.cpp \
     azaleaapplication.cpp \
-    configmanager.cpp
+    configmanager.cpp \
+    mastodon/oauthapi.cpp
 
 HEADERS += \
         serialization.hpp \
@@ -49,7 +50,8 @@ HEADERS += \
         ui/postarea.hpp \
     singleton.hpp \
     azaleaapplication.hpp \
-    configmanager.hpp
+    configmanager.hpp \
+    mastodon/oauthapi.hpp
 
 FORMS += \
         ui/mainwindow.ui \
