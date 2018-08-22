@@ -2,6 +2,8 @@
 
 #include <QMainWindow>
 
+#include "configmanager.hpp"
+
 namespace Ui {
     class MainWindow;
 }
@@ -19,5 +21,6 @@ class MainWindow : public QMainWindow
 
     private:
         Ui::MainWindow *ui;
-        QMenu* lengthMenu;
+        ConfigManager *_configManager;
+        QMenu *_lengthMenu;
 };

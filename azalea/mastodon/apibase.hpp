@@ -85,6 +85,8 @@ class APIBase : public QObject
                            const ParamMap& params);
         QNetworkReply* POST(const QString endpoint,
                             const ParamMap& form);
+        QNetworkReply* DELETE(const QString endpoint,
+                              const ParamMap& form);
 
         // TODO: MULTIPART 대응
     private:
