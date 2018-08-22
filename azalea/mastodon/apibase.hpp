@@ -33,7 +33,7 @@ class APIFutureResponse : public QObject
 
     private slots:
         void requestFinished();
-        void requestError();
+        void requestError(QNetworkReply::NetworkError error);
 
     private:
         QNetworkReply* _reply;

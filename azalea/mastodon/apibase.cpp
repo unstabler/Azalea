@@ -82,8 +82,8 @@ APIFutureResponse::APIFutureResponse(QNetworkReply* reply) :
     QObject(reply),
     _reply(reply)
 {
-    connect(_reply, SIGNAL(finished()), this, SLOT(requestFinished()));
-    connect(_reply, SIGNAL(error()),    this, SLOT(requestError()));
+    connect(_reply, &QNetworkReply::finished, this, &APIFutureResponse::requestFinished);
+    connect(_reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error), this, &APIFutureResponse::requestError);
 }
 
 QString APIFutureResponse::body() const
@@ -101,18 +101,20 @@ void APIFutureResponse::requestFinished()
     if (_reply->error() != QNetworkReply::NoError) {
         return;
     }
-    qDebug() << "REQUEST FINISHED";
     _body = tr(_reply->readAll());
 
     emit resolved();
 }
 
-void APIFutureResponse::requestError()
+void APIFutureResponse::requestError(QNetworkReply::NetworkError error)
 {
-    qDebug() << "REQUEST FAILED";
     int responseCode = _reply->attribute(
         QNetworkRequest::HttpStatusCodeAttribute
     ).toInt();
 
-    emit rejected(responseCode, _reply->readAll());
+    if (responseCode == 0) {
+        emit rejected(error, _reply->errorString());
+    } else {
+        emit rejected(responseCode, _reply->readAll());
+    }
 }
