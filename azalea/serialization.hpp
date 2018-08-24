@@ -3,6 +3,7 @@
 #include <QString>
 #include <cereal/cereal.hpp>
 
+#include "mastodon/__serialization_helper.hpp"
 #include "mastodon/v1/entities/__serialization_helper.hpp"
 
 /**

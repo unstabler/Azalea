@@ -54,7 +54,6 @@ void MainWindow::addAccount()
         this->quit();
     }
 
-    qDebug() << instanceName;
     auto context = new APIContext(this);
     context->setHost(instanceName);
     auto api = new MastodonAPI(context);
@@ -75,6 +74,15 @@ void MainWindow::addAccount()
                     tr("TITLE_AUTHORIZATION_CODE"),
                     tr("TEXT_AUTHORIZATION_CODE")
                     );
+
+        auto response = api->oauth()->tokenByAuthorizationCode(application->clientId, application->clientSecret, authorizationCode);
+        connect(response, &APIFutureResponse::resolved, [=]() {
+            auto token = response->tryDeserialize();
+            qDebug() << token->accessToken;
+        });
+        connect(response, &APIFutureResponse::rejected, [=](int code, QString content) {
+            qDebug() << "ERROR:" << content << QString("%1").arg(code);
+        });
     });
     connect(response, &APIFutureResponse::rejected, [=](int code, QString content) {
         qDebug() << "ERROR:" << content << QString("%1").arg(code);

@@ -51,7 +51,9 @@ HEADERS += \
     singleton.hpp \
     azaleaapplication.hpp \
     configmanager.hpp \
-    mastodon/oauthapi.hpp
+    mastodon/oauthapi.hpp \
+    mastodon/oauthtoken.hpp \
+    mastodon/__serialization_helper.hpp
 
 FORMS += \
         ui/mainwindow.ui \

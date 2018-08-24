@@ -22,3 +22,19 @@ QUrl OAuthAPI::getAuthorizeUrl(const QString clientId, const QString scope)
     url.setQuery(query);
     return url;
 }
+
+APIFutureResource<OAuthToken>* OAuthAPI::tokenByAuthorizationCode(const QString clientId,
+                                                                 const QString clientSecret,
+                                                                 const QString code)
+{
+    static const QString ENDPOINT = "/oauth/token";
+    ParamMap params;
+    params["grant_type"] = "authorization_code";
+    params["redirect_uri"] = v1::AppsAPI::NO_REDIRECT_URIS;
+    params["client_id"] = clientId;
+    params["client_secret"] = clientSecret;
+    params["code"] = code;
+
+    QNetworkReply *reply = this->POST(ENDPOINT, params);
+    return new APIFutureResource<OAuthToken>(reply);
+}
