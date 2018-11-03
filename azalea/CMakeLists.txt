@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
+include(FindProtobuf)
 
 project(Azalea)
 
@@ -13,7 +14,9 @@ set(CMAKE_AUTOUIC ON)
 # Find the QtWidgets library
 find_package(Qt5Widgets CONFIG REQUIRED)
 find_package(Qt5Network CONFIG REQUIRED)
-find_package(Cereal)
+find_package(Protobuf REQUIRED)
+
+include_directories(${Protobuf_INCLUDE_DIRS})
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
 
@@ -27,11 +30,13 @@ set(AZALEA_SRC
 add_subdirectory(ui)
 add_subdirectory(mastodon)
 
+protobuf_generate_cpp(AZALEA_PROTO_SRC AZALEA_PROTO_HEADER ${AZALEA_PROTO})
+
 # Tell CMake to create the helloworld executable
-add_executable(azalea ${AZALEA_SRC})
+add_executable(azalea ${AZALEA_SRC} ${AZALEA_PROTO_SRC} ${AZALEA_PROTO_HEADER})
 
 # Use the Widgets module from Qt 5.
-target_link_libraries(azalea Qt5::Widgets Qt5::Network)
+target_link_libraries(azalea Qt5::Widgets Qt5::Network ${PROTOBUF_LIBRARY})
 
 # Install the executable
 install(TARGETS azalea DESTINATION bin)

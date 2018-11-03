@@ -1,9 +1,8 @@
 #pragma once
 
-#include <cereal/cereal.hpp>
-
 #include "apibase.hpp"
-#include "oauthtoken.hpp"
+
+#include "oauth2.pb.h"
 
 class OAuthAPI : public APIBase
 {
@@ -12,7 +11,7 @@ public:
 
     QUrl getAuthorizeUrl(const QString applicationId, const QString scope);
 
-    APIFutureResource<OAuthToken>* tokenByAuthorizationCode(
+    APIFutureResource<v1::OAuthToken>* tokenByAuthorizationCode(
         const QString clientId,
         const QString clientSecret,
         const QString code

@@ -1,10 +1,9 @@
 #pragma once
 
 #include <QSharedPointer>
-#include <cereal/cereal.hpp>
 
 #include "../apibase.hpp"
-#include "./entities/application.hpp"
+#include "oauth2.pb.h" 
 
 namespace v1
 {
@@ -15,7 +14,7 @@ namespace v1
 
             explicit AppsAPI(APIContext* context);
 
-            APIFutureResource<Application>* post(
+            APIFutureResource<OAuthApplication>* post(
                 const QString clientName,
                 const QString redirectUris,
                 const QString scopes,

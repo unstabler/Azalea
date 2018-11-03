@@ -65,8 +65,14 @@ void MainWindow::addAccount()
                 );
     connect(response, &APIFutureResponse::resolved, [=]() {
         auto application = response->tryDeserialize();
-        auto authorizeUrl = api->oauth()->getAuthorizeUrl(application->clientId, "read write follow");
-        qDebug() << QString("created application #%1").arg(application->id);
+        application->SerializeToOstream(&std::cout);
+        auto authorizeUrl = api->oauth()->getAuthorizeUrl(
+            QString::fromStdString(application->client_id()),
+            "read write follow"
+        );
+        qDebug() << QString("created application #%1").arg(
+            application->id()
+        );
         QDesktopServices::openUrl(authorizeUrl);
 
         auto authorizationCode = QInputDialog::getText(
@@ -75,10 +81,13 @@ void MainWindow::addAccount()
                     tr("TEXT_AUTHORIZATION_CODE")
                     );
 
-        auto response = api->oauth()->tokenByAuthorizationCode(application->clientId, application->clientSecret, authorizationCode);
+        auto response = api->oauth()->tokenByAuthorizationCode(
+            QString::fromStdString(application->client_id()),
+            QString::fromStdString(application->client_secret()),
+            authorizationCode);
         connect(response, &APIFutureResponse::resolved, [=]() {
             auto token = response->tryDeserialize();
-            qDebug() << token->accessToken;
+            qDebug() << QString::fromStdString(token->access_token());
         });
         connect(response, &APIFutureResponse::rejected, [=](int code, QString content) {
             qDebug() << "ERROR:" << content << QString("%1").arg(code);

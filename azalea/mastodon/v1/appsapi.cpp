@@ -13,7 +13,7 @@ namespace v1
 
     }
 
-    APIFutureResource<Application>* AppsAPI::post(const QString clientName,
+    APIFutureResource<OAuthApplication>* AppsAPI::post(const QString clientName,
                                                  const QString redirectUris,
                                                  const QString scopes,
                                                  const QString website)
@@ -27,6 +27,6 @@ namespace v1
 
         QNetworkReply *reply = this->POST(ENDPOINT, params);
 
-        return new APIFutureResource<Application>(reply);
+        return new APIFutureResource<OAuthApplication>(reply);
     }
 }

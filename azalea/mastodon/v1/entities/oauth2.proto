@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package v1;
+
+message OAuthApplication {
+    int64 id = 1000;
+    string redirect_uri = 1001;
+    string client_id = 1002;
+    string client_secret = 1003;
+}
+
+message OAuthToken {
+    string token_type = 1100;
+    string access_token = 1101;
+    string scope = 1102;
+    int64 created_at = 1103;
+}

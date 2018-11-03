@@ -23,7 +23,7 @@ QUrl OAuthAPI::getAuthorizeUrl(const QString clientId, const QString scope)
     return url;
 }
 
-APIFutureResource<OAuthToken>* OAuthAPI::tokenByAuthorizationCode(const QString clientId,
+APIFutureResource<v1::OAuthToken>* OAuthAPI::tokenByAuthorizationCode(const QString clientId,
                                                                  const QString clientSecret,
                                                                  const QString code)
 {
@@ -36,5 +36,5 @@ APIFutureResource<OAuthToken>* OAuthAPI::tokenByAuthorizationCode(const QString 
     params["code"] = code;
 
     QNetworkReply *reply = this->POST(ENDPOINT, params);
-    return new APIFutureResource<OAuthToken>(reply);
+    return new APIFutureResource<v1::OAuthToken>(reply);
 }
