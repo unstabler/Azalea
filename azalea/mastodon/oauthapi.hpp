@@ -2,7 +2,7 @@
 
 #include "apibase.hpp"
 
-#include "oauth2.pb.h"
+#include "v1/entities/oauth2.hpp"
 
 class OAuthAPI : public APIBase
 {
@@ -11,7 +11,7 @@ public:
 
     QUrl getAuthorizeUrl(const QString applicationId, const QString scope);
 
-    APIFutureResource<v1::OAuthToken>* tokenByAuthorizationCode(
+    APIFutureResource<oauth2::OAuthToken>* tokenByAuthorizationCode(
         const QString clientId,
         const QString clientSecret,
         const QString code

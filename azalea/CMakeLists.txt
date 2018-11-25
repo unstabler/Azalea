@@ -30,7 +30,7 @@ set(AZALEA_SRC
 add_subdirectory(ui)
 add_subdirectory(mastodon)
 
-protobuf_generate_cpp(AZALEA_PROTO_SRC AZALEA_PROTO_HEADER ${AZALEA_PROTO})
+# protobuf_generate_cpp(AZALEA_PROTO_SRC AZALEA_PROTO_HEADER ${AZALEA_PROTO})
 
 # Tell CMake to create the helloworld executable
 add_executable(azalea ${AZALEA_SRC} ${AZALEA_PROTO_SRC} ${AZALEA_PROTO_HEADER})

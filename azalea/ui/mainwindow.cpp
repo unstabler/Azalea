@@ -13,7 +13,6 @@
 #include "azaleaapplication.hpp"
 #include "singleton.hpp"
 #include "configmanager.hpp"
-#include "serialization.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -65,13 +64,12 @@ void MainWindow::addAccount()
                 );
     connect(response, &APIFutureResponse::resolved, [=]() {
         auto application = response->tryDeserialize();
-        application->SerializeToOstream(&std::cout);
         auto authorizeUrl = api->oauth()->getAuthorizeUrl(
-            QString::fromStdString(application->client_id()),
+            application->clientId,
             "read write follow"
         );
         qDebug() << QString("created application #%1").arg(
-            application->id()
+            application->id
         );
         QDesktopServices::openUrl(authorizeUrl);
 
@@ -82,12 +80,12 @@ void MainWindow::addAccount()
                     );
 
         auto response = api->oauth()->tokenByAuthorizationCode(
-            QString::fromStdString(application->client_id()),
-            QString::fromStdString(application->client_secret()),
+            application->clientId,
+            application->clientSecret,
             authorizationCode);
         connect(response, &APIFutureResponse::resolved, [=]() {
             auto token = response->tryDeserialize();
-            qDebug() << QString::fromStdString(token->access_token());
+            qDebug() << token->accessToken;
         });
         connect(response, &APIFutureResponse::rejected, [=](int code, QString content) {
             qDebug() << "ERROR:" << content << QString("%1").arg(code);

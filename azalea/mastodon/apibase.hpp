@@ -1,12 +1,14 @@
 #pragma once
 
-#include <google/protobuf/util/json_util.h>
-
 #include <QScopedPointer>
 #include <QMap>
 #include <QObject>
 #include <QNetworkReply>
 
+#include <QJsonDocument>
+#include <QJsonObject>
+
+#include "serialization.hpp"
 #include "apicontext.hpp"
 
 using ParamMap = QMap<QString, QString>;
@@ -37,7 +39,6 @@ class APIFutureResponse : public QObject
         QString _body;
 };
 
-
 /**
  * FIXME: 왜 이거 함수가 코드로 분리되어 있으면 undefined reference 오류가 나는지 모르겠어요 X(
  * TODO: cpp로 옮기기
@@ -54,18 +55,24 @@ class APIFutureResource : public APIFutureResponse
 
         QSharedPointer<T> tryDeserialize()
         {
-            google::protobuf::util::JsonParseOptions parseOptions;
-            parseOptions.ignore_unknown_fields = true;  // FIXME: 가능하면 재사용 
-
             T* instance = new T();
+            fromJSON(
+                instance,
+                // object가 아닌 경우는?!
+                QJsonDocument::fromJson(this->body().toUtf8()).object()
+            );
 
-            auto status = google::protobuf::util::JsonStringToMessage(this->body().toStdString(), instance, parseOptions);
-
-            if (!status.ok()) {
-                // FIXME: 예외 처리
-                std::cerr << status.ToString() << std::endl;
-            }
             return QSharedPointer<T>(instance);
+        }
+};
+
+template<class T>
+class APIFutureResourceList : public APIFutureResource<QList<T>> 
+{
+    public:
+        QSharedPointer<QList<T>> tryDeserialize()
+        {
+            return QSharedPointer<T>(nullptr);
         }
 };
 

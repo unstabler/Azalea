@@ -6,13 +6,9 @@ set(AZALEA_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/oauthapi.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/appsapi.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/oauth2.deserialization.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/mastodon.deserialization.cpp
     
-    PARENT_SCOPE
-)
-
-set(AZALEA_PROTO
-    ${AZALEA_PROTO}
-    ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/oauth2.proto
-
     PARENT_SCOPE
 )

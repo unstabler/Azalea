@@ -3,7 +3,9 @@
 #include <QSharedPointer>
 
 #include "../apibase.hpp"
-#include "oauth2.pb.h" 
+
+#include "entities/mastodon.hpp"
+#include "entities/oauth2.hpp"
 
 namespace v1
 {
@@ -14,7 +16,7 @@ namespace v1
 
             explicit AppsAPI(APIContext* context);
 
-            APIFutureResource<OAuthApplication>* post(
+            APIFutureResource<oauth2::OAuthApplication>* post(
                 const QString clientName,
                 const QString redirectUris,
                 const QString scopes,
