@@ -14,6 +14,9 @@ set(CMAKE_AUTOUIC ON)
 # Find the QtWidgets library
 find_package(Qt5Widgets CONFIG REQUIRED)
 find_package(Qt5Network CONFIG REQUIRED)
+find_package(Qt5Quick CONFIG REQUIRED)
+find_package(Qt5QuickWidgets)
+find_package(Qt5QuickCompiler CONFIG REQUIRED)
 find_package(Protobuf REQUIRED)
 
 include_directories(${Protobuf_INCLUDE_DIRS})
@@ -25,18 +28,19 @@ set(AZALEA_SRC
     azaleaapplication.cpp
     configmanager.cpp
     singleton.cpp
-)
+        ui/timeline/StatusAdapter.cpp ui/timeline/StatusAdapter.hpp)
 
 add_subdirectory(ui)
 add_subdirectory(mastodon)
 
+qtquick_compiler_add_resources(AZALEA_RES azalea.qrc)
 # protobuf_generate_cpp(AZALEA_PROTO_SRC AZALEA_PROTO_HEADER ${AZALEA_PROTO})
 
 # Tell CMake to create the helloworld executable
-add_executable(azalea ${AZALEA_SRC} ${AZALEA_PROTO_SRC} ${AZALEA_PROTO_HEADER})
+add_executable(azalea ${AZALEA_SRC} ${AZALEA_PROTO_SRC} ${AZALEA_PROTO_HEADER} ${AZALEA_RES})
 
 # Use the Widgets module from Qt 5.
-target_link_libraries(azalea Qt5::Widgets Qt5::Network ${PROTOBUF_LIBRARY})
+target_link_libraries(azalea Qt5::Widgets Qt5::Network Qt5::Quick Qt5::QuickWidgets ${PROTOBUF_LIBRARY})
 
 # Install the executable
 install(TARGETS azalea DESTINATION bin)
