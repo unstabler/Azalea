@@ -7,6 +7,8 @@
 #include <QInputDialog>
 #include <QDesktopServices>
 
+#include <QQmlContext>
+
 #include "mastodon/apicontext.hpp"
 #include "mastodon/mastodonapi.hpp"
 
@@ -37,7 +39,47 @@ MainWindow::MainWindow(QWidget *parent) :
             this->quit();
         }
     }
-
+    
+    QStringList dataList;
+    dataList.append("Hello, World! #1");
+    dataList.append("테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 ");
+    dataList.append("Hello, World! #3");
+    dataList.append("Hello, World! #4");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    dataList.append("Hello, World! #5");
+    
+    auto *qContext = ui->timelineView->rootContext();
+    qContext->setContextProperty("timelineModel", QVariant::fromValue(dataList));
+    
+    ui->timelineView->setSource(QUrl(QStringLiteral("qrc:/components/Timeline.qml")));
 }
 
 void MainWindow::addAccount()

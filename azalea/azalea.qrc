@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <!-- https://forum.qt.io/topic/73934/can-t-import-qml-component-using-qrc/7 -->
+    <qresource prefix="/components">
+        <file alias="Status.qml">ui/timeline/Status.qml</file>
+        <file alias="Timeline.qml">ui/timeline/Timeline.qml</file>
+    </qresource>
+</RCC>
