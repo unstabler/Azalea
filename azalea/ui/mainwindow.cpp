@@ -26,8 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::quit, this, &MainWindow::close, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
 
     _configManager->load();
-    if (_configManager->token().isEmpty())
-    {
+    if (_configManager->credentials()->length() <= 0) {
         if(QMessageBox::question(
                     this,
                     this->windowTitle(),
@@ -68,7 +67,7 @@ void MainWindow::addAccount()
             application->clientId,
             "read write follow"
         );
-        qDebug() << QString("created application #%1").arg(
+        qDebug() << QString("created _application #%1").arg(
             application->id
         );
         QDesktopServices::openUrl(authorizeUrl);
@@ -106,3 +105,5 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+

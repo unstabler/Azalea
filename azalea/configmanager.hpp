@@ -2,6 +2,45 @@
 
 #include <QObject>
 
+#include "mastodon/v1/entities/oauth2.hpp"
+
+class InstanceInfo {
+public:
+    InstanceInfo();
+    InstanceInfo(const QString &instanceName, oauth2::OAuthApplication *application);
+    
+    const QString &instanceName() const;
+    void setInstanceName(const QString &instanceName);
+
+    oauth2::OAuthApplication *application() const;
+    void setApplication(oauth2::OAuthApplication *application);
+
+private:
+    QString _instanceName;
+    oauth2::OAuthApplication *_application;
+};
+
+class Credential
+{
+public:
+    Credential();
+    Credential(const QString &instanceName, const QString &username, const QString &token);
+    
+    const QString &instanceName() const;
+    void setInstanceName(const QString &instanceName);
+    
+    const QString &username() const;
+    void setUsername(const QString &username);
+    
+    const QString &token() const;
+    void setToken(const QString &token);
+
+private:
+    QString _instanceName;
+    QString _username;
+    QString _token;
+};
+
 class ConfigManager : public QObject
 {
     Q_OBJECT
@@ -13,12 +52,14 @@ public:
 
     void save();
     void load();
-
-    QString token() const;
-    QString instanceName() const;
-
-    void setToken(const QString &token);
-    void setInstanceName(const QString &instanceName);
+    
+    QList<InstanceInfo *> *registeredInstances() const;
+    
+    void setRegisteredInstances(QList<InstanceInfo *> *registeredInstances);
+    
+    QList<Credential *> *credentials() const;
+    
+    void setCredentials(QList<Credential *> *credentials);
 
 signals:
 
@@ -30,6 +71,15 @@ protected:
     /** 데이터 디렉토리를 생성합니다 */
     void tryCreateDataDirectory() const;
 
-    QString _token;
-    QString _instanceName;
+private:
+    QString _configPath;
+    QList<InstanceInfo*> *_registeredInstances;
+    QList<Credential*> *_credentials;
 };
+
+
+template<> void toJSON(InstanceInfo *source, QJsonObject &destination);
+template<> void fromJSON(InstanceInfo *destination, QJsonObject source);
+
+template<> void toJSON(Credential *source, QJsonObject &destination);
+template<> void fromJSON(Credential *destination, QJsonObject source);
