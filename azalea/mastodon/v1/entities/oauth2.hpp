@@ -21,7 +21,7 @@ namespace oauth2
             QString tokenType;
             QString accessToken;
             QString scope;
-            long createdAt;
+            qint64 createdAt;
             // TODO: 추후 timestamp는 QDate로 대체
     };
 }

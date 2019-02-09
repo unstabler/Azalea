@@ -84,6 +84,9 @@ void MainWindow::addAccount()
             authorizationCode);
         connect(response, &APIFutureResponse::resolved, [=]() {
             auto token = response->tryDeserialize();
+            auto credential = new Credential(instanceName, "unknown", token.get());
+            _configManager->credentials()->push_back(credential);
+            _configManager->save();
             qDebug() << token->accessToken;
         });
         connect(response, &APIFutureResponse::rejected, [=](int code, QString content) {
@@ -100,6 +103,7 @@ void MainWindow::updateTextLength(const QString &text)
     auto lengthLeft = 500 - text.length();
     _lengthMenu->setTitle(QString::number(lengthLeft));
 }
+
 
 MainWindow::~MainWindow()
 {

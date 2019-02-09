@@ -18,6 +18,14 @@ template<> void fromJSON(oauth2::OAuthApplication *destination, QJsonObject sour
     destination->clientSecret = STRING(source["client_secret"]);
 }
 
+template<> void toJSON(oauth2::OAuthToken *source, QJsonObject &destination)
+{
+    destination["token_type"] = source->tokenType;
+    destination["access_token"] = source->accessToken;
+    destination["scope"] = source->scope;
+    destination["created_at"] = source->createdAt;
+}
+
 template<> void fromJSON(oauth2::OAuthToken *destination, QJsonObject source)
 {
     destination->tokenType = STRING(source["token_type"]);

@@ -142,7 +142,7 @@ Credential::Credential()
 
 }
 
-Credential::Credential(const QString &instanceName, const QString &username, const QString &token) :
+Credential::Credential(const QString &instanceName, const QString &username, oauth2::OAuthToken *token) :
         _instanceName(instanceName),
         _username(username),
         _token(token)
@@ -170,12 +170,12 @@ void Credential::setUsername(const QString &username)
     _username = username;
 }
 
-const QString &Credential::token() const
+oauth2::OAuthToken *Credential::token() const
 {
     return _token;
 }
 
-void Credential::setToken(const QString &token)
+void Credential::setToken(oauth2::OAuthToken *token)
 {
     _token = token;
 }
@@ -197,12 +197,12 @@ template<> void toJSON(Credential *source, QJsonObject &destination)
 {
     destination["instance_name"] = source->instanceName();
     destination["username"] = source->username();
-    destination["token"] = source->token();
+    destination["token"] = toJSON(source->token());
 }
 
 template<> void fromJSON(Credential *destination, QJsonObject source)
 {
     destination->setInstanceName(STRING(source["instance_name"]));
     destination->setUsername(STRING(source["username"]));
-    destination->setToken(STRING(source["token"]));
+    destination->setToken(OBJECT<oauth2::OAuthToken>(source["token"]));
 }

@@ -24,7 +24,7 @@ class Credential
 {
 public:
     Credential();
-    Credential(const QString &instanceName, const QString &username, const QString &token);
+    Credential(const QString &instanceName, const QString &username, oauth2::OAuthToken *token);
     
     const QString &instanceName() const;
     void setInstanceName(const QString &instanceName);
@@ -32,13 +32,13 @@ public:
     const QString &username() const;
     void setUsername(const QString &username);
     
-    const QString &token() const;
-    void setToken(const QString &token);
+    oauth2::OAuthToken *token() const;
+    void setToken(oauth2::OAuthToken *token);
 
 private:
     QString _instanceName;
     QString _username;
-    QString _token;
+    oauth2::OAuthToken *_token;
 };
 
 class ConfigManager : public QObject
