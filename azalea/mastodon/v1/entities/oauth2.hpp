@@ -9,7 +9,7 @@ namespace oauth2
     struct OAuthApplication 
     {
         public:
-            long id;
+            QString id;
             QString redirectUri;
             QString clientId;
             QString clientSecret;
@@ -26,5 +26,6 @@ namespace oauth2
     };
 }
 
+template<> void toJSON(oauth2::OAuthApplication *source, QJsonObject &destination);
 template<> void fromJSON(oauth2::OAuthApplication *destination, QJsonObject source);
 template<> void fromJSON(oauth2::OAuthToken *destination, QJsonObject source);

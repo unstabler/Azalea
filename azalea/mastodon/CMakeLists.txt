@@ -7,8 +7,8 @@ set(AZALEA_SRC
 
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/appsapi.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/oauth2.deserialization.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/mastodon.deserialization.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/oauth2.serialization.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/mastodon.serialization.cpp
     
     PARENT_SCOPE
 )
