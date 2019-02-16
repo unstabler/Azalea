@@ -77,6 +77,17 @@ namespace v1
 
             bool pinned;
     };
+    
+    namespace in
+    {
+        struct TimelinesAPIArgs
+        {
+            QString *maxId;
+            QString *sinceId;
+            QString *minId;
+            QString *limit;
+        };
+    }
 }
 
 // TODO: template <X> fromJSON( X* destination, JsonObject* source... ) 만들기!!!!

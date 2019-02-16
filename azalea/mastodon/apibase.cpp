@@ -68,7 +68,15 @@ QByteArray APIBase::serializeParamMap(const ParamMap& paramMap)
     return query.toString(QUrl::FullyEncoded).toUtf8();
 }
 
-QNetworkReply* APIBase::POST(const QString endpoint, const ParamMap& form)
+QNetworkReply *APIBase::GET(const QString endpoint, const ParamMap &params)
+{
+    auto request = buildRequest(endpoint);
+    auto reply = httpClient()->get(request);
+    
+    return reply;
+}
+
+QNetworkReply *APIBase::POST(const QString endpoint, const ParamMap& form)
 {
     auto request = buildRequest(endpoint);
     auto data = serializeParamMap(form);

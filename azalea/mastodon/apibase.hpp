@@ -52,7 +52,7 @@ class APIFutureResource : public APIFutureResponse
         {
 
         }
-
+        
         QSharedPointer<T> tryDeserialize()
         {
             T* instance = new T();
@@ -64,17 +64,32 @@ class APIFutureResource : public APIFutureResponse
 
             return QSharedPointer<T>(instance);
         }
+
+        
 };
 
-template<class T>
-class APIFutureResourceList : public APIFutureResource<QList<T>> 
+
+template<class V>
+class APIFutureResource<QList<V>> : public APIFutureResponse
 {
     public:
-        QSharedPointer<QList<T>> tryDeserialize()
+        APIFutureResource(QNetworkReply* reply) :
+            APIFutureResponse(reply)
         {
-            return QSharedPointer<T>(nullptr);
+
+        }
+        
+        QSharedPointer<QList<V*>> tryDeserialize()
+        {
+            auto *list = deserialization::ARRAY<V>(
+                QJsonDocument::fromJson(this->body().toUtf8()).array()
+            );
+            
+            return QSharedPointer<QList<V*>>(list);
         }
 };
+
+
 
 class APIBase : public QObject
 {
