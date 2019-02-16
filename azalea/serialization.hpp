@@ -39,31 +39,31 @@ namespace serialization {
  */
 namespace deserialization {
 
-    inline long LONG(const QJsonValueRef &valueRef)
+    inline long LONG(const QJsonValue &valueRef)
     {
         // XXX
         return (long) valueRef.toDouble();
     }
 
-    inline bool BOOL(const QJsonValueRef &valueRef)
+    inline bool BOOL(const QJsonValue &valueRef)
     {
         Q_ASSERT(valueRef.isNull() || valueRef.isBool());
         return valueRef.toBool();
     }
 
-    inline QString STRING(const QJsonValueRef &valueRef) 
+    inline QString STRING(const QJsonValue &valueRef)
     {
         Q_ASSERT(valueRef.isNull() || valueRef.isString());
         return valueRef.toString();
     }
 
-    inline QJsonObject JSONOBJECT(const QJsonValueRef &valueRef)
+    inline QJsonObject JSONOBJECT(const QJsonValue &valueRef)
     {
         Q_ASSERT(valueRef.isNull() || valueRef.isObject());
         return valueRef.toObject();
     }
     
-    inline QJsonArray JSONARRAY(const QJsonValueRef &valueRef)
+    inline QJsonArray JSONARRAY(const QJsonValue &valueRef)
     {
         Q_ASSERT(valueRef.isNull() || valueRef.isArray());
         return valueRef.toArray();
@@ -78,7 +78,7 @@ namespace deserialization {
     }
 
     template <typename T>
-    inline T* OBJECT(const QJsonValueRef &valueRef)
+    inline T* OBJECT(const QJsonValue &valueRef)
     {
         QJsonObject value = JSONOBJECT(valueRef);
         return OBJECT<T>(value);
@@ -98,7 +98,7 @@ namespace deserialization {
     }
     
     template <typename T>
-    inline QList<T*>* ARRAY(const QJsonValueRef &valueRef)
+    inline QList<T*>* ARRAY(const QJsonValue &valueRef)
     {
         auto *destination = new QList<T*>;
         TRANSFORM_ARRAY<T, std::back_insert_iterator<QList<T*>>>(
