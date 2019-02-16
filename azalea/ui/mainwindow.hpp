@@ -4,6 +4,9 @@
 
 #include "configmanager.hpp"
 
+#include "mastodon/apicontext.hpp"
+#include "mastodon/apibase.hpp"
+
 namespace Ui {
     class MainWindow;
 }
@@ -17,16 +20,21 @@ class MainWindow : public QMainWindow
         ~MainWindow();
 
         void addAccount();
+        
     signals:
         void quit();
 
     public slots:
         void updateTextLength(const QString& text);
+        void updateTimeline();
 
     private:
         Ui::MainWindow *ui;
         ConfigManager *_configManager;
         QMenu *_lengthMenu;
+        
+        APIContext *_apiContext;
+        QStringList _dataList;
 
         void initialize();
 };

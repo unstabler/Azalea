@@ -19,7 +19,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    _configManager(new ConfigManager(this))
+    _configManager(new ConfigManager(this)),
+    _apiContext(new APIContext(this))
 {
     ui->setupUi(this);
     _lengthMenu = ui->menuBar->addMenu(tr("0"));
@@ -40,46 +41,18 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
     
-    QStringList dataList;
-    dataList.append("Hello, World! #1");
-    dataList.append("테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 ");
-    dataList.append("Hello, World! #3");
-    dataList.append("Hello, World! #4");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
-    dataList.append("Hello, World! #5");
+    
     
     auto *qContext = ui->timelineView->rootContext();
-    qContext->setContextProperty("timelineModel", QVariant::fromValue(dataList));
+    qContext->setContextProperty("timelineModel", QVariant::fromValue(_dataList));
     
     ui->timelineView->setSource(QUrl(QStringLiteral("qrc:/components/Timeline.qml")));
+    
+    auto defaultCredential = _configManager->credentials()->first();
+    
+    _apiContext->setHost(defaultCredential->instanceName());
+    _apiContext->setToken(defaultCredential->token()->accessToken);
+    this->updateTimeline();
 }
 
 void MainWindow::addAccount()
@@ -146,10 +119,26 @@ void MainWindow::updateTextLength(const QString &text)
     _lengthMenu->setTitle(QString::number(lengthLeft));
 }
 
+void MainWindow::updateTimeline()
+{
+    v1::in::TimelinesAPIArgs args;
+    auto api = new MastodonAPI(_apiContext);
+    auto response = api->timelines()->home(args);
+    connect(response, &APIFutureResponse::resolved, [=]() {
+        auto timeline = response->tryDeserialize();
+        for (auto status : *timeline) {
+            qDebug() << status->content;
+            _dataList.append(status->content);
+        }
+    
+        auto *qContext = ui->timelineView->rootContext();
+        qContext->setContextProperty("timelineModel", QVariant::fromValue(_dataList));
+    });
+}
+
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
