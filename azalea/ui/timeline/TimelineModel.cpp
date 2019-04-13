@@ -19,13 +19,10 @@ int TimelineModel::rowCount(const QModelIndex &parent) const
 
 QVariant TimelineModel::data(const QModelIndex &index, int role) const
 {
-    qDebug() << "data() " << index.row();
     if (!index.isValid() || index.row() < 0 || index.row() > rowCount()) {
-        qDebug() << "returning null";
         return QVariant();
     }
     
-    qDebug() << "returning status";
     return QVariant::fromValue<StatusAdapter*>(_statuses.at(index.row()));
 }
 
@@ -36,7 +33,6 @@ Qt::ItemFlags TimelineModel::flags(const QModelIndex &index) const
 
 void TimelineModel::append(StatusAdapter *status)
 {
-    qDebug() << "inserting " << rowCount() << " ~ " << rowCount();
     this->beginInsertRows(QModelIndex(), rowCount(), rowCount());
     _statuses.append(status);
     this->endInsertRows();
