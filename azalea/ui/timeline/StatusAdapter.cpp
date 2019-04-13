@@ -3,3 +3,28 @@
 //
 
 #include "StatusAdapter.hpp"
+
+StatusAdapter::StatusAdapter(QObject *parent, v1::Status *status) :
+    QObject(parent),
+    _status(status)
+{
+
+}
+
+QString StatusAdapter::content()
+{
+    return _status->content;
+}
+
+QString StatusAdapter::formattedAuthor()
+{
+    return QString("%1 (@%2)").arg(
+            _status->account->displayName,
+            _status->account->acct
+    );
+}
+
+QUrl StatusAdapter::avatarUrl()
+{
+    return QUrl(_status->account->avatar);
+}

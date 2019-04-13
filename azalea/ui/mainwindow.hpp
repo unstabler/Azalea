@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include <ui/timeline/TimelineModel.hpp>
 
 #include "configmanager.hpp"
 
@@ -34,7 +35,7 @@ class MainWindow : public QMainWindow
         QMenu *_lengthMenu;
         
         APIContext *_apiContext;
-        QStringList _dataList;
+        TimelineModel _timelineModel;
 
         void initialize();
 };

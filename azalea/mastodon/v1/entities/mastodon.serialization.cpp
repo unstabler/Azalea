@@ -4,7 +4,14 @@ using namespace deserialization;
 
 template<> void fromJSON(v1::Account *destination, QJsonObject source)
 {
-
+    destination->id = source["id"].toString();
+    destination->displayName = source["display_name"].toString();
+    destination->acct = source["acct"].toString();
+    destination->username = source["username"].toString();
+    destination->locked = BOOL(source["locked"]);
+    
+    destination->avatar = source["avatar"].toString();
+    destination->avatarStatic = source["avatar_static"].toString();
 }
 
 template<> void fromJSON(v1::Status *destination, QJsonObject source)

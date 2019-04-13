@@ -23,5 +23,7 @@ Rectangle {
         delegate: Components.Status { }
 
         ScrollBar.vertical: ScrollBar {}
+
+
     }
 }

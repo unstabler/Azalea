@@ -19,6 +19,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    _timelineModel(this),
     _configManager(new ConfigManager(this)),
     _apiContext(new APIContext(this))
 {
@@ -44,10 +45,13 @@ MainWindow::MainWindow(QWidget *parent) :
     
     
     auto *qContext = ui->timelineView->rootContext();
-    qContext->setContextProperty("timelineModel", QVariant::fromValue(_dataList));
+    qContext->setContextProperty("timelineModel", &_timelineModel);
     
     ui->timelineView->setSource(QUrl(QStringLiteral("qrc:/components/Timeline.qml")));
     
+    if (_configManager->credentials()->empty()) {
+        return;
+    }
     auto defaultCredential = _configManager->credentials()->first();
     
     _apiContext->setHost(defaultCredential->instanceName());
@@ -121,18 +125,14 @@ void MainWindow::updateTextLength(const QString &text)
 
 void MainWindow::updateTimeline()
 {
-    v1::in::TimelinesAPIArgs args;
+    v1::in::TimelinesAPIArgs args = {0};
     auto api = new MastodonAPI(_apiContext);
     auto response = api->timelines()->home(args);
     connect(response, &APIFutureResponse::resolved, [=]() {
         auto timeline = response->tryDeserialize();
         for (auto status : *timeline) {
-            qDebug() << status->content;
-            _dataList.append(status->content);
+            _timelineModel.append(new StatusAdapter(this, status));
         }
-    
-        auto *qContext = ui->timelineView->rootContext();
-        qContext->setContextProperty("timelineModel", QVariant::fromValue(_dataList));
     });
 }
 

@@ -20,7 +20,15 @@ namespace v1
 
     struct Account
     {
-
+        QString id;
+        QString username;
+        QString acct;
+        QString displayName;
+        bool locked;
+        
+        
+        QString avatar;
+        QString avatarStatic;
     };
 
     struct Mention 

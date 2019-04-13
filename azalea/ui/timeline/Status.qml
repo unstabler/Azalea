@@ -7,6 +7,8 @@ Rectangle {
     height: calculateHeight()
     color: "transparent"
 
+    property var status: model.display
+
     Row {
         id: row
 
@@ -25,7 +27,7 @@ Rectangle {
             height: 48
             mipmap: true
 
-            source: 'file:///home/cheesekun/IMG_0724.PNG'
+            source: model.display.avatarUrl
         }
         Column {
             id: column
@@ -33,7 +35,7 @@ Rectangle {
 
             Text {
                 id: usernameText
-                text: "치즈군★ / @cheesekun@twingyeo.kr"
+                text: status.formattedAuthor
 
                 font.bold: true
 
@@ -43,7 +45,7 @@ Rectangle {
             Text {
                 id: statusText
                 width: parent.width
-                text: modelData
+                text: status.content
                 wrapMode: Text.WrapAnywhere
 
                 renderType: Text.NativeRendering

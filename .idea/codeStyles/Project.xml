@@ -7,8 +7,6 @@
       <option name="CLASS_CONSTRUCTOR_INIT_LIST_NEW_LINE_BEFORE_COLON" value="0" />
       <option name="CLASS_CONSTRUCTOR_INIT_LIST_NEW_LINE_AFTER_COLON" value="1" />
       <option name="SPACE_BEFORE_INIT_LIST" value="true" />
-      <option name="FIELDS_PREFIX" value="_" />
-      <option name="GETTERS_PREFIX" value="" />
     </Objective-C>
     <Objective-C-extensions>
       <extensions>

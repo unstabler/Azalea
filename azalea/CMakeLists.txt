@@ -26,7 +26,7 @@ set(AZALEA_SRC
     singleton.cpp
     ui/timeline/StatusAdapter.cpp
     ui/timeline/StatusAdapter.hpp
-)
+        ui/timeline/TimelineModel.cpp ui/timeline/TimelineModel.hpp)
 
 add_subdirectory(ui)
 add_subdirectory(mastodon)
