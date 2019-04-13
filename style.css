@@ -9,6 +9,10 @@ body {
     padding: 1em;
 }
 
+img {
+    max-width: 100%;
+}
+
 header, main {
     display: block;
     max-width: 800px;
