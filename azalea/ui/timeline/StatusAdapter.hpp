@@ -12,6 +12,7 @@ class StatusAdapter : public QObject
     Q_PROPERTY(QString content READ content FINAL CONSTANT);
     Q_PROPERTY(QString formattedAuthor READ formattedAuthor FINAL CONSTANT);
     Q_PROPERTY(QUrl avatarUrl READ avatarUrl FINAL CONSTANT);
+    Q_PROPERTY(QString createdAt READ createdAt FINAL CONSTANT);
 
 public:
     StatusAdapter(QObject *parent, v1::Status *status);
@@ -19,6 +20,7 @@ public:
     QString content();
     QString formattedAuthor();
     QUrl avatarUrl();
+    QString createdAt();
     
 private:
         v1::Status *_status;

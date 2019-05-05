@@ -53,7 +53,7 @@ Rectangle {
 
             Text {
                 id: createdAtText
-                text: "2099년 99월 99일 화요일 오후 99:99:99"
+                text: status.createdAt
                 renderType: Text.NativeRendering
             }
 

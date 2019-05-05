@@ -4,6 +4,8 @@
 
 #include "StatusAdapter.hpp"
 
+#include <QTimeZone>
+
 StatusAdapter::StatusAdapter(QObject *parent, v1::Status *status) :
     QObject(parent),
     _status(status)
@@ -27,4 +29,9 @@ QString StatusAdapter::formattedAuthor()
 QUrl StatusAdapter::avatarUrl()
 {
     return QUrl(_status->account->avatar);
+}
+
+QString StatusAdapter::createdAt()
+{
+    return _status->createdAt.toTimeZone(QTimeZone::systemTimeZone()).toString(Qt::SystemLocaleLongDate);
 }

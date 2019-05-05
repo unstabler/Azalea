@@ -33,9 +33,6 @@ template<> void fromJSON(v1::Status *destination, QJsonObject source)
     }
     */
 
-    // TODO: FORMAT 판정 
-    destination->createdAt = QDateTime::fromString(source["created_at"].toString());
-
-
+    destination->createdAt = QDateTime::fromString(source["created_at"].toString(), Qt::ISODate);
     destination->content = source["content"].toString();
 }
