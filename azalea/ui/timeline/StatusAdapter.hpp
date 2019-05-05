@@ -9,9 +9,9 @@ class StatusAdapter : public QObject
 {
     Q_OBJECT
     // TODO: Q_PROPERTY wrap
-    Q_PROPERTY(QString content READ content FINAL);
-    Q_PROPERTY(QString formattedAuthor READ formattedAuthor FINAL);
-    Q_PROPERTY(QUrl avatarUrl READ avatarUrl FINAL);
+    Q_PROPERTY(QString content READ content FINAL CONSTANT);
+    Q_PROPERTY(QString formattedAuthor READ formattedAuthor FINAL CONSTANT);
+    Q_PROPERTY(QUrl avatarUrl READ avatarUrl FINAL CONSTANT);
 
 public:
     StatusAdapter(QObject *parent, v1::Status *status);
