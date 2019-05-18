@@ -103,8 +103,33 @@
      <height>30</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuRoot">
+    <property name="title">
+     <string>&amp;Menu</string>
+    </property>
+    <addaction name="actionConfig"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <addaction name="menuRoot"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionConfig">
+   <property name="text">
+    <string>&amp;Options</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+,</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // connect(ui->simpleTootEdit, &QLineEdit::textChanged, this, &MainWindow::updateTextLength);
     connect(this, &MainWindow::quit, this, &MainWindow::close, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
+    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::quit);
+    
 
     _configManager->load();
     if (_configManager->credentials()->length() <= 0) {
