@@ -27,13 +27,11 @@ class MainWindow : public QMainWindow
         void quit();
 
     public slots:
-        void updateTextLength(const QString& text);
         void updateTimeline();
 
     private:
         Ui::MainWindow *ui;
         ConfigManager *_configManager;
-        QMenu *_lengthMenu;
         
         APIContext *_apiContext;
         TimelineModel _timelineModel;

@@ -24,12 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _apiContext(new APIContext(this))
 {
     ui->setupUi(this);
-    _lengthMenu = ui->menuBar->addMenu(tr("0"));
 
-    // connect(ui->simpleTootEdit, &QLineEdit::textChanged, this, &MainWindow::updateTextLength);
     connect(this, &MainWindow::quit, this, &MainWindow::close, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::quit);
-    
 
     _configManager->load();
     if (_configManager->credentials()->length() <= 0) {
@@ -117,12 +114,6 @@ void MainWindow::addAccount()
     connect(response, &APIFutureResponse::rejected, [=](int code, QString content) {
         qDebug() << "ERROR:" << content << QString("%1").arg(code);
     });
-}
-
-void MainWindow::updateTextLength(const QString &text)
-{
-    auto lengthLeft = 500 - text.length();
-    _lengthMenu->setTitle(QString::number(lengthLeft));
 }
 
 void MainWindow::updateTimeline()
