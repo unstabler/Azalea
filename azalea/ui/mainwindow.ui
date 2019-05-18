@@ -31,10 +31,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QLineEdit" name="simpleTootEdit"/>
-    </item>
-    <item>
-     <widget class="QFrame" name="frame">
+     <widget class="QFrame" name="mainFrame">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -58,7 +55,35 @@
         <number>0</number>
        </property>
        <item>
+        <widget class="PostArea" name="postArea" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>128</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QQuickWidget" name="timelineView">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="resizeMode">
           <enum>QQuickWidget::SizeRootObjectToView</enum>
          </property>
@@ -87,6 +112,12 @@
    <class>QQuickWidget</class>
    <extends>QWidget</extends>
    <header location="global">QtQuickWidgets/QQuickWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>PostArea</class>
+   <extends>QWidget</extends>
+   <header>ui/postarea.hpp</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

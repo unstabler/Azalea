@@ -7,6 +7,7 @@
 
 #include "mastodon/apicontext.hpp"
 #include "mastodon/apibase.hpp"
+#include "postarea.hpp"
 
 namespace Ui {
     class MainWindow;

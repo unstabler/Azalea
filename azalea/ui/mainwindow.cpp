@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     _lengthMenu = ui->menuBar->addMenu(tr("0"));
 
-    connect(ui->simpleTootEdit, &QLineEdit::textChanged, this, &MainWindow::updateTextLength);
+    // connect(ui->simpleTootEdit, &QLineEdit::textChanged, this, &MainWindow::updateTextLength);
     connect(this, &MainWindow::quit, this, &MainWindow::close, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
 
     _configManager->load();
