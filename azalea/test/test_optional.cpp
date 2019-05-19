@@ -12,18 +12,24 @@ class TestOptional : public QObject {
 private slots:
     void optionalString()
     {
-        Optional<QString> case1;
-        case1.set("Hello, World!");
-        
+        Optional<QString> case1, case2;
+        case1.set(QString("Hello, World!"));
         QVERIFY(case1.get() == "Hello, World!");
+        QVERIFY(!case2.isPresent());
     }
+    
     void optionalBoolean()
     {
-        Optional<bool> optionalBool;
-        optionalBool.set(true);
+        Optional<bool> case1, case2, case3;
+        case1.set(false);
+        case2.set(true);
         
-        QVERIFY(optionalBool.get() == true);
+        
+        QVERIFY(case1.get() == false);
+        QVERIFY(case2.get() == true);
+        QVERIFY(!case3.isPresent());
     }
+    
 };
 
 QTEST_MAIN(TestOptional)

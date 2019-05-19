@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <memory>
+
 template <typename T>
 class Optional {
     public:
@@ -12,14 +14,14 @@ class Optional {
         Optional(const Optional&) = delete;
         ~Optional();
         
-        const T &get() const;
-        void set(T& value);
+        T &get();
+        void set(const T &value);
         void clear();
         bool isPresent() const;
         
-        explicit operator T&() const;
+        const T* operator= (const T& value);
     private:
-        T *_value;
+        std::unique_ptr<T> _value;
 };
 
 #include "optional.cpp"

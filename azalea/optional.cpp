@@ -16,9 +16,9 @@ Optional<T>::Optional() :
 
 template<typename T>
 Optional<T>::Optional(T &value) :
-    _value(value)
+    _value(nullptr)
 {
-
+    set(value);
 }
 
 template<typename T>
@@ -28,7 +28,7 @@ Optional<T>::~Optional()
 }
 
 template<typename T>
-const T &Optional<T>::get() const
+T& Optional<T>::get()
 {
     if (!this->isPresent()) {
         throw std::runtime_error("value is not present");
@@ -37,15 +37,15 @@ const T &Optional<T>::get() const
 }
 
 template<typename T>
-void Optional<T>::set(T &value)
+void Optional<T>::set(const T &value)
 {
-    _value = &value;
+    _value.reset(new T(value));
 }
 
 template<typename T>
 void Optional<T>::clear()
 {
-    _value = nullptr;
+    _value.reset(nullptr);
 }
 
 template<typename T>
@@ -55,7 +55,8 @@ bool Optional<T>::isPresent() const
 }
 
 template<typename T>
-Optional<T>::operator T&() const
+const T *Optional<T>::operator=(const T &value)
 {
+    set(value);
     return get();
 }
