@@ -118,7 +118,7 @@ void MainWindow::addAccount()
 
 void MainWindow::updateTimeline()
 {
-    v1::in::TimelinesAPIArgs args = {0};
+    v1::in::TimelinesAPIArgs args;
     auto api = new MastodonAPI(_apiContext);
     auto response = api->timelines()->home(args);
     connect(response, &APIFutureResponse::resolved, [=]() {

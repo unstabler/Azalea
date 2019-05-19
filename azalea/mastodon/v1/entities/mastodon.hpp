@@ -5,6 +5,7 @@
 #include <QList>
 
 #include "serialization.hpp"
+#include "optional.hpp"
 
 namespace v1 
 {
@@ -90,10 +91,20 @@ namespace v1
     {
         struct TimelinesAPIArgs
         {
-            QString *maxId;
-            QString *sinceId;
-            QString *minId;
-            QString *limit;
+            Optional<QString> maxId;
+            Optional<QString> sinceId;
+            Optional<QString> minId;
+            Optional<QString> limit;
+        };
+        
+        struct PostStatusArgs
+        {
+            Optional<QString> status;
+            Optional<QString> inReplyToId;
+            Optional<QList<QString>> mediaIds;
+            Optional<bool> sensitive;
+            Optional<QString> spoilerText;
+            Optional<QString> visibility;
         };
     }
 }
@@ -103,3 +114,5 @@ namespace v1
 
 template<> void fromJSON(v1::Account *destination, QJsonObject source);
 template<> void fromJSON(v1::Status *destination, QJsonObject source);
+
+template<> void toJSON(v1::in::PostStatusArgs *source, QJsonObject &destination);

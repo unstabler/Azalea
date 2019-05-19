@@ -9,7 +9,7 @@ namespace v1
     
     }
     
-    APIFutureResource<QList<Status>> *TimelinesAPI::home(in::TimelinesAPIArgs args)
+    APIFutureResource<QList<Status>> *TimelinesAPI::home(in::TimelinesAPIArgs &args)
     {
         static const QString ENDPOINT = "/api/v1/timelines/home";
         ParamMap params;

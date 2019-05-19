@@ -1,5 +1,6 @@
 #include "mastodon.hpp"
 
+using namespace serialization;
 using namespace deserialization;
 
 template<> void fromJSON(v1::Account *destination, QJsonObject source)
@@ -35,4 +36,15 @@ template<> void fromJSON(v1::Status *destination, QJsonObject source)
 
     destination->createdAt = QDateTime::fromString(source["created_at"].toString(), Qt::ISODate);
     destination->content = source["content"].toString();
+}
+
+template<>
+void toJSON(v1::in::PostStatusArgs *source, QJsonObject &destination)
+{
+    SET_OPTIONAL(destination["status"], source->status);
+    SET_OPTIONAL(destination["in_reply_to_id"], source->inReplyToId);
+    SET_OPTIONAL(destination["mediaIds"], source->mediaIds);
+    SET_OPTIONAL(destination["sensitive"], source->sensitive);
+    SET_OPTIONAL(destination["spoiler_text"], source->spoilerText);
+    SET_OPTIONAL(destination["visibility"], source->visibility);
 }

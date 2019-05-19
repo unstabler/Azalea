@@ -4,6 +4,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include "optional.hpp"
+
 template <typename T>
 inline QJsonObject toJSON(T *source)
 {
@@ -32,6 +34,13 @@ namespace serialization {
         }
         
         return array;
+    }
+    
+    template<typename T>
+    inline void SET_OPTIONAL(QJsonValueRef jsonValue, Optional<T> &value) {
+        if (value.isPresent()) {
+            jsonValue = QVariant(value.get()).toJsonValue();
+        }
     }
 }
 
