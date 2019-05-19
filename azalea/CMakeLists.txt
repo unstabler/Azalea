@@ -37,6 +37,8 @@ execute_process(
 add_definitions("-DAZALEA_GIT_COMMIT_HASH=\"${GIT_COMMIT_HASH}\"")
 add_definitions("-DAZALEA_GIT_BRANCH=\"${GIT_BRANCH}\"")
 
+add_subdirectory(test)
+
 set(AZALEA_SRC
     main.cpp
     azaleaapplication.cpp
