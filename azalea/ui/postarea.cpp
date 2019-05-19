@@ -10,7 +10,16 @@ PostArea::PostArea(QWidget *parent) :
 {
     ui->setupUi(this);
     
+    this->_postShortcut = new QShortcut((Qt::CTRL + Qt::Key_Return), ui->tootEdit);
+    this->_postShortcut->setContext(Qt::WidgetShortcut);
+    this->_postShortcut->setAutoRepeat(false);
+    this->_postShortcut->setEnabled(true);
+    
     connect(ui->tootEdit, &QTextEdit::textChanged, this, &PostArea::textChanged);
+    connect(ui->postButton, &QPushButton::clicked, this, &PostArea::submitPost);
+    
+    connect(this->_postShortcut, &QShortcut::activated, this, &PostArea::submitPost);
+    
     this->updatePostLength();
 }
 
@@ -36,7 +45,10 @@ void PostArea::updatePostLength()
     this->ui->lengthLabel->setText(QString("%1").arg(this->_postLength));
 }
 
-MainWindow *PostArea::mainWindow()
+
+void PostArea::submitPost()
 {
-    return dynamic_cast<MainWindow*>(this->parentWidget());
+    // TODO;
+    qDebug() << "TODO: submit post";
+    this->ui->tootEdit->setText("");
 }

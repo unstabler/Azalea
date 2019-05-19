@@ -2,9 +2,8 @@
 #define POSTAREA_HPP
 
 #include <QWidget>
+#include <QShortcut>
 
-/** 상호 참조 */
-class MainWindow;
 
 namespace Ui {
     class PostArea;
@@ -28,10 +27,16 @@ class PostArea : public QWidget
          */
         void setMaxPostLength(unsigned maxPostLength);
         void updatePostLength();
+        
+        /**
+         * 현재 입력중인 포스트를 전송합니다
+         */
+        void submitPost();
+        
 
     private:
         Ui::PostArea *ui;
-        MainWindow *mainWindow();
+        QShortcut *_postShortcut;
         
         unsigned _maxPostLength;
         unsigned _postLength;
