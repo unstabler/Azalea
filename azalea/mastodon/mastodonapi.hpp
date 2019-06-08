@@ -19,6 +19,7 @@ class MastodonAPI : public QObject
         OAuthAPI *oauth() const;
         v1::AppsAPI *apps() const;
         v1::TimelinesAPI *timelines() const;
+        v1::StatusesAPI *statuses() const;
 
     private:
         APIContext  *_context;
@@ -26,6 +27,7 @@ class MastodonAPI : public QObject
         OAuthAPI *_oauth;
         v1::AppsAPI *_apps;
         v1::TimelinesAPI *_timelines;
+        v1::StatusesAPI *_statuses;
 
 };
 

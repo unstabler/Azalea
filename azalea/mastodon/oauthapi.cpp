@@ -28,7 +28,7 @@ APIFutureResource<oauth2::OAuthToken>* OAuthAPI::tokenByAuthorizationCode(const 
                                                                  const QString code)
 {
     static const QString ENDPOINT = "/oauth/token";
-    ParamMap params;
+    QVariantMap params;
     params["grant_type"] = "authorization_code";
     params["redirect_uri"] = v1::AppsAPI::NO_REDIRECT_URIS;
     params["client_id"] = clientId;

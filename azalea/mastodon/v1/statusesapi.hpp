@@ -13,7 +13,8 @@ namespace v1
     {
         public:
             explicit StatusesAPI(APIContext *context);
-        
+            
+            APIFutureResource<Status> *post(in::PostStatusArgs &args);
     };
 }
 

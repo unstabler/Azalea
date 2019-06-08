@@ -55,12 +55,15 @@ QNetworkRequest APIBase::buildRequest(const QUrl url)
     return request;
 }
 
-QByteArray APIBase::serializeParamMap(const ParamMap& paramMap)
+QByteArray APIBase::serializeParamMap(const QVariantMap& paramMap)
 {
     QUrlQuery query;
     for (auto key: paramMap.keys())
     {
-        query.addQueryItem(key, paramMap[key]);
+        auto strValue = paramMap[key].toString();
+        if (!strValue.isEmpty()) {
+            query.addQueryItem(key, paramMap[key].toString());
+        }
     }
 
     qDebug() << query.toString(QUrl::FullyEncoded);
@@ -68,7 +71,7 @@ QByteArray APIBase::serializeParamMap(const ParamMap& paramMap)
     return query.toString(QUrl::FullyEncoded).toUtf8();
 }
 
-QNetworkReply *APIBase::GET(const QString endpoint, const ParamMap &params)
+QNetworkReply *APIBase::GET(const QString endpoint, const QVariantMap &params)
 {
     auto request = buildRequest(endpoint);
     auto reply = httpClient()->get(request);
@@ -76,7 +79,7 @@ QNetworkReply *APIBase::GET(const QString endpoint, const ParamMap &params)
     return reply;
 }
 
-QNetworkReply *APIBase::POST(const QString endpoint, const ParamMap& form)
+QNetworkReply *APIBase::POST(const QString endpoint, const QVariantMap& form)
 {
     auto request = buildRequest(endpoint);
     auto data = serializeParamMap(form);

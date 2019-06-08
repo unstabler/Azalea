@@ -39,7 +39,7 @@ namespace serialization {
     template<typename T>
     inline void SET_OPTIONAL(QJsonValueRef jsonValue, Optional<T> &value) {
         if (value.isPresent()) {
-            jsonValue = QVariant(value.get()).toJsonValue();
+            jsonValue = QVariant(value.get()).toString();
         }
     }
 }

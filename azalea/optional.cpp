@@ -42,7 +42,7 @@ void Optional<T>::set(const T &value)
     _value.reset(new T(value));
 }
 
-template<typename T>
+template <typename T>
 void Optional<T>::clear()
 {
     _value.reset(nullptr);

@@ -12,7 +12,7 @@ namespace v1
     APIFutureResource<QList<Status>> *TimelinesAPI::home(in::TimelinesAPIArgs &args)
     {
         static const QString ENDPOINT = "/api/v1/timelines/home";
-        ParamMap params;
+        QVariantMap params;
         
         QNetworkReply *reply = this->GET(ENDPOINT, params);
         return new APIFutureResource<QList<Status>>(reply);

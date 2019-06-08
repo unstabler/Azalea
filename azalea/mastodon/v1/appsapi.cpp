@@ -19,7 +19,7 @@ namespace v1
                                                  const QString website)
     {
         static const QString ENDPOINT = "/api/v1/apps";
-        ParamMap params;
+        QVariantMap params;
         params["client_name"]   = clientName;
         params["redirect_uris"] = redirectUris;
         params["scopes"]  = scopes;

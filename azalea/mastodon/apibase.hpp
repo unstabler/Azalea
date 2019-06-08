@@ -105,14 +105,14 @@ class APIBase : public QObject
         QNetworkRequest buildRequest(const QString endpoint);
         QNetworkRequest buildRequest(const QUrl url);
 
-        QByteArray serializeParamMap(const ParamMap& paramMap);
+        QByteArray serializeParamMap(const QVariantMap& paramMap);
 
-        QNetworkReply* GET(const QString endpoint,
-                           const ParamMap& params);
-        QNetworkReply* POST(const QString endpoint,
-                            const ParamMap& form);
-        QNetworkReply* DELETE(const QString endpoint,
-                              const ParamMap& form);
+        QNetworkReply *GET(const QString endpoint,
+                           const QVariantMap &params);
+        QNetworkReply *POST(const QString endpoint,
+                            const QVariantMap &form);
+        QNetworkReply *DELETE(const QString endpoint,
+                              const QVariantMap &form);
 
         // TODO: MULTIPART 대응
     private:
