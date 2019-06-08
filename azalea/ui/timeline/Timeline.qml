@@ -13,6 +13,7 @@ Rectangle {
         }
 
         id: timeline
+        objectName: "timeline"
         model: timelineModel
         focus: true
         highlight: Rectangle { color: systemPalette.highlight }

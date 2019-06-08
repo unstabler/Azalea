@@ -8,6 +8,7 @@
 #include <QDesktopServices>
 
 #include <QQmlContext>
+#include <QQuickItem>
 
 #include "mastodon/apicontext.hpp"
 #include "mastodon/mastodonapi.hpp"
@@ -197,8 +198,56 @@ std::shared_ptr<MastodonAPI> MainWindow::api() const
     return this->_api;
 }
 
+/**
+ * keyboard event handler
+ * TODO: 혼동 방지를 위해 qml keyboard navigation 끄고 여기로 옮기는게 맞는 것 같다
+ * TODO: PgUp / PgDn은 https://doc.qt.io/qt-5/qml-qtquick-listview.html의 indexAt를 써서 계산하는게 맞는 것 같아.
+ */
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    qDebug() << (tr("keyPressEvent: %1").arg(event->key()));
+    
+    switch (event->key()) {
+        case Qt::Key_U:
+            ui->postArea->focusPostArea();
+            break;
+        case Qt::Key_Escape:
+            ui->postArea->blurPostArea();
+            break;
+        case Qt::Key_J:
+            setCurrentIndex(getCurrentIndex() + 1);
+            break;
+        case Qt::Key_K:
+            setCurrentIndex(getCurrentIndex() - 1);
+            break;
+        default:
+            goto default_handler;
+    }
+    
+    return;
+    
+    default_handler:
+    QWidget::keyPressEvent(event);
+}
+
+QQuickItem *MainWindow::getQMLTimeline()
+{
+    return ui->timelineView->rootObject()->findChild<QQuickItem *>("timeline");;
+}
+
+void MainWindow::setCurrentIndex(int index)
+{
+    getQMLTimeline()->setProperty("currentIndex", std::max(0, index));
+}
+
+int MainWindow::getCurrentIndex()
+{
+    return getQMLTimeline()->property("currentIndex").toInt();
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 

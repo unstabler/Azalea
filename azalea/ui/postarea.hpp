@@ -44,8 +44,6 @@ class PostArea : public QWidget
     private:
         Ui::PostArea *ui;
         QShortcut *_postShortcut;
-        QShortcut *_focusShortcut;
-        QShortcut *_blurFocusShortcut;
         
         unsigned _maxPostLength;
         unsigned _postLength;

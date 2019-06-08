@@ -16,15 +16,10 @@ PostArea::PostArea(QWidget *parent) :
     this->_postShortcut->setAutoRepeat(false);
     this->_postShortcut->setEnabled(true);
     
-    this->_focusShortcut = new QShortcut(Qt::Key_U, getMainWindow());
-    this->_blurFocusShortcut = new QShortcut(Qt::Key_Escape, ui->tootEdit);
-    
     connect(ui->tootEdit, &QTextEdit::textChanged, this, &PostArea::textChanged);
     connect(ui->postButton, &QPushButton::clicked, this, &PostArea::submitPost);
     
     connect(this->_postShortcut, &QShortcut::activated, this, &PostArea::submitPost);
-    connect(this->_focusShortcut, &QShortcut::activated, this, &PostArea::focusPostArea);
-    connect(this->_blurFocusShortcut, &QShortcut::activated, this, &PostArea::blurPostArea);
     
     this->updatePostLength();
 }
@@ -90,5 +85,7 @@ void PostArea::focusPostArea()
 
 void PostArea::blurPostArea()
 {
-    ui->tootEdit->clearFocus();
+    if (ui->tootEdit->hasFocus()) {
+        ui->tootEdit->clearFocus();
+    }
 }

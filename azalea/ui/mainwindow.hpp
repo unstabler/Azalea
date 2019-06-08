@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <ui/timeline/TimelineModel.hpp>
 #include <mastodon/mastodonapi.hpp>
+#include <QtQuick/QQuickItem>
 
 #include "configmanager.hpp"
 
@@ -54,6 +55,9 @@ class MainWindow : public QMainWindow
     public slots:
         void timelineResolved(TimelineType::Enum timelineType, QSharedPointer<QList<v1::Status*>> statuses);
     
+    protected:
+        void keyPressEvent(QKeyEvent *event) override;
+    
 
     private:
         Ui::MainWindow *ui;
@@ -64,12 +68,14 @@ class MainWindow : public QMainWindow
         APIContext *_apiContext;
         std::shared_ptr<MastodonAPI> _api;
         std::map<TimelineType::Enum, std::unique_ptr<TimelineModel>> _timelineModel;
-
+        
         void initializeShortcuts();
         
         void initializeWith(Credential *credential);
         void setTimeline(TimelineType::Enum timelineType);
         void updateTimeline(TimelineType::Enum timelineType, bool clear = false);
         
-        
+        QQuickItem *getQMLTimeline();
+        void setCurrentIndex(int index);
+        int getCurrentIndex();
 };
