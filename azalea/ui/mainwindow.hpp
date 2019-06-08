@@ -1,7 +1,9 @@
 #pragma once
 
+#include <memory>
 #include <QMainWindow>
 #include <ui/timeline/TimelineModel.hpp>
+#include <mastodon/mastodonapi.hpp>
 
 #include "configmanager.hpp"
 
@@ -22,7 +24,7 @@ class MainWindow : public QMainWindow
         ~MainWindow();
 
         void addAccount();
-        
+        std::shared_ptr<MastodonAPI> api() const;
     signals:
         void quit();
 
@@ -34,6 +36,7 @@ class MainWindow : public QMainWindow
         ConfigManager *_configManager;
         
         APIContext *_apiContext;
+        std::shared_ptr<MastodonAPI> _api;
         TimelineModel _timelineModel;
 
         void initialize();

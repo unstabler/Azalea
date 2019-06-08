@@ -24,9 +24,10 @@ MainWindow::MainWindow(QWidget *parent) :
     _apiContext(new APIContext(this))
 {
     ui->setupUi(this);
-
+    
     connect(this, &MainWindow::quit, this, &MainWindow::close, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
-    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::quit);
+    connect(ui->actionRefresh, &QAction::triggered, this, &MainWindow::updateTimeline);
+    connect(ui->actionQuit,    &QAction::triggered, this, &MainWindow::quit);
 
     _configManager->load();
     if (_configManager->credentials()->length() <= 0) {
@@ -55,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     
     _apiContext->setHost(defaultCredential->instanceName());
     _apiContext->setToken(defaultCredential->token()->accessToken);
+    _api = std::shared_ptr<MastodonAPI>(new MastodonAPI(_apiContext));
     this->updateTimeline();
 }
 
@@ -119,8 +121,9 @@ void MainWindow::addAccount()
 void MainWindow::updateTimeline()
 {
     v1::in::TimelinesAPIArgs args;
-    auto api = new MastodonAPI(_apiContext);
-    auto response = api->timelines()->home(args);
+    _timelineModel.clear();
+    
+    auto response = _api->timelines()->home(args);
     connect(response, &APIFutureResponse::resolved, [=]() {
         auto timeline = response->tryDeserialize();
         for (auto status : *timeline) {
@@ -129,6 +132,10 @@ void MainWindow::updateTimeline()
     });
 }
 
+std::shared_ptr<MastodonAPI> MainWindow::api() const
+{
+    return this->_api;
+}
 
 MainWindow::~MainWindow()
 {

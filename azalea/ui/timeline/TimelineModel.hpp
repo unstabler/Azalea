@@ -23,6 +23,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     
     void append(StatusAdapter *status);
+    void clear();
     
 private:
     QVector<StatusAdapter*> _statuses;

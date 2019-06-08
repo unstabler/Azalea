@@ -37,3 +37,10 @@ void TimelineModel::append(StatusAdapter *status)
     _statuses.append(status);
     this->endInsertRows();
 }
+
+void TimelineModel::clear()
+{
+    this->beginResetModel();
+    _statuses.clear();
+    this->endResetModel();
+}

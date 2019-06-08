@@ -107,6 +107,7 @@
     <property name="title">
      <string>&amp;Menu</string>
     </property>
+    <addaction name="actionRefresh"/>
     <addaction name="actionConfig"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
@@ -114,6 +115,14 @@
    <addaction name="menuRoot"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionRefresh">
+   <property name="text">
+    <string>&amp;Refresh</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
   <action name="actionConfig">
    <property name="text">
     <string>&amp;Options</string>
