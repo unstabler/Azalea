@@ -214,9 +214,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         case Qt::Key_Escape:
             ui->postArea->blurPostArea();
             break;
+        case Qt::Key_Down:
         case Qt::Key_J:
             setCurrentIndex(getCurrentIndex() + 1);
             break;
+        case Qt::Key_Up:
         case Qt::Key_K:
             setCurrentIndex(getCurrentIndex() - 1);
             break;
@@ -237,7 +239,14 @@ QQuickItem *MainWindow::getQMLTimeline()
 
 void MainWindow::setCurrentIndex(int index)
 {
-    getQMLTimeline()->setProperty("currentIndex", std::max(0, index));
+    auto qmlTimeline = getQMLTimeline();
+    qmlTimeline->setProperty(
+            "currentIndex",
+            std::min(
+                    std::max(0, index),
+                    (qmlTimeline->property("count").toInt() - 1)
+            )
+    );
 }
 
 int MainWindow::getCurrentIndex()
