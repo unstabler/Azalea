@@ -62,13 +62,14 @@ QByteArray APIBase::serializeParamMap(const QVariantMap& paramMap)
     {
         auto strValue = paramMap[key].toString();
         if (!strValue.isEmpty()) {
-            query.addQueryItem(key, paramMap[key].toString());
+            query.addQueryItem(
+                    QUrl::toPercentEncoding(key),
+                    QUrl::toPercentEncoding(paramMap[key].toString())
+            );
         }
     }
 
-    qDebug() << query.toString(QUrl::FullyEncoded);
-
-    return query.toString(QUrl::FullyEncoded).toUtf8();
+    return query.toString().toUtf8();
 }
 
 QNetworkReply *APIBase::GET(const QString endpoint, const QVariantMap &params)
