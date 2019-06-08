@@ -1,3 +1,4 @@
+#include <mastodon/mastodonapi.hpp>
 #include "postarea.hpp"
 #include "ui_postarea.h"
 
@@ -48,7 +49,27 @@ void PostArea::updatePostLength()
 
 void PostArea::submitPost()
 {
-    // TODO;
-    qDebug() << "TODO: submit post";
+    auto mainWindow = dynamic_cast<MainWindow*>(parentWidget()->window());
+    auto api = mainWindow->api();
+    
+    v1::in::PostStatusArgs args;
+    args.status.set(this->ui->tootEdit->toPlainText());
+    qDebug() << args.status.get();
+    
+    
+    this->ui->tootEdit->setEnabled(false);
+    
+    auto response = api->statuses()->post(args);
+    connect(response, &APIFutureResponse::resolved, [&]() {
+        auto status = response->tryDeserialize();
+        qDebug() << status->content;
+        this->ui->tootEdit->setEnabled(true);
+    });
+    connect(response, &APIFutureResponse::rejected, [&](int code, QString content) {
+        qDebug() << code << content;
+        
+        this->ui->tootEdit->setEnabled(true);
+    });
+    
     this->ui->tootEdit->setText("");
 }
