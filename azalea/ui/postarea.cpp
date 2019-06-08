@@ -16,10 +16,15 @@ PostArea::PostArea(QWidget *parent) :
     this->_postShortcut->setAutoRepeat(false);
     this->_postShortcut->setEnabled(true);
     
+    this->_focusShortcut = new QShortcut(Qt::Key_U, getMainWindow());
+    this->_blurFocusShortcut = new QShortcut(Qt::Key_Escape, ui->tootEdit);
+    
     connect(ui->tootEdit, &QTextEdit::textChanged, this, &PostArea::textChanged);
     connect(ui->postButton, &QPushButton::clicked, this, &PostArea::submitPost);
     
     connect(this->_postShortcut, &QShortcut::activated, this, &PostArea::submitPost);
+    connect(this->_focusShortcut, &QShortcut::activated, this, &PostArea::focusPostArea);
+    connect(this->_blurFocusShortcut, &QShortcut::activated, this, &PostArea::blurPostArea);
     
     this->updatePostLength();
 }
@@ -27,6 +32,11 @@ PostArea::PostArea(QWidget *parent) :
 PostArea::~PostArea()
 {
     delete ui;
+}
+
+MainWindow *PostArea::getMainWindow()
+{
+    return dynamic_cast<MainWindow*>(parentWidget()->window());
 }
 
 void PostArea::textChanged()
@@ -49,8 +59,7 @@ void PostArea::updatePostLength()
 
 void PostArea::submitPost()
 {
-    auto mainWindow = dynamic_cast<MainWindow*>(parentWidget()->window());
-    auto api = mainWindow->api();
+    auto api = getMainWindow()->api();
     
     v1::in::PostStatusArgs args;
     args.status.set(this->ui->tootEdit->toPlainText());
@@ -62,7 +71,6 @@ void PostArea::submitPost()
     auto response = api->statuses()->post(args);
     connect(response, &APIFutureResponse::resolved, [&]() {
         auto status = response->tryDeserialize();
-        qDebug() << status->content;
         this->ui->tootEdit->setEnabled(true);
     });
     connect(response, &APIFutureResponse::rejected, [&](int code, QString content) {
@@ -72,4 +80,15 @@ void PostArea::submitPost()
     });
     
     this->ui->tootEdit->setText("");
+}
+
+void PostArea::focusPostArea()
+{
+    ui->tootEdit->setFocus(Qt::ShortcutFocusReason);
+}
+
+
+void PostArea::blurPostArea()
+{
+    ui->tootEdit->clearFocus();
 }

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QShortcut>
 
+class MainWindow;
 
 namespace Ui {
     class PostArea;
@@ -33,13 +34,23 @@ class PostArea : public QWidget
          */
         void submitPost();
         
+        void focusPostArea();
+        
+        /**
+         * 입력 창의 포커스를 해제합니다.
+         */
+        void blurPostArea();
 
     private:
         Ui::PostArea *ui;
         QShortcut *_postShortcut;
+        QShortcut *_focusShortcut;
+        QShortcut *_blurFocusShortcut;
         
         unsigned _maxPostLength;
         unsigned _postLength;
+        
+        MainWindow* getMainWindow();
 };
 
 #endif // POSTAREA_HPP
