@@ -69,11 +69,11 @@ void PostArea::submitPost()
     this->ui->tootEdit->setEnabled(false);
     
     auto response = api->statuses()->post(args);
-    connect(response, &APIFutureResponse::resolved, [&]() {
+    connect(response, &APIFutureResponse::resolved, [this, response]() {
         auto status = response->tryDeserialize();
         this->ui->tootEdit->setEnabled(true);
     });
-    connect(response, &APIFutureResponse::rejected, [&](int code, QString content) {
+    connect(response, &APIFutureResponse::rejected, [this, response](int code, QString content) {
         qDebug() << code << content;
         
         this->ui->tootEdit->setEnabled(true);
