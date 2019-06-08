@@ -64,13 +64,11 @@ class APIFutureResource : public APIFutureResponse
 
             return QSharedPointer<T>(instance);
         }
-
-        
 };
 
 
 template<class V>
-class APIFutureResource<QList<V>> : public APIFutureResponse
+class APIFutureResource<QList<V*>> : public APIFutureResponse
 {
     public:
         APIFutureResource(QNetworkReply* reply) :
