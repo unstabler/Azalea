@@ -19,14 +19,14 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    _timelineModel(this),
+    _timelineModel(),
     _configManager(new ConfigManager(this)),
     _apiContext(new APIContext(this))
 {
     ui->setupUi(this);
     
     connect(this, &MainWindow::quit, this, &MainWindow::close, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
-    connect(ui->actionRefresh, &QAction::triggered, this, &MainWindow::updateTimeline);
+    // connect(ui->actionRefresh, &QAction::triggered, this, &MainWindow::updateTimeline);
     connect(ui->actionQuit,    &QAction::triggered, this, &MainWindow::quit);
 
     _configManager->load();
@@ -43,21 +43,58 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     
     
-    
-    auto *qContext = ui->timelineView->rootContext();
-    qContext->setContextProperty("timelineModel", &_timelineModel);
-    
+    this->initializeShortcuts();
     ui->timelineView->setSource(QUrl(QStringLiteral("qrc:/components/Timeline.qml")));
     
     if (_configManager->credentials()->empty()) {
         return;
     }
-    auto defaultCredential = _configManager->credentials()->first();
     
-    _apiContext->setHost(defaultCredential->instanceName());
-    _apiContext->setToken(defaultCredential->token()->accessToken);
+    auto defaultCredential = _configManager->credentials()->first();
+    this->initializeWith(defaultCredential);
+}
+
+void MainWindow::initializeShortcuts()
+{
+    int i = 0;
+    for (auto timelineType : TimelineType::getAsIterable()) {
+        auto *shortcut = new QShortcut(Qt::Key_1 + (i++), this);
+        shortcut->setContext(Qt::ApplicationShortcut);
+        shortcut->setAutoRepeat(false);
+        shortcut->setEnabled(true);
+        _timelineShortcuts[timelineType] = shortcut;
+        connect(shortcut, &QShortcut::activated, this, [=] {
+            qDebug() << "shortcut: setting timeline to " << timelineType;
+            this->setTimeline(timelineType);
+        });
+    }
+}
+
+
+void MainWindow::initializeWith(Credential *credential)
+{
+    auto *tlViewContext = ui->timelineView->rootContext();
+    tlViewContext->setContextProperty("timelineModel", nullptr);
+    
+    _apiContext->setHost(credential->instanceName());
+    _apiContext->setToken(credential->token()->accessToken);
     _api = std::shared_ptr<MastodonAPI>(new MastodonAPI(_apiContext));
-    this->updateTimeline();
+    
+    for (auto timelineType : TimelineType::getAsIterable()) {
+        _timelineModel[timelineType] = std::make_unique<TimelineModel>(
+            new TimelineModel(this)
+        );
+    
+        this->updateTimeline(timelineType);
+    }
+    
+    tlViewContext->setContextProperty("timelineModel", _timelineModel[TimelineType::HOME].get());
+}
+
+void MainWindow::setTimeline(TimelineType::Enum timelineType)
+{
+    auto *tlViewContext = ui->timelineView->rootContext();
+    tlViewContext->setContextProperty("timelineModel", _timelineModel[timelineType].get());
 }
 
 void MainWindow::addAccount()
@@ -66,7 +103,7 @@ void MainWindow::addAccount()
                 this,
                 tr("INSTANCE_NAME"),
                 tr("INPUT_INSTANCE_NAME")
-                );
+    );
 
     if (instanceName.isEmpty()) {
         this->quit();
@@ -80,7 +117,7 @@ void MainWindow::addAccount()
                 v1::AppsAPI::NO_REDIRECT_URIS,
                 "read write follow",
                 "https://azalea.unstabler.pl"
-                );
+    );
     connect(response, &APIFutureResponse::resolved, [=]() {
         auto application = response->tryDeserialize();
         auto authorizeUrl = api->oauth()->getAuthorizeUrl(
@@ -118,18 +155,41 @@ void MainWindow::addAccount()
     });
 }
 
-void MainWindow::updateTimeline()
+void MainWindow::updateTimeline(TimelineType::Enum timelineType, bool clear)
 {
     v1::in::TimelinesAPIArgs args;
-    _timelineModel.clear();
     
-    auto response = _api->timelines()->home(args);
-    connect(response, &APIFutureResponse::resolved, [=]() {
-        auto timeline = response->tryDeserialize();
-        for (auto status : *timeline) {
-            _timelineModel.append(new StatusAdapter(this, status));
-        }
+    qDebug() << "performing refresh for timelineType " << timelineType;
+    
+    APIFutureResource<QList<v1::Status*>> *response = nullptr;
+    
+    switch (timelineType) {
+        case TimelineType::HOME:
+            response = _api->timelines()->home(args);
+            break;
+        case TimelineType::INSTANCE_LOCAL:
+            response = _api->timelines()->local(args);
+            break;
+        case TimelineType::INSTANCE_FEDERATED:
+            response = _api->timelines()->federated(args);
+            break;
+            
+        default:
+            qWarning() << "updateTimeline(): timelineType " << timelineType << " is not supported yet";
+            return;
+    }
+    
+    connect(response, &APIFutureResponse::resolved, this, [=] {
+        this->timelineResolved(timelineType, response->tryDeserialize());
     });
+}
+
+void MainWindow::timelineResolved(TimelineType::Enum timelineType, QSharedPointer<QList<v1::Status*>> statuses)
+{
+    auto *model = _timelineModel.at(timelineType).get();
+    for (v1::Status *status : *statuses) {
+        model->append(new StatusAdapter(this, status));
+    }
 }
 
 std::shared_ptr<MastodonAPI> MainWindow::api() const
