@@ -103,10 +103,10 @@ class APIBase : public QObject
         QNetworkRequest buildRequest(const QString endpoint);
         QNetworkRequest buildRequest(const QUrl url);
 
-        QByteArray serializeParamMap(const QVariantMap& paramMap);
+        QByteArray serializeArgsMap(const QVariantMap &argsMap);
 
         QNetworkReply *GET(const QString endpoint,
-                           const QVariantMap &params);
+                           const QVariantMap &args);
         QNetworkReply *POST(const QString endpoint,
                             const QVariantMap &form);
         QNetworkReply *DELETE(const QString endpoint,
