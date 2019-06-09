@@ -18,7 +18,7 @@ namespace v1
 
         protected:
             APIFutureResource<QList<Status*>> *_public(in::TimelinesAPIArgs &args, const bool local = false);
-            APIFutureResource<QList<Status*>> *_timeline(const QString endpoint, QVariantMap params);
+            APIFutureResource<QList<Status*>> *_timeline(const QString endpoint, QVariantMap argsMap);
     };
 }
 

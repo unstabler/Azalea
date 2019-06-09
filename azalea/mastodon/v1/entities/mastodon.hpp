@@ -116,3 +116,4 @@ template<> void fromJSON(v1::Account *destination, QJsonObject source);
 template<> void fromJSON(v1::Status *destination, QJsonObject source);
 
 template<> void toJSON(v1::in::PostStatusArgs *source, QJsonObject &destination);
+template<> void toJSON(v1::in::TimelinesAPIArgs *source, QJsonObject &destination);

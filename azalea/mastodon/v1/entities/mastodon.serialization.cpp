@@ -48,3 +48,12 @@ void toJSON(v1::in::PostStatusArgs *source, QJsonObject &destination)
     SET_OPTIONAL(destination["spoiler_text"], source->spoilerText);
     SET_OPTIONAL(destination["visibility"], source->visibility);
 }
+
+template<>
+void toJSON(v1::in::TimelinesAPIArgs *source, QJsonObject &destination)
+{
+    SET_OPTIONAL(destination["max_id"], source->maxId);
+    SET_OPTIONAL(destination["since_id"], source->sinceId);
+    SET_OPTIONAL(destination["min_id"], source->minId);
+    SET_OPTIONAL(destination["limit"], source->limit);
+}
