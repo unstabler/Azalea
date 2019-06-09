@@ -21,12 +21,18 @@ PostArea::PostArea(QWidget *parent) :
     
     connect(this->_postShortcut, &QShortcut::activated, this, &PostArea::submitPost);
     
+    
     this->updatePostLength();
 }
 
 PostArea::~PostArea()
 {
     delete ui;
+}
+
+bool PostArea::isFocused()
+{
+    return ui->tootEdit->hasFocus() || ui->postButton->hasFocus();
 }
 
 MainWindow *PostArea::getMainWindow()
@@ -89,3 +95,5 @@ void PostArea::blurPostArea()
         ui->tootEdit->clearFocus();
     }
 }
+
+

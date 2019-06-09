@@ -17,6 +17,8 @@ class PostArea : public QWidget
     public:
         explicit PostArea(QWidget *parent);
         ~PostArea();
+    
+        bool isFocused();
         
     public slots:
         void textChanged();
@@ -40,8 +42,8 @@ class PostArea : public QWidget
          * 입력 창의 포커스를 해제합니다.
          */
         void blurPostArea();
-
-    private:
+        
+private:
         Ui::PostArea *ui;
         QShortcut *_postShortcut;
         

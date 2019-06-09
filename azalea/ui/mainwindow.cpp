@@ -89,13 +89,14 @@ void MainWindow::initializeWith(Credential *credential)
         this->updateTimeline(timelineType);
     }
     
-    tlViewContext->setContextProperty("timelineModel", _timelineModel[TimelineType::HOME].get());
+    this->setTimeline(TimelineType::HOME);
 }
 
 void MainWindow::setTimeline(TimelineType::Enum timelineType)
 {
     auto *tlViewContext = ui->timelineView->rootContext();
     tlViewContext->setContextProperty("timelineModel", _timelineModel[timelineType].get());
+    _currentTimeline = timelineType;
 }
 
 void MainWindow::addAccount()
@@ -160,6 +161,10 @@ void MainWindow::updateTimeline(TimelineType::Enum timelineType, bool clear)
 {
     v1::in::TimelinesAPIArgs args;
     
+    if (clear) {
+        _timelineModel[timelineType]->clear();
+    }
+    
     qDebug() << "performing refresh for timelineType " << timelineType;
     
     APIFutureResource<QList<v1::Status*>> *response = nullptr;
@@ -205,8 +210,6 @@ std::shared_ptr<MastodonAPI> MainWindow::api() const
  */
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    qDebug() << (tr("keyPressEvent: %1").arg(event->key()));
-    
     switch (event->key()) {
         case Qt::Key_U:
             ui->postArea->focusPostArea();
@@ -222,6 +225,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         case Qt::Key_K:
             setCurrentIndex(getCurrentIndex() - 1);
             break;
+        case Qt::Key_Space: {
+            if (!event->isAutoRepeat()) {
+                _refreshKeyPressedAt = QDateTime::currentMSecsSinceEpoch();
+            }
+            break;
+        }
         default:
             goto default_handler;
     }
@@ -232,9 +241,37 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     QWidget::keyPressEvent(event);
 }
 
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if (!event->isAutoRepeat()) {
+        switch (event->key()) {
+            case Qt::Key_Space: {
+                // BUG: postArea에 포커싱 있어도 새로고침 발생함
+                if (ui->postArea->isFocused()) {
+                    return;
+                }
+                // force refresh 여부. 500ms 이상 누르고 있으면 타임라인 내용을 전부 지움
+                bool clear = QDateTime::currentMSecsSinceEpoch() - _refreshKeyPressedAt > 500;
+                this->updateTimeline(_currentTimeline, clear);
+                break;
+            }
+            default:
+                goto default_handler;
+        }
+    } else {
+        goto default_handler;
+    }
+    
+    return;
+    
+    default_handler:
+    QWidget::keyReleaseEvent(event);
+}
+
+
 QQuickItem *MainWindow::getQMLTimeline()
 {
-    return ui->timelineView->rootObject()->findChild<QQuickItem *>("timeline");;
+    return ui->timelineView->rootObject()->findChild<QQuickItem *>("timeline");
 }
 
 void MainWindow::setCurrentIndex(int index)

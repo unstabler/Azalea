@@ -57,9 +57,10 @@ class MainWindow : public QMainWindow
     
     protected:
         void keyPressEvent(QKeyEvent *event) override;
-    
+        void keyReleaseEvent(QKeyEvent *event) override;
 
-    private:
+
+private:
         Ui::MainWindow *ui;
         ConfigManager *_configManager;
         
@@ -68,6 +69,10 @@ class MainWindow : public QMainWindow
         APIContext *_apiContext;
         std::shared_ptr<MastodonAPI> _api;
         std::map<TimelineType::Enum, std::unique_ptr<TimelineModel>> _timelineModel;
+        TimelineType::Enum _currentTimeline;
+        
+        qint64 _refreshKeyPressedAt = 0;
+        
         
         void initializeShortcuts();
         
