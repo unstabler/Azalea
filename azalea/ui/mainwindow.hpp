@@ -6,11 +6,13 @@
 #include <ui/timeline/TimelineModel.hpp>
 #include <mastodon/mastodonapi.hpp>
 #include <QtQuick/QQuickItem>
+#include <QtWidgets/QSystemTrayIcon>
 
 #include "configmanager.hpp"
 
 #include "mastodon/apicontext.hpp"
 #include "mastodon/apibase.hpp"
+#include "mastodon/v1/stream/streamingclient.hpp"
 #include "postarea.hpp"
 
 namespace Ui {
@@ -54,6 +56,7 @@ class MainWindow : public QMainWindow
 
     public slots:
         void timelineResolved(TimelineType::Enum timelineType, QSharedPointer<QList<v1::Status*>> statuses);
+        void streamEvent(QString eventType, QJsonObject payload);
     
     protected:
         void keyPressEvent(QKeyEvent *event) override;
@@ -68,6 +71,7 @@ private:
         
         APIContext *_apiContext;
         std::shared_ptr<MastodonAPI> _api;
+        std::unique_ptr<StreamingClient> _streamingClient;
         std::map<TimelineType::Enum, std::unique_ptr<TimelineModel>> _timelineModel;
         TimelineType::Enum _currentTimeline;
         

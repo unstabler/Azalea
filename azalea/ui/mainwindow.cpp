@@ -33,10 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
     _configManager->load();
     if (_configManager->credentials()->length() <= 0) {
         if(QMessageBox::question(
-                    this,
-                    this->windowTitle(),
-                    tr("NO_TOKEN_SET")
-                    ) == QMessageBox::Yes) {
+                this,
+                this->windowTitle(),
+                tr("NO_TOKEN_SET")
+        ) == QMessageBox::Yes) {
             this->addAccount();
         } else {
             this->quit();
@@ -81,6 +81,12 @@ void MainWindow::initializeWith(Credential *credential)
     _apiContext->setToken(credential->token()->accessToken);
     _api = std::shared_ptr<MastodonAPI>(new MastodonAPI(_apiContext));
     
+    _streamingClient = std::unique_ptr<StreamingClient>(
+            new StreamingClient(*_apiContext, "user")
+    );
+    
+    connect(_streamingClient.get(), &StreamingClient::streamEvent, this, &MainWindow::streamEvent);
+    
     for (auto timelineType : TimelineType::getAsIterable()) {
         _timelineModel[timelineType] = std::make_unique<TimelineModel>(
             new TimelineModel(this)
@@ -90,6 +96,7 @@ void MainWindow::initializeWith(Credential *credential)
     }
     
     this->setTimeline(TimelineType::HOME);
+    _streamingClient->open();
 }
 
 void MainWindow::setTimeline(TimelineType::Enum timelineType)
@@ -198,6 +205,15 @@ void MainWindow::timelineResolved(TimelineType::Enum timelineType, QSharedPointe
     auto *model = _timelineModel.at(timelineType).get();
     for (auto i = statuses->rbegin(); i != statuses->rend(); i++) {
         model->prepend(new StatusAdapter(this, *i));
+    }
+}
+
+void MainWindow::streamEvent(QString eventType, QJsonObject payload)
+{
+    if (eventType == "update") {
+        v1::Status *status = new v1::Status; // FIXME: MEMORY LEAK!!!
+        fromJSON<v1::Status>(status, payload);
+        _timelineModel.at(TimelineType::HOME)->prepend(new StatusAdapter(this, status));
     }
 }
 

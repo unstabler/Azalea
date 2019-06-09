@@ -14,8 +14,9 @@ set(CMAKE_AUTOUIC ON)
 find_package(Qt5Widgets CONFIG REQUIRED)
 find_package(Qt5Network CONFIG REQUIRED)
 find_package(Qt5Quick CONFIG REQUIRED)
-find_package(Qt5QuickWidgets)
+find_package(Qt5QuickWidgets CONFIG REQUIRED)
 find_package(Qt5QuickCompiler CONFIG REQUIRED)
+find_package(Qt5WebSockets CONFIG REQUIRED)
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
 
@@ -59,7 +60,7 @@ qtquick_compiler_add_resources(AZALEA_RES azalea.qrc)
 add_executable(azalea ${AZALEA_SRC} ${AZALEA_PROTO_SRC} ${AZALEA_PROTO_HEADER} ${AZALEA_RES})
 
 # Use the Widgets module from Qt 5.
-target_link_libraries(azalea Qt5::Widgets Qt5::Network Qt5::Quick Qt5::QuickWidgets)
+target_link_libraries(azalea Qt5::Widgets Qt5::Network Qt5::Quick Qt5::QuickWidgets Qt5::WebSockets)
 
 # Install the executable
 install(TARGETS azalea DESTINATION bin)

@@ -12,6 +12,8 @@ set(AZALEA_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/oauth2.serialization.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/mastodon.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/mastodon.serialization.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/v1/stream/streamingclient.cpp
     
     PARENT_SCOPE
 )
