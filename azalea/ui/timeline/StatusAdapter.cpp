@@ -35,3 +35,8 @@ QString StatusAdapter::createdAt()
 {
     return _status->createdAt.toTimeZone(QTimeZone::systemTimeZone()).toString(Qt::SystemLocaleLongDate);
 }
+
+v1::Status *StatusAdapter::status()
+{
+    return _status;
+}

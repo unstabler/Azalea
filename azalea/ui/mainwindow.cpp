@@ -163,9 +163,9 @@ void MainWindow::updateTimeline(TimelineType::Enum timelineType, bool clear)
     
     if (clear) {
         _timelineModel[timelineType]->clear();
+    } else if (_timelineModel[timelineType]->count() > 0) {
+        args.minId.set(_timelineModel[timelineType]->first()->status()->id);
     }
-    
-    qDebug() << "performing refresh for timelineType " << timelineType;
     
     APIFutureResource<QList<v1::Status*>> *response = nullptr;
     
@@ -188,13 +188,16 @@ void MainWindow::updateTimeline(TimelineType::Enum timelineType, bool clear)
     connect(response, &APIFutureResponse::resolved, this, [=] {
         this->timelineResolved(timelineType, response->tryDeserialize());
     });
+    connect(response, &APIFutureResponse::rejected, this, [=] (int code, QString content) {
+        // TODO: 오류 핸들링
+    });
 }
 
 void MainWindow::timelineResolved(TimelineType::Enum timelineType, QSharedPointer<QList<v1::Status*>> statuses)
 {
     auto *model = _timelineModel.at(timelineType).get();
-    for (v1::Status *status : *statuses) {
-        model->append(new StatusAdapter(this, status));
+    for (auto i = statuses->rbegin(); i != statuses->rend(); i++) {
+        model->prepend(new StatusAdapter(this, *i));
     }
 }
 

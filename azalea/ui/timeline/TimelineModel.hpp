@@ -22,8 +22,15 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     
+    void prepend(StatusAdapter *status);
     void append(StatusAdapter *status);
     void clear();
+    
+    int count();
+    
+    StatusAdapter *first();
+    StatusAdapter *last();
+    
     
 private:
     QVector<StatusAdapter*> _statuses;

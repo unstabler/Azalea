@@ -22,6 +22,8 @@ public:
     QUrl avatarUrl();
     QString createdAt();
     
+    v1::Status *status();
+    
 private:
         v1::Status *_status;
         QList<StatusAdapter*> _replies;
