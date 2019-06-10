@@ -6,7 +6,7 @@
 
 #include <QTimeZone>
 
-StatusAdapter::StatusAdapter(QObject *parent, v1::Status *status) :
+StatusAdapter::StatusAdapter(QObject *parent, QSharedPointer<v1::Status> status) :
     QObject(parent),
     _status(status)
 {
@@ -36,7 +36,7 @@ QString StatusAdapter::createdAt()
     return _status->createdAt.toTimeZone(QTimeZone::systemTimeZone()).toString(Qt::SystemLocaleLongDate);
 }
 
-v1::Status *StatusAdapter::status()
+QSharedPointer<v1::Status> StatusAdapter::status()
 {
     return _status;
 }

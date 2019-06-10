@@ -11,7 +11,8 @@
 #include "serialization.hpp"
 #include "apicontext.hpp"
 
-using ParamMap = QMap<QString, QString>;
+template <typename T>
+using ResourceList = QList<QSharedPointer<T>>;
 
 class APIFutureResponse : public QObject
 {
@@ -68,7 +69,7 @@ class APIFutureResource : public APIFutureResponse
 
 
 template<class V>
-class APIFutureResource<QList<V*>> : public APIFutureResponse
+class APIFutureResource<ResourceList<V>> : public APIFutureResponse
 {
     public:
         APIFutureResource(QNetworkReply* reply) :
@@ -77,13 +78,24 @@ class APIFutureResource<QList<V*>> : public APIFutureResponse
 
         }
         
-        QSharedPointer<QList<V*>> tryDeserialize()
+        QSharedPointer<ResourceList<V>> tryDeserialize()
         {
             auto *list = deserialization::ARRAY<V>(
                 QJsonDocument::fromJson(this->body().toUtf8()).array()
             );
             
-            return QSharedPointer<QList<V*>>(list);
+            auto *dst = new ResourceList<V>;
+            
+            std::transform(
+                    list->begin(),
+                    list->end(),
+                    std::back_insert_iterator<ResourceList<V>>(*dst),
+                    [] (V* resource) {
+                        return QSharedPointer<V>(resource);
+                    }
+            );
+            
+            return QSharedPointer<ResourceList<V>>(dst);
         }
 };
 

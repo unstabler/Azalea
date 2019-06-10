@@ -174,7 +174,7 @@ void MainWindow::updateTimeline(TimelineType::Enum timelineType, bool clear)
         args.minId.set(_timelineModel[timelineType]->first()->status()->id);
     }
     
-    APIFutureResource<QList<v1::Status*>> *response = nullptr;
+    APIFutureResource<ResourceList<v1::Status>> *response = nullptr;
     
     switch (timelineType) {
         case TimelineType::HOME:
@@ -200,7 +200,7 @@ void MainWindow::updateTimeline(TimelineType::Enum timelineType, bool clear)
     });
 }
 
-void MainWindow::timelineResolved(TimelineType::Enum timelineType, QSharedPointer<QList<v1::Status*>> statuses)
+void MainWindow::timelineResolved(TimelineType::Enum timelineType, QSharedPointer<ResourceList<v1::Status>> statuses)
 {
     auto *model = _timelineModel.at(timelineType).get();
     for (auto i = statuses->rbegin(); i != statuses->rend(); i++) {
@@ -211,8 +211,9 @@ void MainWindow::timelineResolved(TimelineType::Enum timelineType, QSharedPointe
 void MainWindow::streamEvent(QString eventType, QJsonObject payload)
 {
     if (eventType == "update") {
-        v1::Status *status = new v1::Status; // FIXME: MEMORY LEAK!!!
-        fromJSON<v1::Status>(status, payload);
+        
+        QSharedPointer<v1::Status> status(new v1::Status);
+        fromJSON<v1::Status>(status.get(), payload);
         _timelineModel.at(TimelineType::HOME)->prepend(new StatusAdapter(this, status));
     }
 }

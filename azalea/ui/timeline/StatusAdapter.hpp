@@ -15,16 +15,16 @@ class StatusAdapter : public QObject
     Q_PROPERTY(QString createdAt READ createdAt FINAL CONSTANT);
 
 public:
-    StatusAdapter(QObject *parent, v1::Status *status);
+    StatusAdapter(QObject *parent, QSharedPointer<v1::Status> status);
     
     QString content();
     QString formattedAuthor();
     QUrl avatarUrl();
     QString createdAt();
     
-    v1::Status *status();
+    QSharedPointer<v1::Status> status();
     
 private:
-        v1::Status *_status;
-        QList<StatusAdapter*> _replies;
+    QSharedPointer<v1::Status> _status;
+    QList<StatusAdapter*> _replies;
 };

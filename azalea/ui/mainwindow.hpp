@@ -55,7 +55,7 @@ class MainWindow : public QMainWindow
         void quit();
 
     public slots:
-        void timelineResolved(TimelineType::Enum timelineType, QSharedPointer<QList<v1::Status*>> statuses);
+        void timelineResolved(TimelineType::Enum timelineType, QSharedPointer<ResourceList<v1::Status>> statuses);
         void streamEvent(QString eventType, QJsonObject payload);
     
     protected:
