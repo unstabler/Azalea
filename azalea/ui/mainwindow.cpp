@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     _timelineModel(),
-    _configManager(new ConfigManager(this)),
+    _configManager(Singleton<ConfigManager>::getInstance()),
     _apiContext(new APIContext(this))
 {
     ui->setupUi(this);
@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // connect(ui->actionRefresh, &QAction::triggered, this, &MainWindow::updateTimeline);
     connect(ui->actionQuit,    &QAction::triggered, this, &MainWindow::quit);
 
-    _configManager->load();
-    if (_configManager->credentials()->length() <= 0) {
+    _configManager.load();
+    if (_configManager.credentials()->length() <= 0) {
         if(QMessageBox::question(
                 this,
                 this->windowTitle(),
@@ -47,11 +47,11 @@ MainWindow::MainWindow(QWidget *parent) :
     this->initializeShortcuts();
     ui->timelineView->setSource(QUrl(QStringLiteral("qrc:/components/Timeline.qml")));
     
-    if (_configManager->credentials()->empty()) {
+    if (_configManager.credentials()->empty()) {
         return;
     }
     
-    auto defaultCredential = _configManager->credentials()->first();
+    auto defaultCredential = _configManager.credentials()->first();
     this->initializeWith(defaultCredential);
 }
 
@@ -151,8 +151,8 @@ void MainWindow::addAccount()
         connect(response, &APIFutureResponse::resolved, [=]() {
             auto token = response->tryDeserialize();
             auto credential = new Credential(instanceName, "unknown", token.get());
-            _configManager->credentials()->push_back(credential);
-            _configManager->save();
+            _configManager.credentials()->push_back(credential);
+            _configManager.save();
             qDebug() << token->accessToken;
         });
         connect(response, &APIFutureResponse::rejected, [=](int code, QString content) {

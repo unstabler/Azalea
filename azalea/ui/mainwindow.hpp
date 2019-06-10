@@ -65,7 +65,7 @@ class MainWindow : public QMainWindow
 
 private:
         Ui::MainWindow *ui;
-        ConfigManager *_configManager;
+        ConfigManager &_configManager;
         
         std::map<TimelineType::Enum, QShortcut*> _timelineShortcuts;
         
