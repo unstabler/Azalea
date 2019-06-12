@@ -7,5 +7,6 @@
     </qresource>
     <qresource prefix="/translations">
         <file alias="ko_kr.qm">translations/ko_kr.qm</file>
+        <file alias="ja_jp.qm">translations/ja_jp.qm</file>
     </qresource>
 </RCC>
