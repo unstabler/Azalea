@@ -11,43 +11,43 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="108"/>
         <source>&amp;Menu</source>
-        <translation>메뉴
-</translation>
+        <translation>메뉴 (&amp;M)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="120"/>
         <source>&amp;Refresh</source>
-        <translation>새로 고침</translation>
+        <translation>새로 고침 (&amp;R)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="123"/>
         <source>Ctrl+R</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="128"/>
         <source>&amp;Options</source>
-        <translation>설정</translation>
+        <translation>설정 (&amp;O)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="131"/>
         <source>Ctrl+Shift+,</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="136"/>
         <source>&amp;Quit</source>
-        <translation>종료</translation>
+        <translation>종료 (&amp;Q)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="139"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="44"/>
         <source>NO_TOKEN_SET</source>
-        <translation>토큰 설정되지 않음</translation>
+        <translation>토큰이 설정되지 않았습니다.
+새롭게 계정을 추가하시곘습니까?</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="119"/>
