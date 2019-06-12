@@ -54,11 +54,9 @@ public:
     void load();
     
     QList<InstanceInfo *> *registeredInstances() const;
-    
     void setRegisteredInstances(QList<InstanceInfo *> *registeredInstances);
     
     QList<Credential *> *credentials() const;
-    
     void setCredentials(QList<Credential *> *credentials);
 
 signals:

@@ -14,7 +14,6 @@ StreamingClient::StreamingClient(APIContext &context, QString streamType) :
         emit connected();
     });
     connect(&_wsClient, &QWebSocket::disconnected, [=]() {
-        qDebug() << "disconnected from stream " << streamType;
         emit disconnected();
     });
     connect(&_wsClient,
@@ -42,8 +41,6 @@ QUrl StreamingClient::createEndpointUrl()
     url.setPath("/api/v1/streaming");
     url.setQuery(query);
     
-    qDebug() << url;
-
     return url;
 }
 
@@ -51,7 +48,6 @@ void StreamingClient::open()
 {
     QUrl endpoint = createEndpointUrl();
     _wsClient.open(endpoint);
-    qDebug() << "connecting to userstream";
 }
 
 void StreamingClient::close()

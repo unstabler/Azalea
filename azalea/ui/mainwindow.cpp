@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _apiContext(new APIContext(this))
 {
     ui->setupUi(this);
+    ui->retranslateUi(this);
     
     connect(this, &MainWindow::quit, this, &MainWindow::close, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
     // connect(ui->actionRefresh, &QAction::triggered, this, &MainWindow::updateTimeline);

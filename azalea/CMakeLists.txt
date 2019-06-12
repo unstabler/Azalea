@@ -17,6 +17,7 @@ find_package(Qt5Quick CONFIG REQUIRED)
 find_package(Qt5QuickWidgets CONFIG REQUIRED)
 find_package(Qt5QuickCompiler CONFIG REQUIRED)
 find_package(Qt5WebSockets CONFIG REQUIRED)
+find_package(Qt5LinguistTools REQUIRED)
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
 
@@ -39,6 +40,7 @@ add_definitions("-DAZALEA_GIT_COMMIT_HASH=\"${GIT_COMMIT_HASH}\"")
 add_definitions("-DAZALEA_GIT_BRANCH=\"${GIT_BRANCH}\"")
 
 add_subdirectory(test)
+add_subdirectory(translations)
 
 set(AZALEA_SRC
     main.cpp
@@ -50,14 +52,28 @@ set(AZALEA_SRC
     ui/timeline/TimelineModel.cpp
     ui/timeline/TimelineModel.hpp
 )
+file(GLOB TRANSLATION_SRC **/*.cpp **/*.hpp **/*.ui)
+set(TRANSLATION_FILES
+    translations/ko_kr.ts
+)
 
 add_subdirectory(ui)
 add_subdirectory(mastodon)
 
+set_source_files_properties(${TRANSLATION_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/translations)
+qt5_create_translation(TRANSLATION_MESSAGES ${TRANSLATION_SRC} ${TRANSLATION_FILES})
+
 qtquick_compiler_add_resources(AZALEA_RES azalea.qrc)
+
+add_custom_target(translations_update ALL DEPENDS ${TRANSLATION_MESSAGES})
+add_custom_target(resource ALL DEPENDS ${AZALEA_RES})
+
+add_dependencies(resource translations_update)
 
 # Tell CMake to create the helloworld executable
 add_executable(azalea ${AZALEA_SRC} ${AZALEA_PROTO_SRC} ${AZALEA_PROTO_HEADER} ${AZALEA_RES})
+
+add_dependencies(azalea resource)
 
 # Use the Widgets module from Qt 5.
 target_link_libraries(azalea Qt5::Widgets Qt5::Network Qt5::Quick Qt5::QuickWidgets Qt5::WebSockets)

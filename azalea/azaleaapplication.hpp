@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QApplication>
+#include <QTranslator>
 
 #include "ui/mainwindow.hpp"
 
@@ -19,5 +20,7 @@ public:
     int exec();
 private:
     MainWindow* mainWindow;
-
+    QTranslator _translator;
+    
+    void loadTranslation(QString locale, bool fallbackOnFailure = true);
 };

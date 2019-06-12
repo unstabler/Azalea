@@ -10,6 +10,7 @@ PostArea::PostArea(QWidget *parent) :
     _maxPostLength(500)
 {
     ui->setupUi(this);
+    ui->retranslateUi(this);
     
     this->_postShortcut = new QShortcut((Qt::CTRL + Qt::Key_Return), ui->tootEdit);
     this->_postShortcut->setContext(Qt::WidgetShortcut);
