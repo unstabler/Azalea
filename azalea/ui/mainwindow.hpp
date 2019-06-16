@@ -3,7 +3,7 @@
 #include <memory>
 #include <unordered_map>
 #include <QMainWindow>
-#include <ui/timeline/TimelineModel.hpp>
+#include <ui/timeline/timelinemodel.hpp>
 #include <mastodon/mastodonapi.hpp>
 #include <QtQuick/QQuickItem>
 #include <QtWidgets/QSystemTrayIcon>

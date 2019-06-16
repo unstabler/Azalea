@@ -6,7 +6,7 @@
 #define AZALEA_TIMELINEMODEL_HPP
 
 #include <QAbstractListModel>
-#include "StatusAdapter.hpp"
+#include "statusadapterbase.hpp"
 
 /**
  * Timeline Model
@@ -22,18 +22,18 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     
-    void prepend(StatusAdapter *status);
-    void append(StatusAdapter *status);
+    void prepend(StatusAdapterBase *status);
+    void append(StatusAdapterBase *status);
     void clear();
     
     int count();
     
-    StatusAdapter *first();
-    StatusAdapter *last();
+    StatusAdapterBase *first();
+    StatusAdapterBase *last();
     
     
 private:
-    QVector<StatusAdapter*> _statuses;
+    QVector<StatusAdapterBase*> _statuses;
 };
 
 

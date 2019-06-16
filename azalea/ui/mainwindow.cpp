@@ -9,6 +9,7 @@
 
 #include <QQmlContext>
 #include <QQuickItem>
+#include <ui/timeline/statusadapter.hpp>
 
 #include "mastodon/apicontext.hpp"
 #include "mastodon/mastodonapi.hpp"
@@ -177,7 +178,7 @@ void MainWindow::updateTimeline(TimelineType::Enum timelineType, bool clear)
     if (clear) {
         _timelineModel[timelineType]->clear();
     } else if (_timelineModel[timelineType]->count() > 0) {
-        args.minId.set(_timelineModel[timelineType]->first()->status()->id);
+        args.minId.set(_timelineModel[timelineType]->first()->id());
     }
     
     APIFutureResource<ResourceList<v1::Status>> *response = nullptr;

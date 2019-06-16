@@ -4,5 +4,11 @@ set(AZALEA_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/postarea.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/settingswindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/settingswindow.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/timeline/statusadapterbase.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/timeline/statusadapterbase.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/timeline/statusadapter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/timeline/statusadapter.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/timeline/timelinemodel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/timeline/timelinemodel.hpp
     PARENT_SCOPE
 )

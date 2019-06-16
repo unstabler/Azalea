@@ -45,10 +45,6 @@ set(AZALEA_SRC
     azaleaapplication.cpp
     configmanager.cpp
     singleton.cpp
-    ui/timeline/StatusAdapter.cpp
-    ui/timeline/StatusAdapter.hpp
-    ui/timeline/TimelineModel.cpp
-    ui/timeline/TimelineModel.hpp
 )
 file(GLOB TRANSLATION_SRC **/*.cpp **/*.hpp **/*.ui)
 

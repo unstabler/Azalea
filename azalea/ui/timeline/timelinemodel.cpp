@@ -2,7 +2,7 @@
 // Created by cheesekun on 19/04/13.
 //
 
-#include "TimelineModel.hpp"
+#include "timelinemodel.hpp"
 
 
 TimelineModel::TimelineModel(QObject *parent) :
@@ -23,7 +23,7 @@ QVariant TimelineModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
     
-    return QVariant::fromValue<StatusAdapter*>(_statuses.at(index.row()));
+    return QVariant::fromValue<StatusAdapterBase*>(_statuses.at(index.row()));
 }
 
 Qt::ItemFlags TimelineModel::flags(const QModelIndex &index) const
@@ -31,14 +31,14 @@ Qt::ItemFlags TimelineModel::flags(const QModelIndex &index) const
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-void TimelineModel::prepend(StatusAdapter *status)
+void TimelineModel::prepend(StatusAdapterBase *status)
 {
     this->beginInsertColumns(QModelIndex(), 0, 0);
     _statuses.prepend(status);
     this->endInsertRows();
 }
 
-void TimelineModel::append(StatusAdapter *status)
+void TimelineModel::append(StatusAdapterBase *status)
 {
     this->beginInsertRows(QModelIndex(), rowCount(), rowCount());
     _statuses.append(status);
@@ -57,12 +57,12 @@ int TimelineModel::count()
     return _statuses.count();
 }
 
-StatusAdapter *TimelineModel::first()
+StatusAdapterBase *TimelineModel::first()
 {
     return _statuses.first();
 }
 
-StatusAdapter *TimelineModel::last()
+StatusAdapterBase *TimelineModel::last()
 {
     return _statuses.last();
 }

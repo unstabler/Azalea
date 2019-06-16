@@ -2,15 +2,26 @@
 // Created by cheesekun on 19/02/10.
 //
 
-#include "StatusAdapter.hpp"
+#include "statusadapter.hpp"
 
 #include <QTimeZone>
 
+StatusAdapterBase::StatusAdapterBase(QObject *parent) :
+        QObject(parent)
+{
+
+}
+
 StatusAdapter::StatusAdapter(QObject *parent, QSharedPointer<v1::Status> status) :
-    QObject(parent),
+    StatusAdapterBase(parent),
     _status(status)
 {
 
+}
+
+QString StatusAdapter::id()
+{
+    return _status->id;
 }
 
 QString StatusAdapter::content()
@@ -40,3 +51,4 @@ QSharedPointer<v1::Status> StatusAdapter::status()
 {
     return _status;
 }
+
