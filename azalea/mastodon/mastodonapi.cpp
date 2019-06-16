@@ -6,7 +6,8 @@ MastodonAPI::MastodonAPI(APIContext *context) :
     _oauth(new OAuthAPI(context)),
     _apps(new v1::AppsAPI(context)),
     _timelines(new v1::TimelinesAPI(context)),
-    _statuses(new v1::StatusesAPI(context))
+    _statuses(new v1::StatusesAPI(context)),
+    _notifications(new v1::NotificationsAPI(context))
 {
 
 }
@@ -34,4 +35,9 @@ v1::TimelinesAPI *MastodonAPI::timelines() const
 v1::StatusesAPI *MastodonAPI::statuses() const
 {
     return _statuses;
+}
+
+v1::NotificationsAPI *MastodonAPI::notifications() const
+{
+    return _notifications;
 }

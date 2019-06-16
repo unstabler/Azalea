@@ -47,7 +47,6 @@ namespace v1
         QString url;
     };
 
-
     /**
      * TODO: operator= override
      */
@@ -58,15 +57,15 @@ namespace v1
             QString uri;
             QString url;
 
-            Account* account;
+            QSharedPointer<Account> account;
             QString inReplyToId;
             QString inReplyToAccountId;
             
-            Status* reblog;
+            QSharedPointer<Status> reblog;
             QString content;
 
             QDateTime createdAt;
-            QList<Emoji*> emojis;
+            QList<QSharedPointer<Emoji>> emojis;
 
             uint repliesCount;
             uint reblogsCount;
@@ -87,6 +86,14 @@ namespace v1
             bool pinned;
     };
     
+    struct Notification {
+        QString id;
+        QString type;
+        QDateTime createdAt;
+        QSharedPointer<Account> account;
+        QSharedPointer<Status> status;
+    };
+    
     namespace in
     {
         struct TimelinesAPIArgs
@@ -95,6 +102,16 @@ namespace v1
             Optional<QString> sinceId;
             Optional<QString> minId;
             Optional<QString> limit;
+        };
+        
+        struct NotificationListArgs
+        {
+            Optional<QString> maxId;
+            Optional<QString> sinceId;
+            Optional<QString> minId;
+            Optional<QString> limit;
+            Optional<QString> excludeTypes;
+            Optional<QString> accountId;
         };
         
         struct PostStatusArgs
@@ -114,6 +131,8 @@ namespace v1
 
 template<> void fromJSON(v1::Account *destination, QJsonObject source);
 template<> void fromJSON(v1::Status *destination, QJsonObject source);
+template<> void fromJSON(v1::Notification *destination, QJsonObject source);
 
 template<> void toJSON(v1::in::PostStatusArgs *source, QJsonObject &destination);
 template<> void toJSON(v1::in::TimelinesAPIArgs *source, QJsonObject &destination);
+template<> void toJSON(v1::in::NotificationListArgs *source, QJsonObject &destination);
