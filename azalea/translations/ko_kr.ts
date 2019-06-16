@@ -44,28 +44,28 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="44"/>
+        <location filename="../ui/mainwindow.cpp" line="46"/>
         <source>NO_TOKEN_SET</source>
         <translation>토큰이 설정되지 않았습니다.
 새롭게 계정을 추가하시곘습니까?</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="119"/>
+        <location filename="../ui/mainwindow.cpp" line="121"/>
         <source>INSTANCE_NAME</source>
         <translation>인스턴스 이름</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="120"/>
+        <location filename="../ui/mainwindow.cpp" line="122"/>
         <source>INPUT_INSTANCE_NAME</source>
         <translation>인스턴스 이름을 입력하여 주십시오.</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="149"/>
+        <location filename="../ui/mainwindow.cpp" line="151"/>
         <source>TITLE_AUTHORIZATION_CODE</source>
         <translation>인증 코드 입력</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="150"/>
+        <location filename="../ui/mainwindow.cpp" line="152"/>
         <source>TEXT_AUTHORIZATION_CODE</source>
         <translation>인증 코드를 입력하여 주십시오.</translation>
     </message>

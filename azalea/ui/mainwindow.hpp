@@ -56,6 +56,7 @@ class MainWindow : public QMainWindow
 
     public slots:
         void timelineResolved(TimelineType::Enum timelineType, QSharedPointer<ResourceList<v1::Status>> statuses);
+        void notificationsResolved(QSharedPointer<ResourceList<v1::Notification>> notifications);
         void streamEvent(QString eventType, QJsonObject payload);
     
     protected:
@@ -83,6 +84,7 @@ private:
         void initializeWith(Credential *credential);
         void setTimeline(TimelineType::Enum timelineType);
         void updateTimeline(TimelineType::Enum timelineType, bool clear = false);
+        void updateNotifications(bool clear = false);
         
         QQuickItem *getQMLTimeline();
         void setCurrentIndex(int index);

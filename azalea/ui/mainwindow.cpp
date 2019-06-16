@@ -10,6 +10,7 @@
 #include <QQmlContext>
 #include <QQuickItem>
 #include <ui/timeline/statusadapter.hpp>
+#include <ui/timeline/notificationstatusadapter.hpp>
 
 #include "mastodon/apicontext.hpp"
 #include "mastodon/mastodonapi.hpp"
@@ -175,10 +176,16 @@ void MainWindow::updateTimeline(TimelineType::Enum timelineType, bool clear)
 {
     v1::in::TimelinesAPIArgs args;
     
+    if (timelineType == TimelineType::MENTIONS) {
+        this->updateNotifications(clear); // FIXME
+        return;
+    }
+    
     if (clear) {
         _timelineModel[timelineType]->clear();
     } else if (_timelineModel[timelineType]->count() > 0) {
-        args.minId.set(_timelineModel[timelineType]->first()->id());
+        auto id = _timelineModel[timelineType]->first()->id();
+        args.minId.set(id);
     }
     
     APIFutureResource<ResourceList<v1::Status>> *response = nullptr;
@@ -207,6 +214,23 @@ void MainWindow::updateTimeline(TimelineType::Enum timelineType, bool clear)
     });
 }
 
+void MainWindow::updateNotifications(bool clear)
+{
+    v1::in::NotificationListArgs args;
+    
+    if (clear) {
+        _timelineModel[TimelineType::MENTIONS]->clear();
+    } else if (_timelineModel[TimelineType::MENTIONS]->count() > 0) {
+        auto id = _timelineModel[TimelineType::MENTIONS]->first()->id();
+        args.minId.set(id);
+    }
+    
+    auto response = _api->notifications()->list(args);
+    connect(response, &APIFutureResponse::resolved, this, [=] {
+        this->notificationsResolved(response->tryDeserialize());
+    });
+}
+
 void MainWindow::timelineResolved(TimelineType::Enum timelineType, QSharedPointer<ResourceList<v1::Status>> statuses)
 {
     auto *model = _timelineModel.at(timelineType).get();
@@ -215,10 +239,17 @@ void MainWindow::timelineResolved(TimelineType::Enum timelineType, QSharedPointe
     }
 }
 
+void MainWindow::notificationsResolved(QSharedPointer<ResourceList<v1::Notification>> notifications)
+{
+    auto *model = _timelineModel.at(TimelineType::MENTIONS).get();
+    for (auto i = notifications->rbegin(); i != notifications->rend(); i++) {
+        model->prepend(new NotificationStatusAdapter(this, *i));
+    }
+}
+
 void MainWindow::streamEvent(QString eventType, QJsonObject payload)
 {
     if (eventType == "update") {
-        
         QSharedPointer<v1::Status> status(new v1::Status);
         fromJSON<v1::Status>(status.get(), payload);
         _timelineModel.at(TimelineType::HOME)->prepend(new StatusAdapter(this, status));

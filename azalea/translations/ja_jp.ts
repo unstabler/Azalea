@@ -44,28 +44,28 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="44"/>
+        <location filename="../ui/mainwindow.cpp" line="46"/>
         <source>NO_TOKEN_SET</source>
         <translation>トークンが設定されていません。
 新しくアカウントを追加しますか？</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="119"/>
+        <location filename="../ui/mainwindow.cpp" line="121"/>
         <source>INSTANCE_NAME</source>
         <translation>インスタンス名を入力</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="120"/>
+        <location filename="../ui/mainwindow.cpp" line="122"/>
         <source>INPUT_INSTANCE_NAME</source>
         <translation>インスタンス名を入力してください。</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="149"/>
+        <location filename="../ui/mainwindow.cpp" line="151"/>
         <source>TITLE_AUTHORIZATION_CODE</source>
         <translation>認証コードの入力</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="150"/>
+        <location filename="../ui/mainwindow.cpp" line="152"/>
         <source>TEXT_AUTHORIZATION_CODE</source>
         <translation>認証コードを入力してください。</translation>
     </message>
