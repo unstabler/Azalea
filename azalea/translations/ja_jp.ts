@@ -50,22 +50,22 @@
 新しくアカウントを追加しますか？</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="121"/>
+        <location filename="../ui/mainwindow.cpp" line="123"/>
         <source>INSTANCE_NAME</source>
         <translation>インスタンス名を入力</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="122"/>
+        <location filename="../ui/mainwindow.cpp" line="124"/>
         <source>INPUT_INSTANCE_NAME</source>
         <translation>インスタンス名を入力してください。</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="151"/>
+        <location filename="../ui/mainwindow.cpp" line="153"/>
         <source>TITLE_AUTHORIZATION_CODE</source>
         <translation>認証コードの入力</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="152"/>
+        <location filename="../ui/mainwindow.cpp" line="154"/>
         <source>TEXT_AUTHORIZATION_CODE</source>
         <translation>認証コードを入力してください。</translation>
     </message>

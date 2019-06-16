@@ -3,6 +3,7 @@
 #include <QDateTime>
 #include <QString>
 #include <QList>
+#include <QUrl>
 
 #include "serialization.hpp"
 #include "optional.hpp"
@@ -16,7 +17,10 @@ namespace v1
 
     struct Emoji 
     {
-
+        QString shortcode;
+        QUrl staticUrl;
+        QUrl url;
+        bool visibleInPicker;
     };
 
     struct Account
@@ -130,6 +134,7 @@ namespace v1
 // 힘내자!
 
 template<> void fromJSON(v1::Account *destination, QJsonObject source);
+template<> void fromJSON(v1::Emoji *destination, QJsonObject source);
 template<> void fromJSON(v1::Status *destination, QJsonObject source);
 template<> void fromJSON(v1::Notification *destination, QJsonObject source);
 

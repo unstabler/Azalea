@@ -78,9 +78,11 @@ class APIFutureResource<ResourceList<V>> : public APIFutureResponse
 
         }
         
+        // 나는 개발자 실격이야.. 엉엉
         QSharedPointer<ResourceList<V>> tryDeserialize()
         {
-            auto *list = deserialization::ARRAY_SHAREDPTR<V>(
+            auto *list = new ResourceList<V>;
+            *list += deserialization::ARRAY_SHAREDPTR<V>(
                 QJsonDocument::fromJson(this->body().toUtf8()).array()
             );
             

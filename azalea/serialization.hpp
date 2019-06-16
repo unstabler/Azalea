@@ -148,15 +148,15 @@ namespace deserialization {
      * QJsonValue에 들어있는 Object[]를 QList<SharedPtr<T>>로 변환합니다
      */
     template <typename T>
-    inline QList<QSharedPointer<T>>* ARRAY_SHAREDPTR(const QJsonValue &valueRef)
+    inline QList<QSharedPointer<T>> ARRAY_SHAREDPTR(const QJsonValue &valueRef)
     {
-        auto *destination = new QList<QSharedPointer<T>>;
+        QList<QSharedPointer<T>> destination;
         auto sourceArray = JSONARRAY(valueRef);
         
         std::transform(
                 sourceArray.begin(),
                 sourceArray.end(),
-                std::back_inserter(*destination),
+                std::back_inserter(destination),
                 [](const QJsonValue &jsonValue) {
                     return OBJECT_SHAREDPTR<T>(jsonValue.toObject());
                 }

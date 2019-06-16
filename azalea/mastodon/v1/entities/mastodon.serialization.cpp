@@ -15,6 +15,15 @@ template<> void fromJSON(v1::Account *destination, QJsonObject source)
     destination->avatarStatic = source["avatar_static"].toString();
 }
 
+template<>
+void fromJSON(v1::Emoji *destination, QJsonObject source)
+{
+    destination->shortcode = source["shortcode"].toString();
+    destination->staticUrl = QUrl(source["static_url"].toString());
+    destination->url = QUrl(source["url"].toString());
+    destination->visibleInPicker = BOOL(source["visible_in_picker"]);
+}
+
 template<> void fromJSON(v1::Status *destination, QJsonObject source)
 {
     destination->id = source["id"].toString();
@@ -26,10 +35,12 @@ template<> void fromJSON(v1::Status *destination, QJsonObject source)
     destination->inReplyToId = source["in_reply_to_id"].toString();
     destination->inReplyToAccountId = source["in_reply_to_account_id"].toString();
     
+    
     destination->reblog = OBJECT_SHAREDPTR<v1::Status>(source["reblog"]);
-
-    destination->createdAt = QDateTime::fromString(source["created_at"].toString(), Qt::ISODate);
     destination->content = source["content"].toString();
+    
+    destination->createdAt = QDateTime::fromString(source["created_at"].toString(), Qt::ISODate);
+    destination->emojis = ARRAY_SHAREDPTR<v1::Emoji>(source["emojis"]);
 }
 
 template<>
