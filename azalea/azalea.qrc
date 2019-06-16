@@ -5,4 +5,8 @@
         <file alias="Status.qml">ui/timeline/Status.qml</file>
         <file alias="Timeline.qml">ui/timeline/Timeline.qml</file>
     </qresource>
+    <qresource prefix="/translations">
+        <file alias="ko_kr.qm">translations/ko_kr.qm</file>
+        <file alias="ja_jp.qm">translations/ja_jp.qm</file>
+    </qresource>
 </RCC>

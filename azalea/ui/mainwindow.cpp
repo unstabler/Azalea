@@ -16,6 +16,7 @@
 #include "azaleaapplication.hpp"
 #include "singleton.hpp"
 #include "configmanager.hpp"
+#include "settingswindow.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,10 +26,15 @@ MainWindow::MainWindow(QWidget *parent) :
     _apiContext(new APIContext(this))
 {
     ui->setupUi(this);
+    ui->retranslateUi(this);
     
     connect(this, &MainWindow::quit, this, &MainWindow::close, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
     // connect(ui->actionRefresh, &QAction::triggered, this, &MainWindow::updateTimeline);
-    connect(ui->actionQuit,    &QAction::triggered, this, &MainWindow::quit);
+    connect(ui->actionConfig, &QAction::triggered, this, [this] {
+         SettingsWindow window(this);
+         window.exec();
+    });
+    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::quit);
 
     _configManager.load();
     if (_configManager.credentials()->length() <= 0) {
