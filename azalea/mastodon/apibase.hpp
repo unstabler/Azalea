@@ -80,22 +80,11 @@ class APIFutureResource<ResourceList<V>> : public APIFutureResponse
         
         QSharedPointer<ResourceList<V>> tryDeserialize()
         {
-            auto *list = deserialization::ARRAY<V>(
+            auto *list = deserialization::ARRAY_SHAREDPTR<V>(
                 QJsonDocument::fromJson(this->body().toUtf8()).array()
             );
             
-            auto *dst = new ResourceList<V>;
-            
-            std::transform(
-                    list->begin(),
-                    list->end(),
-                    std::back_insert_iterator<ResourceList<V>>(*dst),
-                    [] (V* resource) {
-                        return QSharedPointer<V>(resource);
-                    }
-            );
-            
-            return QSharedPointer<ResourceList<V>>(dst);
+            return QSharedPointer<ResourceList<V>>(list);
         }
 };
 

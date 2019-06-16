@@ -86,14 +86,36 @@ namespace deserialization {
         return destination;
     }
 
+    /**
+     * value reference를 <T>로 변환합니다.
+     * value reference가 null이나 undefined를 가리킬 경우 nullptr를 반환합니다.
+     */
     template <typename T>
     inline T* OBJECT(const QJsonValue &valueRef)
     {
+        if (valueRef.isNull() || valueRef.isUndefined()) {
+            return nullptr;
+        }
+        
         QJsonObject value = JSONOBJECT(valueRef);
         return OBJECT<T>(value);
     }
     
+    template <typename T>
+    inline QSharedPointer<T> OBJECT_SHAREDPTR(const QJsonObject &value) {
+        return QSharedPointer<T>(OBJECT<T>(value));
+    }
+    
+    template <typename T>
+    inline QSharedPointer<T> OBJECT_SHAREDPTR(const QJsonValue &valueRef) {
+        return QSharedPointer<T>(OBJECT<T>(valueRef));
+    }
+    
+    /**
+     * @deprecated
+     */
     template <typename T, class TOutputIterator>
+    [[deprecated]]
     inline void TRANSFORM_ARRAY(const QJsonArray &array, TOutputIterator tBegin)
     {
         std::transform(
@@ -106,7 +128,12 @@ namespace deserialization {
         );
     }
     
+    /**
+     * QJsonValue에 들어있는 Object[]를 QList<T*>로 변환합니다
+     * @deprecated
+     */
     template <typename T>
+    [[deprecated]]
     inline QList<T*>* ARRAY(const QJsonValue &valueRef)
     {
         auto *destination = new QList<T*>;
@@ -115,6 +142,26 @@ namespace deserialization {
                 // FIXME: destination->begin() 쓰면 아무런 값도 들어가지 않는데 그 이유는 무엇일까요 . .)
                 std::back_inserter(*destination)
         );
+        return destination;
+    }
+     /**
+     * QJsonValue에 들어있는 Object[]를 QList<SharedPtr<T>>로 변환합니다
+     */
+    template <typename T>
+    inline QList<QSharedPointer<T>>* ARRAY_SHAREDPTR(const QJsonValue &valueRef)
+    {
+        auto *destination = new QList<QSharedPointer<T>>;
+        auto sourceArray = JSONARRAY(valueRef);
+        
+        std::transform(
+                sourceArray.begin(),
+                sourceArray.end(),
+                std::back_inserter(*destination),
+                [](const QJsonValue &jsonValue) {
+                    return OBJECT_SHAREDPTR<T>(jsonValue.toObject());
+                }
+        );
+        
         return destination;
     }
 

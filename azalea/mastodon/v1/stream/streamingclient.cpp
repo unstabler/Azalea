@@ -14,6 +14,7 @@ StreamingClient::StreamingClient(APIContext &context, QString streamType) :
         emit connected();
     });
     connect(&_wsClient, &QWebSocket::disconnected, [=]() {
+        qDebug() << "disconnected from stream " << streamType;
         emit disconnected();
     });
     connect(&_wsClient,
@@ -54,8 +55,6 @@ void StreamingClient::close()
 {
     _wsClient.close();
 }
-
-
 
 void StreamingClient::messageReceived(QString message)
 {
