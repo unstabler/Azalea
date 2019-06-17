@@ -11,12 +11,12 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="108"/>
         <source>&amp;Menu</source>
-        <translation>메뉴 (&amp;M)</translation>
+        <translation>메뉴(&amp;M)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="120"/>
         <source>&amp;Refresh</source>
-        <translation>새로 고침 (&amp;R)</translation>
+        <translation>새로 고침(&amp;R)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="123"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="128"/>
         <source>&amp;Options</source>
-        <translation>설정 (&amp;O)</translation>
+        <translation>설정(&amp;O)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="131"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="136"/>
         <source>&amp;Quit</source>
-        <translation>종료 (&amp;Q)</translation>
+        <translation>종료(&amp;Q)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="139"/>

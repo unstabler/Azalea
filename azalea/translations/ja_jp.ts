@@ -11,12 +11,12 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="108"/>
         <source>&amp;Menu</source>
-        <translation>メニュー (&amp;M)</translation>
+        <translation>メニュー(&amp;M)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="120"/>
         <source>&amp;Refresh</source>
-        <translation>更新 (&amp;R)</translation>
+        <translation>更新(&amp;R)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="123"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="128"/>
         <source>&amp;Options</source>
-        <translation>設定 (&amp;O)</translation>
+        <translation>設定(&amp;O)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="131"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="136"/>
         <source>&amp;Quit</source>
-        <translation>終了 (&amp;Q)</translation>
+        <translation>終了(&amp;Q)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="139"/>
