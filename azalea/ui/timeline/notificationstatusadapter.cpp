@@ -19,6 +19,12 @@ QString NotificationStatusAdapter::id()
 
 QString NotificationStatusAdapter::content()
 {
+    if (_notification->type == "follow") {
+        return tr("followed by %1").arg(_notification->account->username);
+    } else if (_notification->status == nullptr) {
+        // fixme
+        return "";
+    }
     return _notification->status->content;
 }
 
