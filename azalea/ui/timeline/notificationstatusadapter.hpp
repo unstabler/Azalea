@@ -5,6 +5,8 @@
 
 class NotificationStatusAdapter : public StatusAdapterBase
 {
+    Q_OBJECT
+    
 public:
     NotificationStatusAdapter(QObject *parent, QSharedPointer<v1::Notification> notification);
 
