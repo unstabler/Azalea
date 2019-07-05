@@ -34,15 +34,26 @@ QString StatusAdapter::content()
 
 QString StatusAdapter::formattedAuthor()
 {
-    return QString("%1 (@%2)").arg(
-            _status->account->displayName,
-            _status->account->acct
-    );
+    if (_status->reblog != nullptr) {
+        return formatAuthor(_status->reblog->account);
+    }
+    return formatAuthor(_status->account);
 }
 
 QUrl StatusAdapter::avatarUrl()
 {
+    if (_status->reblog != nullptr) {
+        return QUrl(_status->reblog->account->avatar);
+    }
     return QUrl(_status->account->avatar);
+}
+
+QUrl StatusAdapter::interactAvatarUrl()
+{
+    if (_status->reblog != nullptr) {
+        return QUrl(_status->account->avatar);
+    }
+    return QUrl();
 }
 
 QString StatusAdapter::createdAt()

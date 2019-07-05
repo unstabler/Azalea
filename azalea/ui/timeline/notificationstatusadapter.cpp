@@ -19,6 +19,12 @@ QString NotificationStatusAdapter::id()
 
 QString NotificationStatusAdapter::content()
 {
+    if (_notification->type == "follow") {
+        return tr("followed by %1").arg(_notification->account->username);
+    } else if (_notification->status == nullptr) {
+        // fixme
+        return "";
+    }
     return _notification->status->content;
 }
 
@@ -28,15 +34,26 @@ QString NotificationStatusAdapter::content()
  */
 QString NotificationStatusAdapter::formattedAuthor()
 {
-    return QString("%1 (@%2)").arg(
-            _notification->account->displayName,
-            _notification->account->acct
-    );
+    return formatAuthor(_notification->account);
 }
 
 QUrl NotificationStatusAdapter::avatarUrl()
 {
+    if (_notification->type == "reblog" ||
+        _notification->type == "favourite") {
+        return QUrl(_notification->status->account->avatar);
+    }
     return QUrl(_notification->account->avatar);
+}
+
+QUrl NotificationStatusAdapter::interactAvatarUrl()
+{
+    if (_notification->type == "reblog" ||
+        _notification->type == "favourite") {
+        return QUrl(_notification->account->avatar);
+    }
+    
+    return QUrl();
 }
 
 QString NotificationStatusAdapter::createdAt()

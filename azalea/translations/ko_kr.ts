@@ -71,6 +71,14 @@
     </message>
 </context>
 <context>
+    <name>NotificationStatusAdapter</name>
+    <message>
+        <location filename="../ui/timeline/notificationstatusadapter.cpp" line="23"/>
+        <source>followed by %1</source>
+        <translation>%1로부터 팔로우 받았습니다.</translation>
+    </message>
+</context>
+<context>
     <name>PostArea</name>
     <message>
         <location filename="../ui/postarea.ui" line="14"/>

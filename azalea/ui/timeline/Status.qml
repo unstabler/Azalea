@@ -19,15 +19,35 @@ Rectangle {
 
         spacing: 8
 
-        Image {
-            id: profileImage
-
-            fillMode: Image.PreserveAspectFit
+        Rectangle {
             width: 48
             height: 48
-            mipmap: true
 
-            source: model.display.avatarUrl
+            Image {
+                id: profileImage
+
+                fillMode: Image.PreserveAspectFit
+                width: 48
+                height: 48
+                mipmap: true
+
+                source: model.display.avatarUrl
+            }
+
+            Image {
+                id: interactProfileImage
+
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.margins: 24
+
+                fillMode: Image.PreserveAspectFit
+                width: 32
+                height: 32
+                mipmap: true
+
+                source: model.display.interactAvatarUrl
+            }
         }
         Column {
             id: column
