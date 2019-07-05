@@ -14,6 +14,7 @@ public:
     QString content() override;
     QString formattedAuthor() override;
     QUrl avatarUrl() override;
+    QUrl interactAvatarUrl() override;
     QString createdAt() override;
     
     QSharedPointer<v1::Notification> notification();
