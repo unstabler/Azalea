@@ -4,13 +4,14 @@ jobs:
     docker:
       - image: unstabler/azalea-builder:latest
 
+    working_directory: ~/repo
+
     steps:
       - checkout
-
+      
       - run:
-          name: Greeting
-          command: echo Hello, world.
-
-      - run:
-          name: Print the Current Time
-          command: date
+          name: build
+          command: |
+              mkdir build && cd build
+              cmake ..
+              make -j4
