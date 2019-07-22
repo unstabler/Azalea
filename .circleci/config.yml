@@ -15,3 +15,7 @@ jobs:
               mkdir build && cd build
               cmake ..
               make -j4
+    
+      - run:
+          name: run tests
+          command: cd build && make test
