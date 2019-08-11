@@ -66,6 +66,7 @@ Rectangle {
                 id: statusText
                 width: parent.width
                 text: status.content
+                textFormat: Text.RichText // 그냥 두면 Text.StyledText로 되는 듯 함
                 wrapMode: Text.WrapAnywhere
 
                 renderType: Text.NativeRendering

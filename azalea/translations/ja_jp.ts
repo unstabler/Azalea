@@ -11,12 +11,12 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="108"/>
         <source>&amp;Menu</source>
-        <translation>メニュー (&amp;M)</translation>
+        <translation>メニュー(&amp;M)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="120"/>
         <source>&amp;Refresh</source>
-        <translation>更新 (&amp;R)</translation>
+        <translation>更新(&amp;R)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="123"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="128"/>
         <source>&amp;Options</source>
-        <translation>設定 (&amp;O)</translation>
+        <translation>設定(&amp;O)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="131"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="136"/>
         <source>&amp;Quit</source>
-        <translation>終了 (&amp;Q)</translation>
+        <translation>終了(&amp;Q)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="139"/>
@@ -50,22 +50,22 @@
 新しくアカウントを追加しますか？</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="121"/>
+        <location filename="../ui/mainwindow.cpp" line="123"/>
         <source>INSTANCE_NAME</source>
         <translation>インスタンス名を入力</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="122"/>
+        <location filename="../ui/mainwindow.cpp" line="124"/>
         <source>INPUT_INSTANCE_NAME</source>
         <translation>インスタンス名を入力してください。</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="151"/>
+        <location filename="../ui/mainwindow.cpp" line="153"/>
         <source>TITLE_AUTHORIZATION_CODE</source>
         <translation>認証コードの入力</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="152"/>
+        <location filename="../ui/mainwindow.cpp" line="154"/>
         <source>TEXT_AUTHORIZATION_CODE</source>
         <translation>認証コードを入力してください。</translation>
     </message>

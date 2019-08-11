@@ -11,12 +11,12 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="108"/>
         <source>&amp;Menu</source>
-        <translation>메뉴 (&amp;M)</translation>
+        <translation>메뉴(&amp;M)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="120"/>
         <source>&amp;Refresh</source>
-        <translation>새로 고침 (&amp;R)</translation>
+        <translation>새로 고침(&amp;R)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="123"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="128"/>
         <source>&amp;Options</source>
-        <translation>설정 (&amp;O)</translation>
+        <translation>설정(&amp;O)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="131"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="136"/>
         <source>&amp;Quit</source>
-        <translation>종료 (&amp;Q)</translation>
+        <translation>종료(&amp;Q)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="139"/>
@@ -50,22 +50,22 @@
 새롭게 계정을 추가하시곘습니까?</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="121"/>
+        <location filename="../ui/mainwindow.cpp" line="123"/>
         <source>INSTANCE_NAME</source>
         <translation>인스턴스 이름</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="122"/>
+        <location filename="../ui/mainwindow.cpp" line="124"/>
         <source>INPUT_INSTANCE_NAME</source>
         <translation>인스턴스 이름을 입력하여 주십시오.</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="151"/>
+        <location filename="../ui/mainwindow.cpp" line="153"/>
         <source>TITLE_AUTHORIZATION_CODE</source>
         <translation>인증 코드 입력</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="152"/>
+        <location filename="../ui/mainwindow.cpp" line="154"/>
         <source>TEXT_AUTHORIZATION_CODE</source>
         <translation>인증 코드를 입력하여 주십시오.</translation>
     </message>

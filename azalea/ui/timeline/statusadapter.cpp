@@ -3,8 +3,10 @@
 //
 
 #include "statusadapter.hpp"
+#include "statusformatter.hpp"
 
 #include <QTimeZone>
+#include <singleton.hpp>
 
 StatusAdapterBase::StatusAdapterBase(QObject *parent) :
         QObject(parent)
@@ -26,7 +28,8 @@ QString StatusAdapter::id()
 
 QString StatusAdapter::content()
 {
-    return _status->content;
+    auto statusFormatter = Singleton<StatusFormatter>::getInstance();
+    return statusFormatter.toRichText(_status.get());
 }
 
 QString StatusAdapter::formattedAuthor()

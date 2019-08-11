@@ -60,7 +60,9 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     
     auto defaultCredential = _configManager.credentials()->first();
-    this->initializeWith(defaultCredential);
+    QTimer::singleShot(0, [=] {
+        this->initializeWith(defaultCredential);
+    });
 }
 
 void MainWindow::initializeShortcuts()
