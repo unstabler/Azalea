@@ -12,4 +12,3 @@ QString StatusAdapterBase::formatAuthor(QSharedPointer<v1::Account> account)
             account->acct
     );
 }
-

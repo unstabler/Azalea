@@ -17,6 +17,11 @@ public:
     QUrl interactAvatarUrl() override;
     QString createdAt() override;
     
+    bool isBoosted() override;
+    void setBoosted(bool isBoosted) override;
+    bool isFavourited() override;
+    void setFavourited(bool isFavourited) override;
+    
     QSharedPointer<v1::Notification> notification();
     
 private:
