@@ -135,7 +135,7 @@ void MainWindow::addAccount()
                 AzaleaApplication::APPLICATION_NAME,
                 v1::AppsAPI::NO_REDIRECT_URIS,
                 "read write follow",
-                "https://azalea.unstabler.pl"
+                AzaleaApplication::APPLICATION_WEBSITE
     );
     connect(response, &APIFutureResponse::resolved, [=]() {
         auto application = response->tryDeserialize();
@@ -249,6 +249,11 @@ void MainWindow::notificationsResolved(QSharedPointer<ResourceList<v1::Notificat
     }
 }
 
+/**
+ * 스트림 이벤트 핸들러
+ * @param eventType
+ * @param payload
+ */
 void MainWindow::streamEvent(QString eventType, QJsonObject payload)
 {
     if (eventType == "update") {
@@ -277,6 +282,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         case Qt::Key_Escape:
             ui->postArea->blurPostArea();
             break;
+        case Qt::Key_F: {
+            auto *statusAdapter = getStatusAdapterAtCurrentIndex();
+            toggleFavourite(statusAdapter);
+        }
+            break;
+        case Qt::Key_T: {
+            auto *statusAdapter = getStatusAdapterAtCurrentIndex();
+            toggleBoost(statusAdapter);
+        }
+            break;
         case Qt::Key_Down:
         case Qt::Key_J:
             setCurrentIndex(getCurrentIndex() + 1);
@@ -303,6 +318,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
+    static const int DURATION_MS_FORCE_REFRESH = 500;
+    
     if (!event->isAutoRepeat()) {
         switch (event->key()) {
             case Qt::Key_Space: {
@@ -311,7 +328,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
                     return;
                 }
                 // force refresh 여부. 500ms 이상 누르고 있으면 타임라인 내용을 전부 지움
-                bool clear = QDateTime::currentMSecsSinceEpoch() - _refreshKeyPressedAt > 500;
+                bool clear = QDateTime::currentMSecsSinceEpoch() - _refreshKeyPressedAt > DURATION_MS_FORCE_REFRESH;
                 this->updateTimeline(_currentTimeline, clear);
                 break;
             }
@@ -349,6 +366,23 @@ void MainWindow::setCurrentIndex(int index)
 int MainWindow::getCurrentIndex()
 {
     return getQMLTimeline()->property("currentIndex").toInt();
+}
+
+StatusAdapterBase *MainWindow::getStatusAdapterAtCurrentIndex()
+{
+    return _timelineModel.at(_currentTimeline)->at(getCurrentIndex());
+}
+
+void MainWindow::toggleBoost(StatusAdapterBase *statusAdapter)
+{
+    qDebug() << "TODO: implement boost";
+    statusAdapter->setBoosted(!statusAdapter->isBoosted());
+}
+
+void MainWindow::toggleFavourite(StatusAdapterBase *statusAdapter)
+{
+    qDebug() << "TODO: implement favourite";
+    statusAdapter->setFavourited(!statusAdapter->isFavourited());
 }
 
 MainWindow::~MainWindow()

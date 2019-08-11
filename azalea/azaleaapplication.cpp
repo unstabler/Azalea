@@ -1,6 +1,7 @@
 #include "azaleaapplication.hpp"
 
-const QString AzaleaApplication::APPLICATION_NAME = "Azalea";
+const QString AzaleaApplication::APPLICATION_NAME    = "Azalea";
+const QString AzaleaApplication::APPLICATION_WEBSITE = "https://azalea.unstabler.pl";
 
 #ifndef AZALEA_VERSION
     #ifdef AZALEA_GIT_COMMIT_HASH

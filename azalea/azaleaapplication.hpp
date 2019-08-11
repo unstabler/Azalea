@@ -14,6 +14,7 @@ class AzaleaApplication : public QApplication
 public:
     static const QString APPLICATION_NAME;
     static const QString APPLICATION_VERSION;
+    static const QString APPLICATION_WEBSITE;
 
     AzaleaApplication(int &argc, char **argv);
 
