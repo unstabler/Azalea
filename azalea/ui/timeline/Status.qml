@@ -23,9 +23,9 @@ Rectangle {
             height: 16
             mipmap: true
 
-            visible: model.display.favourited
+            visible: model.display.boosted
 
-            source: model.display.avatarUrl // TODO: boost icon
+            source: "qrc:/icons/retweet.svg" // TODO: boost icon
         }
         Image {
             id: favouriteIcon
@@ -37,9 +37,9 @@ Rectangle {
             height: 16
             mipmap: true
 
-            visible: model.display.boosted
+            visible: model.display.favourited
 
-            source: model.display.avatarUrl // TODO: favourite icon
+            source: "qrc:/icons/star.svg" // TODO: boost icon
         }
     }
 
