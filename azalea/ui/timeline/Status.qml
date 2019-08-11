@@ -9,6 +9,40 @@ Rectangle {
 
     property var status: model.display
 
+    Rectangle {
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.margins: 8
+
+        width: 32
+
+        Image {
+            id: boostIcon
+            fillMode: Image.PreserveAspectFit
+            width: 16
+            height: 16
+            mipmap: true
+
+            visible: model.display.favourited
+
+            source: model.display.avatarUrl // TODO: boost icon
+        }
+        Image {
+            id: favouriteIcon
+
+            anchors.left: boostIcon.right
+
+            fillMode: Image.PreserveAspectFit
+            width: 16
+            height: 16
+            mipmap: true
+
+            visible: model.display.boosted
+
+            source: model.display.avatarUrl // TODO: favourite icon
+        }
+    }
+
     Row {
         id: row
 
@@ -22,6 +56,7 @@ Rectangle {
         Rectangle {
             width: 48
             height: 48
+            color: "transparent"
 
             Image {
                 id: profileImage
@@ -37,13 +72,13 @@ Rectangle {
             Image {
                 id: interactProfileImage
 
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.margins: 24
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.margins: -4
 
                 fillMode: Image.PreserveAspectFit
-                width: 32
-                height: 32
+                width: 24
+                height: 24
                 mipmap: true
 
                 source: model.display.interactAvatarUrl
@@ -77,6 +112,9 @@ Rectangle {
                 text: status.createdAt
                 renderType: Text.NativeRendering
             }
+
+
+
 
             function calculateContentWidth() {
                 return statusRoot.width - (
