@@ -11,8 +11,11 @@ add_executable(
         ../ui/timeline/statusformatter.cpp
         ../mastodon/v1/entities/mastodon.serialization.cpp
 )
+
 target_link_libraries(test_optional Qt5::Core Qt5::Test)
 target_link_libraries(test_statusformatter Qt5::Core Qt5::Test)
-add_test(azalea_test test_optional test_statusformatter)
+
+add_test(test_optional test_optional)
+add_test(test_statusformatter test_statusformatter)
 
 
