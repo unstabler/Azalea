@@ -35,6 +35,8 @@ template<> void fromJSON(v1::Status *destination, QJsonObject source)
     destination->inReplyToId = source["in_reply_to_id"].toString();
     destination->inReplyToAccountId = source["in_reply_to_account_id"].toString();
     
+    destination->reblogged  = BOOL(source["reblogged"]);
+    destination->favourited = BOOL(source["favourited"]);
     
     destination->reblog = OBJECT_SHAREDPTR<v1::Status>(source["reblog"]);
     destination->content = source["content"].toString();
