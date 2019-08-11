@@ -66,3 +66,8 @@ StatusAdapterBase *TimelineModel::last()
 {
     return _statuses.last();
 }
+
+StatusAdapterBase *TimelineModel::at(int index)
+{
+    return _statuses.at(index);
+}
