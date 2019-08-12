@@ -15,6 +15,12 @@ namespace v1
             explicit StatusesAPI(APIContext *context);
             
             APIFutureResource<Status> *post(in::PostStatusArgs &args);
+            
+            APIFutureResource<Status> *reblog(const QString statusId);
+            APIFutureResource<Status> *unreblog(const QString statusId);
+            APIFutureResource<Status> *favourite(const QString statusId);
+            APIFutureResource<Status> *unfavourite(const QString statusId);
+            
     };
 }
 
