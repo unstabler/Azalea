@@ -375,14 +375,24 @@ StatusAdapterBase *MainWindow::getStatusAdapterAtCurrentIndex()
 
 void MainWindow::toggleBoost(StatusAdapterBase *statusAdapter)
 {
-    qDebug() << "TODO: implement boost";
-    statusAdapter->setBoosted(!statusAdapter->isBoosted());
+    auto *response = (!statusAdapter->isBoosted()) ?
+            _api->statuses()->reblog(statusAdapter->id()) :
+            _api->statuses()->unreblog(statusAdapter->id());
+    
+    connect(response, &APIFutureResponse::resolved, [statusAdapter] {
+        statusAdapter->setBoosted(!statusAdapter->isBoosted());
+    });
 }
 
 void MainWindow::toggleFavourite(StatusAdapterBase *statusAdapter)
 {
-    qDebug() << "TODO: implement favourite";
-    statusAdapter->setFavourited(!statusAdapter->isFavourited());
+    auto *response = (!statusAdapter->isFavourited()) ?
+            _api->statuses()->favourite(statusAdapter->id()) :
+            _api->statuses()->unfavourite(statusAdapter->id());
+    
+    connect(response, &APIFutureResponse::resolved, [statusAdapter] {
+        statusAdapter->setFavourited(!statusAdapter->isFavourited());
+    });
 }
 
 MainWindow::~MainWindow()
