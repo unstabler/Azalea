@@ -10,6 +10,18 @@ Rectangle {
     property var status: model.display
 
     Rectangle {
+        // Qt 5.10부터 이런거 사용할 수 있게 되긴 했는데..
+        // https://doc.qt.io/archives/qt-5.10/qml-qtquick-shapes-shape.html
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+
+        width: parent.width
+        height: 1
+
+        color: "#cacaca"
+    }
+
+    Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.margins: 8
