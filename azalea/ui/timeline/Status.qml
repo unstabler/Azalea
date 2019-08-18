@@ -9,6 +9,52 @@ Rectangle {
 
     property var status: model.display
 
+    Rectangle {
+        // Qt 5.10부터 이런거 사용할 수 있게 되긴 했는데..
+        // https://doc.qt.io/archives/qt-5.10/qml-qtquick-shapes-shape.html
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+
+        width: parent.width
+        height: 1
+
+        color: "#cacaca"
+    }
+
+    Rectangle {
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.margins: 8
+
+        width: 32
+
+        Image {
+            id: boostIcon
+            fillMode: Image.PreserveAspectFit
+            width: 16
+            height: 16
+            mipmap: true
+
+            visible: model.display.boosted
+
+            source: "qrc:/icons/retweet.svg" // TODO: boost icon
+        }
+        Image {
+            id: favouriteIcon
+
+            anchors.left: boostIcon.right
+
+            fillMode: Image.PreserveAspectFit
+            width: 16
+            height: 16
+            mipmap: true
+
+            visible: model.display.favourited
+
+            source: "qrc:/icons/star.svg" // TODO: boost icon
+        }
+    }
+
     Row {
         id: row
 
@@ -22,6 +68,7 @@ Rectangle {
         Rectangle {
             width: 48
             height: 48
+            color: "transparent"
 
             Image {
                 id: profileImage
@@ -37,13 +84,13 @@ Rectangle {
             Image {
                 id: interactProfileImage
 
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.margins: 24
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.margins: -4
 
                 fillMode: Image.PreserveAspectFit
-                width: 32
-                height: 32
+                width: 24
+                height: 24
                 mipmap: true
 
                 source: model.display.interactAvatarUrl
@@ -77,6 +124,9 @@ Rectangle {
                 text: status.createdAt
                 renderType: Text.NativeRendering
             }
+
+
+
 
             function calculateContentWidth() {
                 return statusRoot.width - (

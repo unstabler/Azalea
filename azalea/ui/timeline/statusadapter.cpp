@@ -61,8 +61,29 @@ QString StatusAdapter::createdAt()
     return _status->createdAt.toTimeZone(QTimeZone::systemTimeZone()).toString(Qt::SystemLocaleLongDate);
 }
 
+bool StatusAdapter::isBoosted()
+{
+    return _status->reblogged;
+}
+
+void StatusAdapter::setBoosted(bool isBoosted)
+{
+    _status->reblogged = isBoosted;
+    emit boostToggled(isBoosted);
+}
+
+bool StatusAdapter::isFavourited()
+{
+    return _status->favourited;
+}
+
+void StatusAdapter::setFavourited(bool isFavourited)
+{
+    _status->favourited = isFavourited;
+    emit favouriteToggled(isFavourited);
+}
+
 QSharedPointer<v1::Status> StatusAdapter::status()
 {
     return _status;
 }
-

@@ -89,4 +89,8 @@ private:
         QQuickItem *getQMLTimeline();
         void setCurrentIndex(int index);
         int getCurrentIndex();
+        StatusAdapterBase *getStatusAdapterAtCurrentIndex();
+        
+        void toggleBoost(StatusAdapterBase *statusAdapter);
+        void toggleFavourite(StatusAdapterBase *statusAdapter);
 };

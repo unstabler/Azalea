@@ -14,6 +14,9 @@ class StatusAdapterBase : public QObject
     Q_PROPERTY(QUrl interactAvatarUrl READ interactAvatarUrl FINAL CONSTANT);
     Q_PROPERTY(QString createdAt READ createdAt FINAL CONSTANT);
     
+    Q_PROPERTY(bool boosted READ isBoosted WRITE setBoosted NOTIFY boostToggled);
+    Q_PROPERTY(bool favourited READ isFavourited WRITE setFavourited NOTIFY favouriteToggled);
+    
 public:
     explicit StatusAdapterBase(QObject *parent);
     
@@ -26,6 +29,16 @@ public:
     virtual QUrl avatarUrl() = 0;
     virtual QUrl interactAvatarUrl() = 0;
     virtual QString createdAt() = 0;
+    
+    virtual bool isBoosted() = 0;
+    virtual void setBoosted(bool isBoosted) = 0;
+    
+    virtual bool isFavourited() = 0;
+    virtual void setFavourited(bool isFavourited) = 0;
+    
+signals:
+    void boostToggled(bool isBoosted);
+    void favouriteToggled(bool isFavourited);
     
 protected:
     QString formatAuthor(QSharedPointer<v1::Account> account);

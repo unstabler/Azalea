@@ -60,3 +60,23 @@ QString NotificationStatusAdapter::createdAt()
 {
     return _notification->createdAt.toTimeZone(QTimeZone::systemTimeZone()).toString(Qt::SystemLocaleLongDate);
 }
+
+bool NotificationStatusAdapter::isBoosted()
+{
+    return false;
+}
+
+void NotificationStatusAdapter::setBoosted(bool isBoosted)
+{
+
+}
+
+bool NotificationStatusAdapter::isFavourited()
+{
+    return false;
+}
+
+void NotificationStatusAdapter::setFavourited(bool isFavourited)
+{
+
+}

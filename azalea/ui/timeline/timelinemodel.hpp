@@ -31,6 +31,7 @@ public:
     StatusAdapterBase *first();
     StatusAdapterBase *last();
     
+    StatusAdapterBase *at(int index);
     
 private:
     QVector<StatusAdapterBase*> _statuses;
