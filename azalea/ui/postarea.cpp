@@ -36,6 +36,11 @@ bool PostArea::isFocused()
     return ui->tootEdit->hasFocus() || ui->postButton->hasFocus();
 }
 
+void PostArea::setReplyToId(QString id)
+{
+    this->_replyToId = id;
+}
+
 MainWindow *PostArea::getMainWindow()
 {
     return dynamic_cast<MainWindow*>(parentWidget()->window());
@@ -65,6 +70,7 @@ void PostArea::submitPost()
     
     v1::in::PostStatusArgs args;
     args.status.set(this->ui->tootEdit->toPlainText());
+    args.inReplyToId.set(this->_replyToId);
     qDebug() << args.status.get();
     
     
@@ -82,6 +88,7 @@ void PostArea::submitPost()
     });
     
     this->ui->tootEdit->setText("");
+    this->_replyToId = nullptr;
 }
 
 void PostArea::focusPostArea()

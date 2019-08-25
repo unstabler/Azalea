@@ -282,6 +282,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         case Qt::Key_Escape:
             ui->postArea->blurPostArea();
             break;
+        case Qt::Key_R: {
+            auto *statusAdapter = getStatusAdapterAtCurrentIndex();
+            ui->postArea->setReplyToId(statusAdapter->id());
+            ui->postArea->focusPostArea();
+        }
+            break;
         case Qt::Key_F: {
             auto *statusAdapter = getStatusAdapterAtCurrentIndex();
             toggleFavourite(statusAdapter);

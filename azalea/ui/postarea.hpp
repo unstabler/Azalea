@@ -20,6 +20,8 @@ class PostArea : public QWidget
     
         bool isFocused();
         
+        void setReplyToId(QString id);
+        
     public slots:
         void textChanged();
     
@@ -49,6 +51,7 @@ private:
         
         unsigned _maxPostLength;
         unsigned _postLength;
+        QString _replyToId;
         
         MainWindow* getMainWindow();
 };
