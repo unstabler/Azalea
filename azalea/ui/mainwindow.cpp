@@ -53,16 +53,36 @@ MainWindow::MainWindow(QWidget *parent) :
     
     
     this->initializeShortcuts();
-    ui->timelineView->setSource(QUrl(QStringLiteral("qrc:/components/Timeline.qml")));
     
     if (_configManager.credentials()->empty()) {
         return;
     }
     
     auto defaultCredential = _configManager.credentials()->first();
-    QTimer::singleShot(0, [=] {
+    QTimer::singleShot(15, [=] {
+        this->initializeTimelineTabs();
         this->initializeWith(defaultCredential);
     });
+    
+}
+
+void MainWindow::initializeTimelineTabs()
+{
+    for (auto timelineType : TimelineType::getAsIterable()) {
+        auto* frame = new QFrame(this);
+        auto* timelineView = new QQuickWidget(this);
+        frame->setLayout(new QVBoxLayout(this));
+        frame->layout()->addWidget(timelineView);
+        frame->layout()->setContentsMargins(0, 0, 0, 0);
+        frame->setFrameShape(QFrame::NoFrame);
+        
+        timelineView->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        timelineView->setResizeMode(QQuickWidget::SizeRootObjectToView);
+        timelineView->setSource(QUrl(QStringLiteral("qrc:/components/Timeline.qml")));
+        
+        _timelineTabs[timelineType] = timelineView;
+        ui->timelineTabWidget->addTab(frame, TimelineType::toString(timelineType));
+    }
 }
 
 void MainWindow::initializeShortcuts()
@@ -75,7 +95,6 @@ void MainWindow::initializeShortcuts()
         shortcut->setEnabled(true);
         _timelineShortcuts[timelineType] = shortcut;
         connect(shortcut, &QShortcut::activated, this, [=] {
-            qDebug() << "shortcut: setting timeline to " << timelineType;
             this->setTimeline(timelineType);
         });
     }
@@ -84,9 +103,6 @@ void MainWindow::initializeShortcuts()
 
 void MainWindow::initializeWith(Credential *credential)
 {
-    auto *tlViewContext = ui->timelineView->rootContext();
-    tlViewContext->setContextProperty("timelineModel", nullptr);
-    
     _apiContext->setHost(credential->instanceName());
     _apiContext->setToken(credential->token()->accessToken);
     _api = std::shared_ptr<MastodonAPI>(new MastodonAPI(_apiContext));
@@ -101,6 +117,9 @@ void MainWindow::initializeWith(Credential *credential)
         _timelineModel[timelineType] = std::make_unique<TimelineModel>(
             new TimelineModel(this)
         );
+        
+        auto *tlViewContext = _timelineTabs[timelineType]->rootContext();
+        tlViewContext->setContextProperty("timelineModel", _timelineModel[timelineType].get());
     
         this->updateTimeline(timelineType);
     }
@@ -111,9 +130,8 @@ void MainWindow::initializeWith(Credential *credential)
 
 void MainWindow::setTimeline(TimelineType::Enum timelineType)
 {
-    auto *tlViewContext = ui->timelineView->rootContext();
-    tlViewContext->setContextProperty("timelineModel", _timelineModel[timelineType].get());
     _currentTimeline = timelineType;
+    ui->timelineTabWidget->setCurrentIndex(((int) timelineType) - 1);
 }
 
 void MainWindow::addAccount()
@@ -348,7 +366,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 
 QQuickItem *MainWindow::getQMLTimeline()
 {
-    return ui->timelineView->rootObject()->findChild<QQuickItem *>("timeline");
+    return _timelineTabs[_currentTimeline]->rootObject()->findChild<QQuickItem *>("timeline");
 }
 
 void MainWindow::setCurrentIndex(int index)

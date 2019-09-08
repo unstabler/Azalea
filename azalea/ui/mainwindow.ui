@@ -33,7 +33,7 @@
     <item>
      <widget class="QFrame" name="mainFrame">
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
@@ -77,15 +77,21 @@
         </widget>
        </item>
        <item>
-        <widget class="QQuickWidget" name="timelineView">
+        <widget class="QTabWidget" name="timelineTabWidget">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="resizeMode">
-          <enum>QQuickWidget::SizeRootObjectToView</enum>
+         <property name="tabPosition">
+          <enum>QTabWidget::West</enum>
+         </property>
+         <property name="tabShape">
+          <enum>QTabWidget::Rounded</enum>
+         </property>
+         <property name="currentIndex">
+          <number>-1</number>
          </property>
         </widget>
        </item>
@@ -142,11 +148,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>QQuickWidget</class>
-   <extends>QWidget</extends>
-   <header location="global">QtQuickWidgets/QQuickWidget</header>
-  </customwidget>
   <customwidget>
    <class>PostArea</class>
    <extends>QWidget</extends>

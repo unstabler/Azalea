@@ -7,6 +7,7 @@
 #include <mastodon/mastodonapi.hpp>
 #include <QtQuick/QQuickItem>
 #include <QtWidgets/QSystemTrayIcon>
+#include <QQuickWidget>
 
 #include "configmanager.hpp"
 
@@ -37,6 +38,25 @@ namespace TimelineType {
             INSTANCE_FEDERATED
         };
     }
+    
+    static QString toString(Enum value) {
+        static const auto resolver = [] (Enum value) {
+            switch (value) {
+                case HOME:
+                    return "HOME";
+                case MENTIONS:
+                    return "MENTIONS";
+                case DIRECT_MESSAGE:
+                    return "DIRECT_MESSAGE";
+                case INSTANCE_LOCAL:
+                    return "INSTANCE_LOCAL";
+                case INSTANCE_FEDERATED:
+                    return "INSTANCE_FEDERATED";
+            }
+        };
+        
+        return QCoreApplication::translate("MainWindow", resolver(value));
+    }
 };
 
 
@@ -64,7 +84,7 @@ class MainWindow : public QMainWindow
         void keyReleaseEvent(QKeyEvent *event) override;
 
 
-private:
+    private:
         Ui::MainWindow *ui;
         ConfigManager &_configManager;
         
@@ -74,10 +94,12 @@ private:
         std::shared_ptr<MastodonAPI> _api;
         std::unique_ptr<StreamingClient> _streamingClient;
         std::map<TimelineType::Enum, std::unique_ptr<TimelineModel>> _timelineModel;
+        std::map<TimelineType::Enum, QQuickWidget*> _timelineTabs;
         TimelineType::Enum _currentTimeline;
         
         qint64 _refreshKeyPressedAt = 0;
         
+        void initializeTimelineTabs();
         
         void initializeShortcuts();
         
@@ -93,4 +115,5 @@ private:
         
         void toggleBoost(StatusAdapterBase *statusAdapter);
         void toggleFavourite(StatusAdapterBase *statusAdapter);
+        
 };
