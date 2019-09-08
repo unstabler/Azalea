@@ -41,6 +41,11 @@ void PostArea::setReplyToId(QString id)
     this->_replyToId = id;
 }
 
+void PostArea::setText(QString text)
+{
+    ui->tootEdit->setText(text);
+}
+
 MainWindow *PostArea::getMainWindow()
 {
     return dynamic_cast<MainWindow*>(parentWidget()->window());

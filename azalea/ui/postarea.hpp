@@ -21,6 +21,7 @@ class PostArea : public QWidget
         bool isFocused();
         
         void setReplyToId(QString id);
+        void setText(QString text);
         
     public slots:
         void textChanged();
