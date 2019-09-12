@@ -41,7 +41,6 @@ MainWindow::MainWindow(QWidget *parent) :
     });
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::quit);
     
-    
     connect(this, &MainWindow::initialize, this, [this]{
         _configManager.load();
         if (_configManager.credentials()->length() <= 0) {

@@ -40,22 +40,20 @@ namespace TimelineType {
     }
     
     static QString toString(Enum value) {
-        static const auto resolver = [] (Enum value) {
-            switch (value) {
-                case HOME:
-                    return "HOME";
-                case MENTIONS:
-                    return "MENTIONS";
-                case DIRECT_MESSAGE:
-                    return "DIRECT_MESSAGE";
-                case INSTANCE_LOCAL:
-                    return "INSTANCE_LOCAL";
-                case INSTANCE_FEDERATED:
-                    return "INSTANCE_FEDERATED";
-            }
-        };
+        switch (value) {
+            case HOME:
+                return QCoreApplication::translate("MainWindow", "HOME");
+            case MENTIONS:
+                return QCoreApplication::translate("MainWindow", "MENTIONS");
+            case DIRECT_MESSAGE:
+                return QCoreApplication::translate("MainWindow", "DIRECT_MESSAGE");
+            case INSTANCE_LOCAL:
+                return QCoreApplication::translate("MainWindow", "INSTANCE_LOCAL");
+            case INSTANCE_FEDERATED:
+                return QCoreApplication::translate("MainWindow", "INSTANCE_FEDERATED");
+        }
         
-        return QCoreApplication::translate("MainWindow", resolver(value));
+        throw std::runtime_error("unexpected enum value");
     }
 };
 
