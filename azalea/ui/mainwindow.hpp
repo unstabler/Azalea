@@ -71,13 +71,20 @@ class MainWindow : public QMainWindow
 
         void addAccount();
         std::shared_ptr<MastodonAPI> api() const;
+        
     signals:
         void quit();
+        void initialize();
 
     public slots:
         void timelineResolved(TimelineType::Enum timelineType, QSharedPointer<ResourceList<v1::Status>> statuses);
         void notificationsResolved(QSharedPointer<ResourceList<v1::Notification>> notifications);
         void streamEvent(QString eventType, QJsonObject payload);
+        
+    private slots:
+        void initializeShortcuts();
+        void initializeTimelineTabs();
+        
     
     protected:
         void keyPressEvent(QKeyEvent *event) override;
@@ -99,9 +106,6 @@ class MainWindow : public QMainWindow
         
         qint64 _refreshKeyPressedAt = 0;
         
-        void initializeTimelineTabs();
-        
-        void initializeShortcuts();
         
         void initializeWith(Credential *credential);
         void setTimeline(TimelineType::Enum timelineType);

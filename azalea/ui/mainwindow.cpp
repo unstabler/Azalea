@@ -40,33 +40,33 @@ MainWindow::MainWindow(QWidget *parent) :
          window.exec();
     });
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::quit);
-
-    _configManager.load();
-    if (_configManager.credentials()->length() <= 0) {
-        if(QMessageBox::question(
-                this,
-                this->windowTitle(),
-                tr("NO_TOKEN_SET")
-        ) == QMessageBox::Yes) {
-            this->addAccount();
-        } else {
-            this->quit();
+    
+    
+    connect(this, &MainWindow::initialize, this, [this]{
+        _configManager.load();
+        if (_configManager.credentials()->length() <= 0) {
+            if(QMessageBox::question(
+                    this,
+                    this->windowTitle(),
+                    tr("NO_TOKEN_SET")
+            ) == QMessageBox::Yes) {
+                this->addAccount();
+            } else {
+                emit quit();
+            }
         }
-    }
-    
-    
-    this->initializeShortcuts();
-    
-    if (_configManager.credentials()->empty()) {
-        return;
-    }
-    
-    auto defaultCredential = _configManager.credentials()->first();
-    QTimer::singleShot(15, [=] {
+        
+        if (_configManager.credentials()->empty()) {
+            return;
+        }
+        auto defaultCredential = _configManager.credentials()->first();
+        
         this->initializeTimelineTabs();
         this->initializeWith(defaultCredential);
-    });
+    }, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
+    connect(this, &MainWindow::initialize, this, &MainWindow::initializeShortcuts);
     
+    emit initialize();
 }
 
 void MainWindow::initializeTimelineTabs()
