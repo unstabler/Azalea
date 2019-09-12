@@ -5,7 +5,7 @@
 #include "mainwindow.hpp"
 
 PostArea::PostArea(QWidget *parent) :
-    QWidget(parent),
+    QFrame(parent),
     ui(new Ui::PostArea),
     _maxPostLength(500)
 {

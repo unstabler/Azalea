@@ -7,6 +7,7 @@
 #include <mastodon/mastodonapi.hpp>
 #include <QtQuick/QQuickItem>
 #include <QtWidgets/QSystemTrayIcon>
+#include <QQuickWidget>
 
 #include "configmanager.hpp"
 
@@ -37,6 +38,23 @@ namespace TimelineType {
             INSTANCE_FEDERATED
         };
     }
+    
+    static QString toString(Enum value) {
+        switch (value) {
+            case HOME:
+                return QCoreApplication::translate("MainWindow", "HOME");
+            case MENTIONS:
+                return QCoreApplication::translate("MainWindow", "MENTIONS");
+            case DIRECT_MESSAGE:
+                return QCoreApplication::translate("MainWindow", "DIRECT_MESSAGE");
+            case INSTANCE_LOCAL:
+                return QCoreApplication::translate("MainWindow", "INSTANCE_LOCAL");
+            case INSTANCE_FEDERATED:
+                return QCoreApplication::translate("MainWindow", "INSTANCE_FEDERATED");
+        }
+        
+        throw std::runtime_error("unexpected enum value");
+    }
 };
 
 
@@ -51,20 +69,27 @@ class MainWindow : public QMainWindow
 
         void addAccount();
         std::shared_ptr<MastodonAPI> api() const;
+        
     signals:
         void quit();
+        void initialize();
 
     public slots:
         void timelineResolved(TimelineType::Enum timelineType, QSharedPointer<ResourceList<v1::Status>> statuses);
         void notificationsResolved(QSharedPointer<ResourceList<v1::Notification>> notifications);
         void streamEvent(QString eventType, QJsonObject payload);
+        
+    private slots:
+        void initializeShortcuts();
+        void initializeTimelineTabs();
+        
     
     protected:
         void keyPressEvent(QKeyEvent *event) override;
         void keyReleaseEvent(QKeyEvent *event) override;
 
 
-private:
+    private:
         Ui::MainWindow *ui;
         ConfigManager &_configManager;
         
@@ -74,12 +99,11 @@ private:
         std::shared_ptr<MastodonAPI> _api;
         std::unique_ptr<StreamingClient> _streamingClient;
         std::map<TimelineType::Enum, std::unique_ptr<TimelineModel>> _timelineModel;
+        std::map<TimelineType::Enum, QQuickWidget*> _timelineTabs;
         TimelineType::Enum _currentTimeline;
         
         qint64 _refreshKeyPressedAt = 0;
         
-        
-        void initializeShortcuts();
         
         void initializeWith(Credential *credential);
         void setTimeline(TimelineType::Enum timelineType);
@@ -93,4 +117,5 @@ private:
         
         void toggleBoost(StatusAdapterBase *statusAdapter);
         void toggleFavourite(StatusAdapterBase *statusAdapter);
+        
 };
