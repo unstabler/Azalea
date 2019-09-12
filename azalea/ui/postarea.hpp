@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QShortcut>
+#include <QFrame>
 
 class MainWindow;
 
@@ -10,7 +11,7 @@ namespace Ui {
     class PostArea;
 }
 
-class PostArea : public QWidget
+class PostArea : public QFrame
 {
         Q_OBJECT
         

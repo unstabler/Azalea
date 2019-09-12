@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>PostArea</class>
- <widget class="QWidget" name="PostArea">
+ <widget class="QFrame" name="PostArea">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,6 +12,12 @@
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="frameShape">
+   <enum>QFrame::StyledPanel</enum>
+  </property>
+  <property name="frameShadow">
+   <enum>QFrame::Raised</enum>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
