@@ -12,6 +12,8 @@ PostArea::PostArea(QWidget *parent) :
     ui->setupUi(this);
     ui->retranslateUi(this);
     
+    ui->replyIndicator->setVisible(false);
+    
     this->_postShortcut = new QShortcut((Qt::CTRL + Qt::Key_Return), ui->tootEdit);
     this->_postShortcut->setContext(Qt::WidgetShortcut);
     this->_postShortcut->setAutoRepeat(false);
@@ -19,6 +21,7 @@ PostArea::PostArea(QWidget *parent) :
     
     connect(ui->tootEdit, &QTextEdit::textChanged, this, &PostArea::textChanged);
     connect(ui->postButton, &QPushButton::clicked, this, &PostArea::submitPost);
+    connect(ui->replyIndicator, &ReplyIndicator::cancel, this, [this] { this->setReplyTo(nullptr); });
     
     connect(this->_postShortcut, &QShortcut::activated, this, &PostArea::submitPost);
     
@@ -36,9 +39,16 @@ bool PostArea::isFocused()
     return ui->tootEdit->hasFocus() || ui->postButton->hasFocus();
 }
 
-void PostArea::setReplyToId(QString id)
+void PostArea::setReplyTo(StatusAdapterBase *replyTo)
 {
-    this->_replyToId = id;
+    _replyTo = replyTo;
+    ui->replyIndicator->setReplyTo(replyTo);
+    
+    if (replyTo != nullptr) {
+        ui->replyIndicator->setVisible(true);
+    } else {
+        ui->replyIndicator->setVisible(false);
+    }
 }
 
 void PostArea::setText(QString text)
@@ -75,7 +85,9 @@ void PostArea::submitPost()
     
     v1::in::PostStatusArgs args;
     args.status.set(this->ui->tootEdit->toPlainText());
-    args.inReplyToId.set(this->_replyToId);
+    if (this->_replyTo != nullptr) {
+        args.inReplyToId.set(this->_replyTo->id());
+    }
     qDebug() << args.status.get();
     
     
@@ -93,7 +105,7 @@ void PostArea::submitPost()
     });
     
     this->ui->tootEdit->setText("");
-    this->_replyToId = nullptr;
+    this->setReplyTo(nullptr);
 }
 
 void PostArea::focusPostArea()

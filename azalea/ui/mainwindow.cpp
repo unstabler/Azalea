@@ -304,7 +304,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             break;
         case Qt::Key_R: {
             auto *statusAdapter = getStatusAdapterAtCurrentIndex();
-            ui->postArea->setReplyToId(statusAdapter->id());
+            ui->postArea->setReplyTo(statusAdapter);
             ui->postArea->focusPostArea();
         }
             break;

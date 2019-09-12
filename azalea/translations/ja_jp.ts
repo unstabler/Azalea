@@ -103,12 +103,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/postarea.ui" line="31"/>
+        <location filename="../ui/postarea.ui" line="52"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/postarea.ui" line="41"/>
+        <location filename="../ui/postarea.ui" line="62"/>
         <source>postButtonText</source>
         <translation>トゥート！</translation>
     </message>

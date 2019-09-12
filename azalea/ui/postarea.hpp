@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QShortcut>
 #include <QFrame>
+#include <ui/timeline/statusadapterbase.hpp>
 
 class MainWindow;
 
@@ -21,7 +22,7 @@ class PostArea : public QFrame
     
         bool isFocused();
         
-        void setReplyToId(QString id);
+        void setReplyTo(StatusAdapterBase *replyTo);
         void setText(QString text);
         
     public slots:
@@ -53,7 +54,8 @@ private:
         
         unsigned _maxPostLength;
         unsigned _postLength;
-        QString _replyToId;
+        
+        StatusAdapterBase *_replyTo;
         
         MainWindow* getMainWindow();
 };
