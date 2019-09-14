@@ -67,5 +67,12 @@ add_dependencies(azalea resource)
 # Use the Widgets module from Qt 5.
 target_link_libraries(azalea Qt5::Widgets Qt5::Network Qt5::Quick Qt5::QuickWidgets Qt5::WebSockets)
 
+if (WIN32)
+    execute_process(
+        COMMAND "${Qt5_DIR}/../../../bin/windeployqt.exe" "${CMAKE_CURRENT_BINARY_DIR}/azalea.exe"
+        ENCODING UTF8
+    )
+endif (WIN32)
+
 # Install the executable
 install(TARGETS azalea DESTINATION bin)
