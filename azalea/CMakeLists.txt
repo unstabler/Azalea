@@ -68,9 +68,8 @@ add_dependencies(azalea resource)
 target_link_libraries(azalea Qt5::Widgets Qt5::Network Qt5::Quick Qt5::QuickWidgets Qt5::WebSockets)
 
 if (WIN32)
-    execute_process(
-        COMMAND "${Qt5_DIR}/../../../bin/windeployqt.exe" "${CMAKE_CURRENT_BINARY_DIR}/azalea.exe"
-        ENCODING UTF8
+	ADD_CUSTOM_COMMAND(TARGET azalea POST_BUILD
+        COMMAND "${Qt5_DIR}/../../../bin/windeployqt.exe" "${CMAKE_CURRENT_BINARY_DIR}/azalea.exe" "--qmldir" "${CMAKE_CURRENT_SOURCE_DIR}/ui" "--no-virtualkeyboard" "--no-translations"
     )
 endif (WIN32)
 
