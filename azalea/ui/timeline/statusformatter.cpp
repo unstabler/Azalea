@@ -14,7 +14,7 @@ QString StatusFormatter::toRichText(v1::Status *status)
     QString content = status->content;
     for (auto emoji : status->emojis) {
         // 진짜 꼭 이래야 하나
-        const QString html = "<img src=\"%1\" width=\"20\" height=\"20\">";
+        const QString html = R"(<img src="%1" width="20" height="20">)";
         content.replace(":" + emoji->shortcode + ":", html.arg(emoji->staticUrl.toString()));
     }
     

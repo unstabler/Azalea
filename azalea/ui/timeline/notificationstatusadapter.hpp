@@ -13,6 +13,7 @@ public:
     QString id() override;
     QString content() override;
     QString formattedAuthor() override;
+    QString author() override;
     QUrl avatarUrl() override;
     QUrl interactAvatarUrl() override;
     QString createdAt() override;

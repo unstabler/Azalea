@@ -70,27 +70,27 @@
         <translation>認証コードを入力してください。</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="45"/>
+        <location filename="../ui/mainwindow.hpp" line="46"/>
         <source>HOME</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="47"/>
+        <location filename="../ui/mainwindow.hpp" line="48"/>
         <source>MENTIONS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="49"/>
+        <location filename="../ui/mainwindow.hpp" line="50"/>
         <source>DIRECT_MESSAGE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="51"/>
+        <location filename="../ui/mainwindow.hpp" line="52"/>
         <source>INSTANCE_LOCAL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="53"/>
+        <location filename="../ui/mainwindow.hpp" line="54"/>
         <source>INSTANCE_FEDERATED</source>
         <translation type="unfinished"></translation>
     </message>
@@ -103,12 +103,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/postarea.ui" line="31"/>
+        <location filename="../ui/postarea.ui" line="52"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/postarea.ui" line="41"/>
+        <location filename="../ui/postarea.ui" line="62"/>
         <source>postButtonText</source>
         <translation>トゥート！</translation>
     </message>

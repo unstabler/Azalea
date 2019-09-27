@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->retranslateUi(this);
     
-    // FIXME
-    ui->splitter->setSizes(QList<int>({96, 300}));
+    // FIXME: 설정에 저장할 수 있어야 함
+    ui->splitter->setSizes(QList<int>({128, 300}));
     
     connect(this, &MainWindow::quit, this, &MainWindow::close, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
     // connect(ui->actionRefresh, &QAction::triggered, this, &MainWindow::updateTimeline);
@@ -301,6 +301,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             break;
         case Qt::Key_Escape:
             ui->postArea->blurPostArea();
+            break;
+        case Qt::Key_R: {
+            auto *statusAdapter = getStatusAdapterAtCurrentIndex();
+            ui->postArea->setReplyTo(statusAdapter);
+            ui->postArea->focusPostArea();
+        }
             break;
         case Qt::Key_F: {
             auto *statusAdapter = getStatusAdapterAtCurrentIndex();

@@ -37,6 +37,11 @@ QString NotificationStatusAdapter::formattedAuthor()
     return formatAuthor(_notification->account);
 }
 
+QString NotificationStatusAdapter::author()
+{
+    return QString("@%1").arg(_notification->account->acct);
+}
+
 QUrl NotificationStatusAdapter::avatarUrl()
 {
     if (_notification->type == "reblog" ||

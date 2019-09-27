@@ -7,10 +7,13 @@
 PostArea::PostArea(QWidget *parent) :
     QFrame(parent),
     ui(new Ui::PostArea),
-    _maxPostLength(500)
+    _maxPostLength(500),
+    _replyTo(nullptr)
 {
     ui->setupUi(this);
     ui->retranslateUi(this);
+    
+    ui->replyIndicator->setVisible(false);
     
     this->_postShortcut = new QShortcut((Qt::CTRL + Qt::Key_Return), ui->tootEdit);
     this->_postShortcut->setContext(Qt::WidgetShortcut);
@@ -19,6 +22,7 @@ PostArea::PostArea(QWidget *parent) :
     
     connect(ui->tootEdit, &QTextEdit::textChanged, this, &PostArea::textChanged);
     connect(ui->postButton, &QPushButton::clicked, this, &PostArea::submitPost);
+    connect(ui->replyIndicator, &ReplyIndicator::cancel, this, [this] { this->setReplyTo(nullptr); });
     
     connect(this->_postShortcut, &QShortcut::activated, this, &PostArea::submitPost);
     
@@ -34,6 +38,24 @@ PostArea::~PostArea()
 bool PostArea::isFocused()
 {
     return ui->tootEdit->hasFocus() || ui->postButton->hasFocus();
+}
+
+void PostArea::setReplyTo(StatusAdapterBase *replyTo)
+{
+    _replyTo = replyTo;
+    ui->replyIndicator->setReplyTo(replyTo);
+    
+    if (replyTo != nullptr) {
+        ui->replyIndicator->setVisible(true);
+        this->setText(replyTo->author() + " ");
+    } else {
+        ui->replyIndicator->setVisible(false);
+    }
+}
+
+void PostArea::setText(QString text)
+{
+    ui->tootEdit->setText(text);
 }
 
 MainWindow *PostArea::getMainWindow()
@@ -65,6 +87,9 @@ void PostArea::submitPost()
     
     v1::in::PostStatusArgs args;
     args.status.set(this->ui->tootEdit->toPlainText());
+    if (this->_replyTo != nullptr) {
+        args.inReplyToId.set(this->_replyTo->id());
+    }
     qDebug() << args.status.get();
     
     
@@ -82,11 +107,17 @@ void PostArea::submitPost()
     });
     
     this->ui->tootEdit->setText("");
+    this->setReplyTo(nullptr);
 }
 
 void PostArea::focusPostArea()
 {
     ui->tootEdit->setFocus(Qt::ShortcutFocusReason);
+    
+    // TODO: optional parameter로 설정ㅈ할 수 있게 해야 한다
+    auto cursor = ui->tootEdit->textCursor();
+    cursor.movePosition(QTextCursor::End);
+    ui->tootEdit->setTextCursor(cursor);
 }
 
 
