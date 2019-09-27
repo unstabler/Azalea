@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <array>
 #include <unordered_map>
 #include <QMainWindow>
 #include <ui/timeline/timelinemodel.hpp>
