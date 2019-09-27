@@ -7,7 +7,8 @@
 PostArea::PostArea(QWidget *parent) :
     QFrame(parent),
     ui(new Ui::PostArea),
-    _maxPostLength(500)
+    _maxPostLength(500),
+    _replyTo(nullptr)
 {
     ui->setupUi(this);
     ui->retranslateUi(this);
@@ -46,6 +47,7 @@ void PostArea::setReplyTo(StatusAdapterBase *replyTo)
     
     if (replyTo != nullptr) {
         ui->replyIndicator->setVisible(true);
+        this->setText(replyTo->author() + " ");
     } else {
         ui->replyIndicator->setVisible(false);
     }
@@ -111,6 +113,11 @@ void PostArea::submitPost()
 void PostArea::focusPostArea()
 {
     ui->tootEdit->setFocus(Qt::ShortcutFocusReason);
+    
+    // TODO: optional parameter로 설정ㅈ할 수 있게 해야 한다
+    auto cursor = ui->tootEdit->textCursor();
+    cursor.movePosition(QTextCursor::End);
+    ui->tootEdit->setTextCursor(cursor);
 }
 
 

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QShortcut>
 #include <QFrame>
+
 #include <ui/timeline/statusadapterbase.hpp>
 
 class MainWindow;
@@ -22,9 +23,6 @@ class PostArea : public QFrame
     
         bool isFocused();
         
-        void setReplyTo(StatusAdapterBase *replyTo);
-        void setText(QString text);
-        
     public slots:
         void textChanged();
     
@@ -35,6 +33,9 @@ class PostArea : public QFrame
          */
         void setMaxPostLength(unsigned maxPostLength);
         void updatePostLength();
+    
+        void setReplyTo(StatusAdapterBase *replyTo);
+        void setText(QString text);
         
         /**
          * 현재 입력중인 포스트를 전송합니다
@@ -51,11 +52,10 @@ class PostArea : public QFrame
 private:
         Ui::PostArea *ui;
         QShortcut *_postShortcut;
+        StatusAdapterBase *_replyTo;
         
         unsigned _maxPostLength;
         unsigned _postLength;
-        
-        StatusAdapterBase *_replyTo;
         
         MainWindow* getMainWindow();
 };

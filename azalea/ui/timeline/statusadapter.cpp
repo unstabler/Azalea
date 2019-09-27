@@ -40,6 +40,16 @@ QString StatusAdapter::formattedAuthor()
     return formatAuthor(_status->account);
 }
 
+QString StatusAdapter::author()
+{
+    auto account = _status->account;
+    if (_status->reblog != nullptr) {
+        account = _status->reblog->account;
+    }
+    
+    return QString("@%1").arg(account->acct);
+}
+
 QUrl StatusAdapter::avatarUrl()
 {
     if (_status->reblog != nullptr) {
@@ -87,3 +97,5 @@ QSharedPointer<v1::Status> StatusAdapter::status()
 {
     return _status;
 }
+
+
