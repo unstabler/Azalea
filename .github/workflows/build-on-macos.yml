@@ -1,0 +1,21 @@
+name: build on macOS
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: install requirements
+      run: brew install openssl qt cmake
+    - name: run build
+      run: |
+        mkdir build
+        mkdir release
+        cd build
+        cmake .. -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake -DCMAKE_INSTALL_PREFIX=../release
+        make -j4
+        make install
