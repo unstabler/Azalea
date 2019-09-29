@@ -1,3 +1,5 @@
+version: unstable-{build}
+
 image: Visual Studio 2017
 clone_folder: C:\azalea
 platform: x86
@@ -13,5 +15,17 @@ build_script:
     - nmake install
     - 'copy "C:\OpenSSL-v111-Win32\bin\lib*.dll" "C:\azalea\release"'
 
-artifacts:
-    - path: release
+#artifacts:
+#   - path: release
+
+deploy:
+    - provider: GitHub
+      artifact: release
+      prerelease: true
+      repository: unstabler/Azalea
+      auth_token:
+          secure: aYT8TQoY5LREybjze6yoozyrNvfPH24wHH96tLnuFD6bLUazqG8S3Kdego0r3mBh
+      on:
+          branch: master
+          APPVEYOR_REPO_TAG: true
+
