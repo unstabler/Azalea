@@ -14,7 +14,7 @@ die "usage: $0 appname bin qmldir" unless scalar(@ARGV) == 3;
 my ($appname, $bin, $qmldir) = @ARGV;
 my $binpath = sprintf("./%s.app/Contents/MacOs", $appname);
 mkpath($binpath);
-copy($bin, $binpath);
+move($bin, $binpath);
 
 say "running macdeployqt..";
 system(
