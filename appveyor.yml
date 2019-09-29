@@ -4,6 +4,7 @@ platform: x86
 configuration: Debug
 
 build_script:
+    - '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86'
     - mkdir build
     - cd build
     - cmake .. -DCMAKE_PREFIX_PATH="C:\Qt\5.13.0\msvc2017\lib\cmake" -G"NMake Makefiles"
