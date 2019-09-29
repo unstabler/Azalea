@@ -7,21 +7,21 @@ configuration: Debug
 
 build_script:
     - '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86'
-    - mkdir release
+    - mkdir azalea-bin-windows
     - mkdir build
     - cd build
-    - cmake .. -DCMAKE_PREFIX_PATH="C:\Qt\5.13.0\msvc2017\lib\cmake" -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="C:\azalea\release" -DCMAKE_BUILD_TYPE="Release"
+    - cmake .. -DCMAKE_PREFIX_PATH="C:\Qt\5.13.0\msvc2017\lib\cmake" -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="C:\azalea\azalea-bin-windows" -DCMAKE_BUILD_TYPE="Release"
     - nmake
     - nmake install
-    - 'copy "C:\OpenSSL-v111-Win32\bin\lib*.dll" "C:\azalea\release"'
+    - 'copy "C:\OpenSSL-v111-Win32\bin\lib*.dll" "C:\azalea\azalea-bin-windows"'
 
 artifacts:
-   - path: release
-     name: release
+   - path: azalea-bin-windows
+     name: azalea-bin-windows
 
 deploy:
     - provider: GitHub
-      artifact: /^release/
+      artifact: /^azalea-bin-windows/
       prerelease: true
       repository: unstabler/Azalea
       auth_token:
