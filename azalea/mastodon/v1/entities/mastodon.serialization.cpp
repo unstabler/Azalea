@@ -16,6 +16,19 @@ template<> void fromJSON(v1::Account *destination, QJsonObject source)
 }
 
 template<>
+void fromJSON(v1::Attachment *destination, QJsonObject source)
+{
+    destination->id = source["id"].toString();
+    destination->type = source["type"].toString();
+    destination->url = source["url"].toString();
+    destination->remoteUrl = source["remote_url"].toString();
+    destination->previewUrl = source["preview_url"].toString();
+    destination->textUrl = source["text_url"].toString();
+    // TODO: meta
+    destination->description = source["description"].toString();
+}
+
+template<>
 void fromJSON(v1::Emoji *destination, QJsonObject source)
 {
     destination->shortcode = source["shortcode"].toString();
@@ -31,6 +44,7 @@ template<> void fromJSON(v1::Status *destination, QJsonObject source)
     destination->url = source["url"].toString();
 
     destination->account = OBJECT_SHAREDPTR<v1::Account>(source["account"]);
+    destination->mediaAttachements = ARRAY_SHAREDPTR<v1::Attachment>(source["media_attachments"]);
 
     destination->inReplyToId = source["in_reply_to_id"].toString();
     destination->inReplyToAccountId = source["in_reply_to_account_id"].toString();

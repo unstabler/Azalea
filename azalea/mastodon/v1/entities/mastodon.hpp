@@ -35,6 +35,18 @@ namespace v1
         QString avatar;
         QString avatarStatic;
     };
+    
+    struct Attachment {
+        public:
+            QString id;
+            QString type;
+            QString url;
+            QString remoteUrl;
+            QString previewUrl;
+            QString textUrl;
+            // TODO: meta
+            QString description;
+    };
 
     struct Mention 
     {
@@ -83,9 +95,9 @@ namespace v1
             QString spoilerText;
             StatusVisibility visibility;
 
-            // TODO: attachments
-            QList<Mention*> mentions;
-            QList<Tag*> tags;
+            QList<QSharedPointer<Attachment>> mediaAttachements;
+            QList<QSharedPointer<Mention>> mentions;
+            QList<QSharedPointer<Tag>> tags;
 
             bool pinned;
     };
@@ -134,6 +146,7 @@ namespace v1
 // 힘내자!
 
 template<> void fromJSON(v1::Account *destination, QJsonObject source);
+template<> void fromJSON(v1::Attachment *destination, QJsonObject source);
 template<> void fromJSON(v1::Emoji *destination, QJsonObject source);
 template<> void fromJSON(v1::Status *destination, QJsonObject source);
 template<> void fromJSON(v1::Notification *destination, QJsonObject source);
