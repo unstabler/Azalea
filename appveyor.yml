@@ -1,0 +1,7 @@
+image: Visual Studio 2017
+clone_folder: C:\azalea
+platform: x86
+configuration: Debug
+
+build_script:
+    - dir
