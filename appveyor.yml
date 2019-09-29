@@ -15,12 +15,13 @@ build_script:
     - nmake install
     - 'copy "C:\OpenSSL-v111-Win32\bin\lib*.dll" "C:\azalea\release"'
 
-#artifacts:
-#   - path: release
+artifacts:
+   - path: release
+     name: release
 
 deploy:
     - provider: GitHub
-      artifact: release
+      artifact: /^release/
       prerelease: true
       repository: unstabler/Azalea
       auth_token:
