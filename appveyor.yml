@@ -27,6 +27,4 @@ deploy:
       auth_token:
           secure: aYT8TQoY5LREybjze6yoozyrNvfPH24wHH96tLnuFD6bLUazqG8S3Kdego0r3mBh
       on:
-          branch: master
           APPVEYOR_REPO_TAG: true
-
