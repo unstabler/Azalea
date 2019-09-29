@@ -10,13 +10,13 @@ use File::Path;
 sub QTPATH () { '/usr/local/opt/qt' }
 sub MACDEPLOYQT() { QTPATH.'/bin/macdeployqt' }
 
-die "usage: $0 appname bin qmldir" unless $@ARGV != 3;
+die "usage: $0 appname bin qmldir" unless scalar(@ARGV) == 3;
 my ($appname, $bin, $qmldir) = @ARGV;
 my $binpath = sprintf("./%s.app/Contents/MacOs", $appname);
 mkpath($binpath);
 copy($bin, $binpath);
 
-say "running macdeployqt.."
+say "running macdeployqt..";
 system(
     MACDEPLOYQT,
     sprintf("./%s.app", $appname),
