@@ -21,10 +21,10 @@ jobs:
         make install
         cd ../release
         zip -r azalea-bin-macos.zip Azalea.app
-      - name: Upload to Release
-        uses: JasonEtco/upload-to-release@v0.1.1
-        with:
-          args: "azalea-bin-macos.zip"
+    - name: Upload to Release
+      uses: JasonEtco/upload-to-release@v0.1.1
+      with:
+        args: "azalea-bin-macos.zip"
           
 
 
