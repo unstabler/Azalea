@@ -72,10 +72,15 @@ if (WIN32)
         SET_PROPERTY(TARGET azalea PROPERTY WIN32_EXECUTABLE true)
     endif ()
 
-	ADD_CUSTOM_COMMAND(TARGET azalea POST_BUILD
-        COMMAND "${Qt5_DIR}/../../../bin/windeployqt.exe" "${CMAKE_CURRENT_BINARY_DIR}/azalea.exe" "--qmldir" "${CMAKE_CURRENT_SOURCE_DIR}/ui" "--no-virtualkeyboard" "--no-translations"
-    )
+    #ADD_CUSTOM_COMMAND(TARGET azalea POST_BUILD
+    #    COMMAND "${Qt5_DIR}/../../../bin/windeployqt.exe" "${CMAKE_CURRENT_BINARY_DIR}/azalea.exe" "--qmldir" "${CMAKE_CURRENT_SOURCE_DIR}/ui" "--no-translations"
+    #)
 endif (WIN32)
 
 # Install the executable
-install(TARGETS azalea DESTINATION bin)
+if (WIN32)
+    install(TARGETS azalea DESTINATION .)
+    install(CODE "execute_process(COMMAND \"${Qt5_DIR}/../../../bin/windeployqt.exe\" \"${CMAKE_INSTALL_PREFIX}/azalea.exe\" \"--qmldir\" \"${CMAKE_CURRENT_SOURCE_DIR}/ui\" \"--no-translations\")")
+else ()
+    install(TARGETS azalea DESTINATION bin)
+endif (WIN32)
