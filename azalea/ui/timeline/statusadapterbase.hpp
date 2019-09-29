@@ -6,6 +6,7 @@
 class StatusAdapterBase : public QObject
 {
     Q_OBJECT;
+    // TODO: DISABLE COPY
     
     // TODO: Q_PROPERTY wrap
     Q_PROPERTY(QString content READ content FINAL CONSTANT);
@@ -14,6 +15,8 @@ class StatusAdapterBase : public QObject
     Q_PROPERTY(QUrl avatarUrl READ avatarUrl FINAL CONSTANT);
     Q_PROPERTY(QUrl interactAvatarUrl READ interactAvatarUrl FINAL CONSTANT);
     Q_PROPERTY(QString createdAt READ createdAt FINAL CONSTANT);
+    
+    Q_PROPERTY(QStringList images READ images FINAL CONSTANT);
     
     Q_PROPERTY(bool boosted READ isBoosted WRITE setBoosted NOTIFY boostToggled);
     Q_PROPERTY(bool favourited READ isFavourited WRITE setFavourited NOTIFY favouriteToggled);
@@ -32,6 +35,8 @@ public:
     virtual QUrl interactAvatarUrl() = 0;
     virtual QString createdAt() = 0;
     
+    virtual QStringList images() = 0;
+    
     virtual bool isBoosted() = 0;
     virtual void setBoosted(bool isBoosted) = 0;
     
@@ -44,6 +49,7 @@ signals:
     
 protected:
     QString formatAuthor(QSharedPointer<v1::Account> account);
+    QStringList filterAttachmentUrls(QSharedPointer<v1::Status> status, const QString type);
 };
 
 

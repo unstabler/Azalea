@@ -9,7 +9,6 @@ NotificationStatusAdapter::NotificationStatusAdapter(QObject *parent, QSharedPoi
     StatusAdapterBase(parent),
     _notification(notification)
 {
-
 }
 
 QString NotificationStatusAdapter::id()
@@ -64,6 +63,11 @@ QUrl NotificationStatusAdapter::interactAvatarUrl()
 QString NotificationStatusAdapter::createdAt()
 {
     return _notification->createdAt.toTimeZone(QTimeZone::systemTimeZone()).toString(Qt::SystemLocaleLongDate);
+}
+
+QStringList NotificationStatusAdapter::images()
+{
+    return filterAttachmentUrls(this->_notification->status, "image");
 }
 
 bool NotificationStatusAdapter::isBoosted()

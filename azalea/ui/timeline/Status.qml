@@ -55,89 +55,107 @@ Rectangle {
         }
     }
 
-    Row {
-        id: row
+    Column {
+        Row {
+            id: row
 
-        topPadding: 4
-        bottomPadding: 4
-        leftPadding: 8
-        rightPadding: 8
+            topPadding: 4
+            bottomPadding: 4
+            leftPadding: 8
+            rightPadding: 8
 
-        spacing: 8
+            spacing: 8
 
-        Rectangle {
-            width: 48
-            height: 48
-            color: "transparent"
-
-            Image {
-                id: profileImage
-
-                fillMode: Image.PreserveAspectFit
+            Rectangle {
                 width: 48
                 height: 48
-                mipmap: true
+                color: "transparent"
 
-                source: model.display.avatarUrl
+                Image {
+                    id: profileImage
+
+                    fillMode: Image.PreserveAspectFit
+                    width: 48
+                    height: 48
+                    mipmap: true
+
+                    source: model.display.avatarUrl
+                }
+
+                Image {
+                    id: interactProfileImage
+
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    anchors.margins: -4
+
+                    fillMode: Image.PreserveAspectFit
+                    width: 24
+                    height: 24
+                    mipmap: true
+
+                    source: model.display.interactAvatarUrl
+                }
             }
+            Column {
+                id: column
+                width: calculateContentWidth()
 
-            Image {
-                id: interactProfileImage
+                Text {
+                    id: usernameText
+                    text: status.formattedAuthor
 
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                anchors.margins: -4
+                    font.bold: true
 
-                fillMode: Image.PreserveAspectFit
-                width: 24
-                height: 24
-                mipmap: true
+                    renderType: Text.NativeRendering
+                }
 
-                source: model.display.interactAvatarUrl
-            }
-        }
-        Column {
-            id: column
-            width: calculateContentWidth()
+                Text {
+                    id: statusText
+                    width: parent.width
+                    text: status.content
+                    textFormat: Text.RichText // 그냥 두면 Text.StyledText로 되는 듯 함
+                    wrapMode: Text.WrapAnywhere
 
-            Text {
-                id: usernameText
-                text: status.formattedAuthor
+                    renderType: Text.NativeRendering
+                }
 
-                font.bold: true
+                Text {
+                    id: createdAtText
+                    text: status.createdAt
+                    renderType: Text.NativeRendering
+                }
 
-                renderType: Text.NativeRendering
-            }
+                Grid {
+                    id: attachmentsGrid
+                    columns: 4
+                    spacing: 4
+                    Repeater {
+                        model: status.images
 
-            Text {
-                id: statusText
-                width: parent.width
-                text: status.content
-                textFormat: Text.RichText // 그냥 두면 Text.StyledText로 되는 듯 함
-                wrapMode: Text.WrapAnywhere
+                        Image {
+                            fillMode: Image.PreserveAspectCrop
+                            width: 128
+                            height: 128
+                            mipmap: true
 
-                renderType: Text.NativeRendering
-            }
+                            source: modelData
+                        }
+                    }
+                }
 
-            Text {
-                id: createdAtText
-                text: status.createdAt
-                renderType: Text.NativeRendering
-            }
+                function calculateContentWidth() {
+                    return statusRoot.width - (
+                        parent.spacing + parent.leftPadding + parent.rightPadding + profileImage.width
+                    );
+                }
 
-
-
-
-            function calculateContentWidth() {
-                return statusRoot.width - (
-                    parent.spacing + parent.leftPadding + parent.rightPadding + profileImage.width
-                );
-            }
-
-            function calculateContentHeight() {
-                return usernameText.contentHeight +
-                       statusText.contentHeight +
-                       createdAtText.contentHeight;
+                function calculateContentHeight() {
+                    return usernameText.contentHeight +
+                           statusText.contentHeight +
+                           createdAtText.contentHeight +
+                           attachmentsGrid.childrenRect.height;
+                }
             }
         }
     }

@@ -21,6 +21,8 @@ public:
     QUrl interactAvatarUrl() override;
     QString createdAt() override;
     
+    QStringList images() override;
+    
     bool isBoosted() override;
     void setBoosted(bool isBoosted) override;
     bool isFavourited() override;

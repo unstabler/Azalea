@@ -71,6 +71,11 @@ QString StatusAdapter::createdAt()
     return _status->createdAt.toTimeZone(QTimeZone::systemTimeZone()).toString(Qt::SystemLocaleLongDate);
 }
 
+QStringList StatusAdapter::images()
+{
+    return filterAttachmentUrls(this->_status, "image");
+}
+
 bool StatusAdapter::isBoosted()
 {
     return _status->reblogged;
@@ -97,5 +102,6 @@ QSharedPointer<v1::Status> StatusAdapter::status()
 {
     return _status;
 }
+
 
 
