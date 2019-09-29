@@ -3,7 +3,7 @@
 
 static std::vector<SingletonFinalizer::FinalizerFunc> __finalizers;
 
-void SingletonFinalizer::addFinalizer(FinalizerFunc func)
+void SingletonFinalizer::addFinalizer(const FinalizerFunc& func)
 {
     __finalizers.push_back(func);
 }
@@ -11,7 +11,7 @@ void SingletonFinalizer::addFinalizer(FinalizerFunc func)
 void SingletonFinalizer::finalize()
 {
     // WARN: thread-safe 하지 않으므로 호출에 주의할 것
-    for (auto finalizerFunc : __finalizers)
+    for (const auto& finalizerFunc : __finalizers)
     {
         finalizerFunc();
     }

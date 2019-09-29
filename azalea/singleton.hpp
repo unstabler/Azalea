@@ -23,7 +23,7 @@ class SingletonFinalizer
          * @brief Finalizer를 추가합니다
          * @param func Singleton::destroy();
          */
-        static void addFinalizer(FinalizerFunc func);
+        static void addFinalizer(const FinalizerFunc& func);
 
         /**
          * @brief 모든 Singleton 인스턴스를 메모리에서 정리합니다.
