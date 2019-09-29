@@ -80,7 +80,7 @@ endif (WIN32)
 # Install the executable
 if (WIN32)
     install(TARGETS azalea DESTINATION .)
-    install(CODE "execute_process(COMMAND \"${Qt5_DIR}/../../../bin/windeployqt.exe\" \"${CMAKE_INSTALL_PREFIX}/azalea.exe\" \"--qmldir\" \"${CMAKE_CURRENT_SOURCE_DIR}/ui\" \"--no-translations\")")
+    install(CODE "execute_process(COMMAND \"${Qt5_DIR}/../../../bin/windeployqt.exe\" \"${CMAKE_INSTALL_PREFIX}/azalea.exe\" \"--qmldir\" \"${CMAKE_CURRENT_SOURCE_DIR}/ui\" \"--no-translations\" \"--no-compiler-runtime\")")
 else ()
     install(TARGETS azalea DESTINATION bin)
 endif (WIN32)
