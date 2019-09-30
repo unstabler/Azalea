@@ -4,17 +4,39 @@ use strict;
 use warnings;
 use utf8;
 
+use File::Slurp;
 use File::Copy;
 use File::Path;
 
 sub QTPATH () { '/usr/local/opt/qt' }
 sub MACDEPLOYQT() { QTPATH.'/bin/macdeployqt' }
 
+sub DUMMY_INFO_PLIST () {
+q@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <key>NSHighResolutionCapable</key>
+    <string>True</string>
+</dict>
+</plist>
+@
+}
+
 die "usage: $0 appname bin qmldir" unless scalar(@ARGV) == 3;
 my ($appname, $bin, $qmldir) = @ARGV;
 my $binpath = sprintf("./%s.app/Contents/MacOs", $appname);
 mkpath($binpath);
 move($bin, $binpath);
+
+say "creating dummy Info.plist..";
+write_file(
+    sprintf("./%s.app/Contents/Info.plist", $appname),
+    DUMMY_INFO_PLIST
+);
 
 say "running macdeployqt..";
 system(
