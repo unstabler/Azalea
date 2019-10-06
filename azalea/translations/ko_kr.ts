@@ -44,53 +44,53 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="50"/>
+        <location filename="../ui/mainwindow.cpp" line="51"/>
         <source>NO_TOKEN_SET</source>
         <translation>토큰이 설정되지 않았습니다.
 새롭게 계정을 추가하시곘습니까?</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="143"/>
+        <location filename="../ui/mainwindow.cpp" line="147"/>
         <source>INSTANCE_NAME</source>
         <translation>인스턴스 이름</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="144"/>
+        <location filename="../ui/mainwindow.cpp" line="148"/>
         <source>INPUT_INSTANCE_NAME</source>
         <translation>인스턴스 이름을 입력하여 주십시오.</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="173"/>
+        <location filename="../ui/mainwindow.cpp" line="177"/>
         <source>TITLE_AUTHORIZATION_CODE</source>
         <translation>인증 코드 입력</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="174"/>
+        <location filename="../ui/mainwindow.cpp" line="178"/>
         <source>TEXT_AUTHORIZATION_CODE</source>
         <translation>인증 코드를 입력하여 주십시오.</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="46"/>
+        <location filename="../ui/mainwindow.hpp" line="47"/>
         <source>HOME</source>
         <translation>홈</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="48"/>
+        <location filename="../ui/mainwindow.hpp" line="49"/>
         <source>MENTIONS</source>
         <translation>멘션</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="50"/>
+        <location filename="../ui/mainwindow.hpp" line="51"/>
         <source>DIRECT_MESSAGE</source>
         <translation>메시지</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="52"/>
+        <location filename="../ui/mainwindow.hpp" line="53"/>
         <source>INSTANCE_LOCAL</source>
         <translation>로컬 타임라인</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="54"/>
+        <location filename="../ui/mainwindow.hpp" line="55"/>
         <source>INSTANCE_FEDERATED</source>
         <translation>연합 타입라인</translation>
     </message>

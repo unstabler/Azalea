@@ -9,6 +9,8 @@ Rectangle {
 
     property var status: model.display
 
+    signal rightClicked(var status)
+
     Rectangle {
         // Qt 5.10부터 이런거 사용할 수 있게 되긴 했는데..
         // https://doc.qt.io/archives/qt-5.10/qml-qtquick-shapes-shape.html
@@ -168,8 +170,7 @@ Rectangle {
                 timeline.currentIndex = index;
             } else {
                 // right button
-                console.log(this);
-                console.log("TODO: display context menu");
+                statusRoot.rightClicked(status, mouse.x, mouse.y);
             }
         }
     }

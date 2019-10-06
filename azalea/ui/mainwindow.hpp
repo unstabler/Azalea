@@ -4,18 +4,19 @@
 #include <array>
 #include <unordered_map>
 #include <QMainWindow>
-#include <ui/timeline/timelinemodel.hpp>
-#include <mastodon/mastodonapi.hpp>
 #include <QtQuick/QQuickItem>
 #include <QtWidgets/QSystemTrayIcon>
 #include <QQuickWidget>
+#include <QMenu>
 
 #include "configmanager.hpp"
 
+#include "mastodon/mastodonapi.hpp"
 #include "mastodon/apicontext.hpp"
 #include "mastodon/apibase.hpp"
 #include "mastodon/v1/stream/streamingclient.hpp"
 #include "postarea.hpp"
+#include "timeline/timelinemodel.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -84,6 +85,9 @@ class MainWindow : public QMainWindow
         void initializeShortcuts();
         void initializeTimelineTabs();
         
+        void onQMLTimelineRightClicked(const QVariant &qVarStatus);
+        void showContextMenu();
+        
     
     protected:
         void keyPressEvent(QKeyEvent *event) override;
@@ -102,6 +106,8 @@ class MainWindow : public QMainWindow
         std::map<TimelineType::Enum, std::unique_ptr<TimelineModel>> _timelineModel;
         std::map<TimelineType::Enum, QQuickWidget*> _timelineTabs;
         TimelineType::Enum _currentTimeline;
+        
+        QMenu _tootContextMenu;
         
         qint64 _refreshKeyPressedAt = 0;
         

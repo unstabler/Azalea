@@ -25,7 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     _timelineModel(),
     _configManager(Singleton<ConfigManager>::getInstance()),
-    _apiContext(new APIContext(this))
+    _apiContext(new APIContext(this)),
+    _tootContextMenu(this)
 {
     ui->setupUi(this);
     ui->retranslateUi(this);
@@ -121,7 +122,10 @@ void MainWindow::initializeWith(Credential *credential)
         );
         
         auto *tlViewContext = _timelineTabs[timelineType]->rootContext();
+        auto *tlViewRoot = _timelineTabs[timelineType]->rootObject();
+        
         tlViewContext->setContextProperty("timelineModel", _timelineModel[timelineType].get());
+        connect(tlViewRoot, SIGNAL(rightClicked(QVariant)), this, SLOT(onQMLTimelineRightClicked(QVariant)));
     
         this->updateTimeline(timelineType);
     }
@@ -419,6 +423,22 @@ void MainWindow::toggleFavourite(StatusAdapterBase *statusAdapter)
     connect(response, &APIFutureResponse::resolved, [statusAdapter] {
         statusAdapter->setFavourited(!statusAdapter->isFavourited());
     });
+}
+
+void MainWindow::onQMLTimelineRightClicked(const QVariant &qVarStatus)
+{
+    auto *statusAdapter = qvariant_cast<StatusAdapterBase *>(qVarStatus);
+    Q_ASSERT(statusAdapter != nullptr);
+    qDebug() << statusAdapter->content();
+    
+    this->showContextMenu();
+}
+
+void MainWindow::showContextMenu()
+{
+    QMenu menu;
+    menu.addAction(new QAction("Hello, World!"));
+    menu.exec(QCursor::pos());
 }
 
 MainWindow::~MainWindow()
