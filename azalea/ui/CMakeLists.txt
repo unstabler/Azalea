@@ -5,6 +5,8 @@ set(AZALEA_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/settingswindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/postarea/replyindicator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/postarea/emojicompletionmodel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/postarea/emojicompletiondelegate.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/postarea/emojipixmapholder.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/postarea/tootedit.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/timeline/statusadapterbase.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/timeline/statusadapter.cpp

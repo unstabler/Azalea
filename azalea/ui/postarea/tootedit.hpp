@@ -2,6 +2,7 @@
 
 #include <QTextEdit>
 #include <QCompleter>
+#include "emojipixmapholder.hpp"
 
 class TootEdit : public QTextEdit
 {
@@ -23,6 +24,8 @@ class TootEdit : public QTextEdit
     
     private:
         QCompleter _completer;
+        EmojiPixmapHolder &_emojiPixmapHolder;
+        
     
         QString textUnderCursor() const;
 };

@@ -6,21 +6,29 @@
 #include <QAbstractItemView>
 #include <QKeyEvent>
 #include <QScrollBar>
+#include <QListView>
 
 #include "tootedit.hpp"
 #include "singleton.hpp"
 #include "mastodon/apicontext.hpp"
 #include "mastodon/mastodonapi.hpp"
 #include "emojicompletionmodel.hpp"
+#include "emojicompletiondelegate.hpp"
 
 TootEdit::TootEdit(QWidget *parent) :
         QTextEdit(parent),
-        _completer({":test:", ":blobowoevil:"}, this)
+        _completer(this),
+        _emojiPixmapHolder(Singleton<EmojiPixmapHolder>::getInstance())
 {
     _completer.setWidget(this);
+    _completer.popup()->setItemDelegateForColumn(0, new EmojiCompletionDelegate);
     _completer.setCompletionMode(QCompleter::PopupCompletion);
     
     connect(&_completer, QOverload<const QString &>::of(&QCompleter::activated), this, &TootEdit::insertCompletion);
+    connect(&_emojiPixmapHolder, &EmojiPixmapHolder::ready, [this] () {
+        this->_completer.popup()->viewport()->repaint();
+    });
+    
 }
 
 TootEdit::~TootEdit()
