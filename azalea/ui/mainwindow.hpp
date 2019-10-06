@@ -96,7 +96,7 @@ class MainWindow : public QMainWindow
         
         std::map<TimelineType::Enum, QShortcut*> _timelineShortcuts;
         
-        APIContext *_apiContext;
+        APIContext &_apiContext;
         std::shared_ptr<MastodonAPI> _api;
         std::unique_ptr<StreamingClient> _streamingClient;
         std::map<TimelineType::Enum, std::unique_ptr<TimelineModel>> _timelineModel;

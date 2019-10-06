@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     _timelineModel(),
     _configManager(Singleton<ConfigManager>::getInstance()),
-    _apiContext(new APIContext(this))
+    _apiContext(Singleton<APIContext>::getInstance())
 {
     ui->setupUi(this);
     ui->retranslateUi(this);
@@ -105,12 +105,12 @@ void MainWindow::initializeShortcuts()
 
 void MainWindow::initializeWith(Credential *credential)
 {
-    _apiContext->setHost(credential->instanceName());
-    _apiContext->setToken(credential->token()->accessToken);
-    _api = std::shared_ptr<MastodonAPI>(new MastodonAPI(_apiContext));
+    _apiContext.setHost(credential->instanceName());
+    _apiContext.setToken(credential->token()->accessToken);
+    _api = std::shared_ptr<MastodonAPI>(new MastodonAPI(&_apiContext));
     
     _streamingClient = std::unique_ptr<StreamingClient>(
-            new StreamingClient(*_apiContext, "user")
+            new StreamingClient(_apiContext, "user")
     );
     
     connect(_streamingClient.get(), &StreamingClient::streamEvent, this, &MainWindow::streamEvent);
