@@ -107,9 +107,9 @@ void MainWindow::initializeWith(Credential *credential)
 {
     _apiContext.setHost(credential->instanceName());
     _apiContext.setToken(credential->token()->accessToken);
-    _api = std::shared_ptr<MastodonAPI>(new MastodonAPI(&_apiContext));
+    _api.reset(new MastodonAPI(&_apiContext));
     
-    _streamingClient = std::unique_ptr<StreamingClient>(
+    _streamingClient.reset(
             new StreamingClient(_apiContext, "user")
     );
     
@@ -283,11 +283,6 @@ void MainWindow::streamEvent(QString eventType, QJsonObject payload)
     }
 }
 
-std::shared_ptr<MastodonAPI> MainWindow::api() const
-{
-    return this->_api;
-}
-
 /**
  * keyboard event handler
  * TODO: 혼동 방지를 위해 qml keyboard navigation 끄고 여기로 옮기는게 맞는 것 같다
@@ -423,7 +418,5 @@ void MainWindow::toggleFavourite(StatusAdapterBase *statusAdapter)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
-
 

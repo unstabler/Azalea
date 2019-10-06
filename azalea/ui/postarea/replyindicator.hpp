@@ -23,7 +23,7 @@ class ReplyIndicator : public QFrame
         void setReplyTo(StatusAdapterBase *replyTo);
         
     private:
-        Ui::ReplyIndicator *ui;
+        QScopedPointer<Ui::ReplyIndicator> ui;
         
         StatusAdapterBase *_replyTo;
 };

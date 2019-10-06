@@ -1,7 +1,8 @@
-#include <mastodon/mastodonapi.hpp>
-#include "postarea.hpp"
 #include "ui_postarea.h"
 
+#include "mastodon/mastodonapi.hpp"
+#include "singleton.hpp"
+#include "postarea.hpp"
 #include "mainwindow.hpp"
 
 PostArea::PostArea(QWidget *parent) :
@@ -26,13 +27,11 @@ PostArea::PostArea(QWidget *parent) :
     
     connect(this->_postShortcut, &QShortcut::activated, this, &PostArea::submitPost);
     
-    
     this->updatePostLength();
 }
 
 PostArea::~PostArea()
 {
-    delete ui;
 }
 
 bool PostArea::isFocused()
@@ -58,6 +57,7 @@ void PostArea::setText(QString text)
     ui->tootEdit->setText(text);
 }
 
+[[deprecated]]
 MainWindow *PostArea::getMainWindow()
 {
     return dynamic_cast<MainWindow*>(parentWidget()->window());
@@ -83,7 +83,7 @@ void PostArea::updatePostLength()
 
 void PostArea::submitPost()
 {
-    auto api = getMainWindow()->api();
+    MastodonAPI api(&Singleton<APIContext>::getInstance());
     
     v1::in::PostStatusArgs args;
     args.status.set(this->ui->tootEdit->toPlainText());
@@ -95,7 +95,7 @@ void PostArea::submitPost()
     
     this->ui->tootEdit->setEnabled(false);
     
-    auto response = api->statuses()->post(args);
+    auto response = api.statuses()->post(args);
     connect(response, &APIFutureResponse::resolved, [this, response]() {
         auto status = response->tryDeserialize();
         this->ui->tootEdit->setEnabled(true);

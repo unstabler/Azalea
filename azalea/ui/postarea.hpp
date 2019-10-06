@@ -51,7 +51,7 @@ class PostArea : public QFrame
         void blurPostArea();
         
     private:
-        Ui::PostArea *ui;
+        QScopedPointer<Ui::PostArea> ui;
         QShortcut *_postShortcut;
         StatusAdapterBase *_replyTo;
         QCompleter *_completer;

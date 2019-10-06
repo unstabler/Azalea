@@ -91,14 +91,16 @@ class MainWindow : public QMainWindow
 
 
     private:
-        Ui::MainWindow *ui;
+        QScopedPointer<Ui::MainWindow> ui;
         ConfigManager &_configManager;
         
         std::map<TimelineType::Enum, QShortcut*> _timelineShortcuts;
         
         APIContext &_apiContext;
-        std::shared_ptr<MastodonAPI> _api;
-        std::unique_ptr<StreamingClient> _streamingClient;
+        [[deprecated]]
+        QScopedPointer<MastodonAPI> _api;
+        [[deprecated]]
+        QScopedPointer<StreamingClient> _streamingClient;
         std::map<TimelineType::Enum, std::unique_ptr<TimelineModel>> _timelineModel;
         std::map<TimelineType::Enum, QQuickWidget*> _timelineTabs;
         TimelineType::Enum _currentTimeline;

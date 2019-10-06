@@ -24,7 +24,7 @@ public:
     ~SettingsWindow();
     
 private:
-    Ui::SettingsWindow *ui;
+    QScopedPointer<Ui::SettingsWindow> ui;
     
     QLabel *_label;
     ConfigManager &_configManager;
