@@ -50,6 +50,8 @@ class PostArea : public QFrame
          */
         void blurPostArea();
         
+        void reloadInstanceInfo();
+        
     private:
         QScopedPointer<Ui::PostArea> ui;
         QShortcut *_postShortcut;

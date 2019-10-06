@@ -11,6 +11,9 @@ class TootEdit : public QTextEdit
         TootEdit(QWidget *parent = nullptr);
         ~TootEdit();
         
+    public slots:
+        void updateEmojiList();
+        
     protected:
         void keyPressEvent(QKeyEvent *event) override;
         void focusInEvent(QFocusEvent *event) override;

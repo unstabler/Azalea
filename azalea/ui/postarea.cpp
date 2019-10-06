@@ -128,4 +128,7 @@ void PostArea::blurPostArea()
     }
 }
 
-
+void PostArea::reloadInstanceInfo()
+{
+    ui->tootEdit->updateEmojiList();
+}

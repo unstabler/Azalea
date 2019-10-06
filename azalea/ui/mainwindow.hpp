@@ -74,6 +74,7 @@ class MainWindow : public QMainWindow
     signals:
         void quit();
         void initialize();
+        void initialized();
 
     public slots:
         void timelineResolved(TimelineType::Enum timelineType, QSharedPointer<ResourceList<v1::Status>> statuses);
@@ -106,7 +107,6 @@ class MainWindow : public QMainWindow
         TimelineType::Enum _currentTimeline;
         
         qint64 _refreshKeyPressedAt = 0;
-        
         
         void initializeWith(Credential *credential);
         void setTimeline(TimelineType::Enum timelineType);

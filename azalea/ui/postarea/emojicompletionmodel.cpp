@@ -25,13 +25,14 @@ int EmojiCompletionModel::columnCount(const QModelIndex &parent) const
 
 QVariant EmojiCompletionModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
+    if (!index.isValid() || !(role == Qt::DisplayRole || role == Qt::EditRole)) {
         return QVariant();
     }
     
     auto emoji = _emojiList->at(index.row());
     if (index.column() == COLUMN_INDEX_SHORTCODE) {
-        return emoji->shortcode;
+        // 이거 이래도 되는건가?
+        return ":" + emoji->shortcode + ":";
     } else if (index.column() == COLUMN_INDEX_EMOJI_URL) {
         return emoji->staticUrl;
     }

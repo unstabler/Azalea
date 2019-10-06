@@ -8,6 +8,10 @@
 #include <QScrollBar>
 
 #include "tootedit.hpp"
+#include "singleton.hpp"
+#include "mastodon/apicontext.hpp"
+#include "mastodon/mastodonapi.hpp"
+#include "emojicompletionmodel.hpp"
 
 TootEdit::TootEdit(QWidget *parent) :
         QTextEdit(parent),
@@ -58,7 +62,6 @@ void TootEdit::keyPressEvent(QKeyEvent *event)
     cursor.select(QTextCursor::WordUnderCursor);
     int startPos = cursor.selectionStart();
     int endPos   = cursor.selectionEnd();
-    qDebug () << startPos << ", " << endPos;
     if (startPos >= 1) {
         cursor.setPosition(startPos - 1);
         cursor.setPosition(endPos, QTextCursor::KeepAnchor);
@@ -109,4 +112,15 @@ QString TootEdit::textUnderCursor() const
     QTextCursor cursor = this->textCursor();
     cursor.select(QTextCursor::WordUnderCursor);
     return cursor.selectedText();
+}
+
+void TootEdit::updateEmojiList()
+{
+    const MastodonAPI api(&Singleton<APIContext>::getInstance());
+    auto response = api.instance()->getCustomEmojiList();
+    connect(response, &APIFutureResponse::resolved, [response, this] () {
+        qDebug() << "emoji list loaded; reloading completer";
+        auto emojiList = response->tryDeserialize();
+        this->_completer.setModel(new EmojiCompletionModel(emojiList));
+    });
 }

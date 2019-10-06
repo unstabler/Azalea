@@ -63,7 +63,9 @@ MainWindow::MainWindow(QWidget *parent) :
         this->initializeTimelineTabs();
         this->initializeWith(defaultCredential);
     }, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
+    
     connect(this, &MainWindow::initialize, this, &MainWindow::initializeShortcuts);
+    connect(this, &MainWindow::initialized, ui->postArea, &PostArea::reloadInstanceInfo);
     
     emit initialize();
 }
@@ -128,6 +130,8 @@ void MainWindow::initializeWith(Credential *credential)
     
     this->setTimeline(TimelineType::HOME);
     _streamingClient->open();
+    
+    emit initialized();
 }
 
 void MainWindow::setTimeline(TimelineType::Enum timelineType)
