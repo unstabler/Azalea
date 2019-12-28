@@ -44,55 +44,80 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="50"/>
+        <location filename="../ui/mainwindow.cpp" line="51"/>
         <source>NO_TOKEN_SET</source>
         <translation>トークンが設定されていません。
 新しくアカウントを追加しますか？</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="147"/>
+        <location filename="../ui/mainwindow.cpp" line="151"/>
         <source>INSTANCE_NAME</source>
         <translation>インスタンス名を入力</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="148"/>
+        <location filename="../ui/mainwindow.cpp" line="152"/>
         <source>INPUT_INSTANCE_NAME</source>
         <translation>インスタンス名を入力してください。</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="177"/>
+        <location filename="../ui/mainwindow.cpp" line="181"/>
         <source>TITLE_AUTHORIZATION_CODE</source>
         <translation>認証コードの入力</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="178"/>
+        <location filename="../ui/mainwindow.cpp" line="182"/>
         <source>TEXT_AUTHORIZATION_CODE</source>
         <translation>認証コードを入力してください。</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="46"/>
+        <location filename="../ui/mainwindow.cpp" line="455"/>
+        <source>REPLY (&amp;R)</source>
+        <translation>リプライ(&amp;R)</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.cpp" line="456"/>
+        <source>BOOST (&amp;T)</source>
+        <translation>ブースト(&amp;T)</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.cpp" line="457"/>
+        <source>FAVOURITE (&amp;F)</source>
+        <translation>ふぁぼる(&amp;F)</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.cpp" line="464"/>
+        <source>UNBOOST (&amp;T)</source>
+        <translation>ブーストの取り消し(&amp;T)</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.cpp" line="468"/>
+        <source>UNFAVOURITE (&amp;F)</source>
+        <translation>ふぁぼの取り消し(&amp;F)</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.hpp" line="47"/>
         <source>HOME</source>
-        <translation type="unfinished"></translation>
+        <translation>ホーム</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="48"/>
+        <location filename="../ui/mainwindow.hpp" line="49"/>
         <source>MENTIONS</source>
-        <translation type="unfinished"></translation>
+        <translation>通知</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="50"/>
+        <location filename="../ui/mainwindow.hpp" line="51"/>
         <source>DIRECT_MESSAGE</source>
-        <translation type="unfinished"></translation>
+        <translation>DM</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="52"/>
+        <location filename="../ui/mainwindow.hpp" line="53"/>
         <source>INSTANCE_LOCAL</source>
-        <translation type="unfinished"></translation>
+        <translation>ローカル</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.hpp" line="54"/>
+        <location filename="../ui/mainwindow.hpp" line="55"/>
         <source>INSTANCE_FEDERATED</source>
-        <translation type="unfinished"></translation>
+        <translation>連合</translation>
     </message>
 </context>
 <context>

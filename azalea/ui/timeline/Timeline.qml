@@ -4,6 +4,9 @@ import QtQuick.Controls 2.3
 import "qrc:/components" as Components
 
 Rectangle {
+    id: root
+    signal rightClicked(var status)
+
     ListView {
         anchors.fill: parent
 
@@ -21,7 +24,11 @@ Rectangle {
         highlightResizeDuration: 0
         highlightMoveDuration: 0
 
-        delegate: Components.Status { }
+        delegate: Components.Status {
+            Component.onCompleted: {
+                rightClicked.connect(root.rightClicked);
+            }
+        }
 
         ScrollBar.vertical: ScrollBar {}
 

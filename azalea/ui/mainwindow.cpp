@@ -25,7 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     _timelineModel(),
     _configManager(Singleton<ConfigManager>::getInstance()),
-    _apiContext(Singleton<APIContext>::getInstance())
+    _apiContext(Singleton<APIContext>::getInstance()),
+    _tootContextMenu(this)
 {
     ui->setupUi(this);
     ui->retranslateUi(this);
@@ -123,7 +124,10 @@ void MainWindow::initializeWith(Credential *credential)
         );
         
         auto *tlViewContext = _timelineTabs[timelineType]->rootContext();
+        auto *tlViewRoot = _timelineTabs[timelineType]->rootObject();
+        
         tlViewContext->setContextProperty("timelineModel", _timelineModel[timelineType].get());
+        connect(tlViewRoot, SIGNAL(rightClicked(QVariant)), this, SLOT(onQMLTimelineRightClicked(QVariant)));
     
         this->updateTimeline(timelineType);
     }
@@ -325,6 +329,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         case Qt::Key_K:
             setCurrentIndex(getCurrentIndex() - 1);
             break;
+        case Qt::Key_V:
+            showContextMenu();
+            break;
         case Qt::Key_Space: {
             if (!event->isAutoRepeat()) {
                 _refreshKeyPressedAt = QDateTime::currentMSecsSinceEpoch();
@@ -418,6 +425,63 @@ void MainWindow::toggleFavourite(StatusAdapterBase *statusAdapter)
     connect(response, &APIFutureResponse::resolved, [statusAdapter] {
         statusAdapter->setFavourited(!statusAdapter->isFavourited());
     });
+}
+
+void MainWindow::onQMLTimelineRightClicked(const QVariant &qVarStatus)
+{
+    auto *statusAdapter = qvariant_cast<StatusAdapterBase *>(qVarStatus);
+    Q_ASSERT(statusAdapter != nullptr);
+    qDebug() << statusAdapter->content();
+    
+    this->showContextMenu();
+}
+
+void MainWindow::showContextMenu()
+{
+    auto statusAdapter = getStatusAdapterAtCurrentIndex();
+    
+    QMenu menu;
+    /*
+     * AUTHOR (user@instance.net)
+     * --------------------------
+     */
+    QAction authorAction(statusAdapter->formattedAuthor());
+    authorAction.setEnabled(false);
+    menu.addAction(&authorAction);
+    menu.addSeparator();
+    
+    
+    // REPLY (&R)
+    QAction replyAction(tr("REPLY (&R)"));
+    QAction boostAction(tr("BOOST (&T)"));
+    QAction favouriteAction(tr("FAVOURITE (&F)"));
+    
+    menu.addAction(&replyAction);
+    menu.addAction(&boostAction);
+    menu.addAction(&favouriteAction);
+    
+    if (statusAdapter->isBoosted()) {
+        boostAction.setText(tr("UNBOOST (&T)"));
+    }
+    
+    if (statusAdapter->isFavourited()) {
+        favouriteAction.setText(tr("UNFAVOURITE (&F)"));
+    }
+    
+    connect(&replyAction, &QAction::triggered, [=]() {
+        ui->postArea->setReplyTo(statusAdapter);
+        ui->postArea->focusPostArea();
+    });
+    
+    connect(&boostAction, &QAction::triggered, [=]() {
+        this->toggleBoost(statusAdapter);
+    });
+    
+    connect(&favouriteAction, &QAction::triggered, [=]() {
+        this->toggleFavourite(statusAdapter);
+    });
+    
+    menu.exec(QCursor::pos());
 }
 
 MainWindow::~MainWindow()
