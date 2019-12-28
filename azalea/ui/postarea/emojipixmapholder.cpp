@@ -35,6 +35,9 @@ void EmojiPixmapHolder::fetch(QString shortcode, QString url)
     connect(reply, &QNetworkReply::finished, [this, shortcode, reply]() {
         QSharedPointer<QPixmap> pixmap(new QPixmap);
         pixmap->loadFromData(reply->readAll());
+        
+        auto scaledPixmap = pixmap->scaledToHeight(24, Qt::SmoothTransformation);
+        pixmap->swap(scaledPixmap);
         _emojis.insert(shortcode, pixmap);
         
         emit ready(shortcode, pixmap);
