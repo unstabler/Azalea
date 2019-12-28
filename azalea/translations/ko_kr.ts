@@ -72,27 +72,27 @@
     <message>
         <location filename="../ui/mainwindow.cpp" line="455"/>
         <source>REPLY (&amp;R)</source>
-        <translation type="unfinished"></translation>
+        <translation>답글(&amp;R)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="456"/>
         <source>BOOST (&amp;T)</source>
-        <translation type="unfinished"></translation>
+        <translation>부스트(&amp;T)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="457"/>
         <source>FAVOURITE (&amp;F)</source>
-        <translation type="unfinished"></translation>
+        <translation>페이버릿(&amp;F)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="464"/>
         <source>UNBOOST (&amp;T)</source>
-        <translation type="unfinished"></translation>
+        <translation>부스트 취소(&amp;T)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="468"/>
         <source>UNFAVOURITE (&amp;F)</source>
-        <translation type="unfinished"></translation>
+        <translation>페이버릿 취소(&amp;F)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.hpp" line="47"/>

@@ -72,52 +72,52 @@
     <message>
         <location filename="../ui/mainwindow.cpp" line="455"/>
         <source>REPLY (&amp;R)</source>
-        <translation type="unfinished"></translation>
+        <translation>リプライ(&amp;R)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="456"/>
         <source>BOOST (&amp;T)</source>
-        <translation type="unfinished"></translation>
+        <translation>ブースト(&amp;T)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="457"/>
         <source>FAVOURITE (&amp;F)</source>
-        <translation type="unfinished"></translation>
+        <translation>ふぁぼる(&amp;F)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="464"/>
         <source>UNBOOST (&amp;T)</source>
-        <translation type="unfinished"></translation>
+        <translation>ブーストの取り消し(&amp;T)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.cpp" line="468"/>
         <source>UNFAVOURITE (&amp;F)</source>
-        <translation type="unfinished"></translation>
+        <translation>ふぁぼの取り消し(&amp;F)</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.hpp" line="47"/>
         <source>HOME</source>
-        <translation type="unfinished"></translation>
+        <translation>ホーム</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.hpp" line="49"/>
         <source>MENTIONS</source>
-        <translation type="unfinished"></translation>
+        <translation>通知</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.hpp" line="51"/>
         <source>DIRECT_MESSAGE</source>
-        <translation type="unfinished"></translation>
+        <translation>DM</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.hpp" line="53"/>
         <source>INSTANCE_LOCAL</source>
-        <translation type="unfinished"></translation>
+        <translation>ローカル</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.hpp" line="55"/>
         <source>INSTANCE_FEDERATED</source>
-        <translation type="unfinished"></translation>
+        <translation>連合</translation>
     </message>
 </context>
 <context>
