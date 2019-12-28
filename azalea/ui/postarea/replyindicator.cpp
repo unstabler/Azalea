@@ -17,7 +17,6 @@ ReplyIndicator::ReplyIndicator(QWidget *parent) :
 
 ReplyIndicator::~ReplyIndicator()
 {
-    delete ui;
 }
 
 void ReplyIndicator::setReplyTo(StatusAdapterBase *replyTo)

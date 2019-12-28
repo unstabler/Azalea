@@ -50,22 +50,22 @@
 새롭게 계정을 추가하시곘습니까?</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="147"/>
+        <location filename="../ui/mainwindow.cpp" line="151"/>
         <source>INSTANCE_NAME</source>
         <translation>인스턴스 이름</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="148"/>
+        <location filename="../ui/mainwindow.cpp" line="152"/>
         <source>INPUT_INSTANCE_NAME</source>
         <translation>인스턴스 이름을 입력하여 주십시오.</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="177"/>
+        <location filename="../ui/mainwindow.cpp" line="181"/>
         <source>TITLE_AUTHORIZATION_CODE</source>
         <translation>인증 코드 입력</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="178"/>
+        <location filename="../ui/mainwindow.cpp" line="182"/>
         <source>TEXT_AUTHORIZATION_CODE</source>
         <translation>인증 코드를 입력하여 주십시오.</translation>
     </message>

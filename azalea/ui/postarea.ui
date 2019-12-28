@@ -42,7 +42,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QTextEdit" name="tootEdit"/>
+       <widget class="TootEdit" name="tootEdit"/>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -89,6 +89,11 @@
    <extends>QFrame</extends>
    <header>ui/postarea/replyindicator.hpp</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TootEdit</class>
+   <extends>QTextEdit</extends>
+   <header>ui/postarea/tootedit.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>
