@@ -25,6 +25,7 @@ AzaleaApplication::AzaleaApplication(int &argc, char **argv) :
     
     
     QString locale = QLocale::system().name().toLower();
+    qSetMessagePattern("[%{type}] %{message} at [%{function}] %{file}:%{line}");
     this->loadTranslation(locale);
 }
 
