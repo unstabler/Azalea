@@ -88,7 +88,6 @@ void TootEdit::keyPressEvent(QKeyEvent *event)
         return;
     }
     
-    qDebug() << completionPrefix;
     if (completionPrefix != _completer.completionPrefix()) {
         _completer.setCompletionPrefix(completionPrefix);
         _completer.popup()->setCurrentIndex(_completer.completionModel()->index(0, 0));

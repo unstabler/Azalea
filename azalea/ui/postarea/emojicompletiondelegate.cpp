@@ -8,6 +8,8 @@
 #include "singleton.hpp"
 #include "emojicompletiondelegate.hpp"
 
+int EmojiCompletionDelegate::EMOJI_SIZE    = 24;
+int EmojiCompletionDelegate::EMOJI_PADDING = 4;
 
 EmojiCompletionDelegate::EmojiCompletionDelegate(QObject *parent) :
         QStyledItemDelegate(parent),
@@ -43,14 +45,14 @@ EmojiCompletionDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
     
     if (_holder.has(shortcode)) {
         auto pixmap = _holder.get(shortcode);
-        painter->drawPixmap(rect.left(), rect.top(), 24, 24, *pixmap);
+        painter->drawPixmap(rect.left(), rect.top(), EMOJI_SIZE, EMOJI_SIZE, *pixmap);
     } else {
         auto url = index.siblingAtColumn(1).data(Qt::DisplayRole);
         _holder.fetch(shortcode, url.toString());
     }
     
     auto textArea = rect;
-    textArea.moveLeft(28);
+    textArea.moveLeft(EMOJI_SIZE + EMOJI_PADDING);
     
     painter->drawText(textArea, Qt::TextSingleLine, optionCopy.text);
     painter->restore();
@@ -58,5 +60,11 @@ EmojiCompletionDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 
 QSize EmojiCompletionDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    return QSize(320, 24);
+    QStyleOptionViewItem optionCopy = option;
+    initStyleOption(&optionCopy, index);
+    
+    auto fontMetrics = optionCopy.fontMetrics;
+    auto textSize = fontMetrics.size(Qt::TextSingleLine, optionCopy.text);
+    
+    return QSize(EMOJI_SIZE + EMOJI_PADDING + textSize.width(), EMOJI_SIZE);
 }
