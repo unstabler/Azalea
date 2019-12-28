@@ -329,6 +329,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         case Qt::Key_K:
             setCurrentIndex(getCurrentIndex() - 1);
             break;
+        case Qt::Key_V:
+            showContextMenu();
+            break;
         case Qt::Key_Space: {
             if (!event->isAutoRepeat()) {
                 _refreshKeyPressedAt = QDateTime::currentMSecsSinceEpoch();
@@ -435,8 +438,39 @@ void MainWindow::onQMLTimelineRightClicked(const QVariant &qVarStatus)
 
 void MainWindow::showContextMenu()
 {
+    auto statusAdapter = getStatusAdapterAtCurrentIndex();
+    
     QMenu menu;
-    menu.addAction(new QAction("Hello, World!"));
+    /*
+     * AUTHOR (user@instance.net)
+     * --------------------------
+     */
+    QAction authorAction(statusAdapter->formattedAuthor());
+    authorAction.setEnabled(false);
+    menu.addAction(&authorAction);
+    menu.addSeparator();
+    
+    
+    // REPLY (&R)
+    QAction replyAction(tr("REPLY (&R)"));
+    menu.addAction(&replyAction);
+    QAction boostAction(tr("BOOST (&T)"));
+    QAction unboostAction(tr("UNBOOST (&T)"));
+    QAction favouriteAction(tr("FAVOURITE (&F)"));
+    QAction unfavouriteAciton(tr("UNFAVOURITE (&F)"));
+    
+    if (!statusAdapter->isBoosted()) {
+        menu.addAction(&boostAction);
+    } else {
+        menu.addAction(&unboostAction);
+    }
+    
+    if (!statusAdapter->isFavourited()) {
+        menu.addAction(&favouriteAction);
+    } else {
+        menu.addAction(&unfavouriteAciton);
+    }
+    
     menu.exec(QCursor::pos());
 }
 

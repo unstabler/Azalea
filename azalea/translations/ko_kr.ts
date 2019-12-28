@@ -70,6 +70,31 @@
         <translation>인증 코드를 입력하여 주십시오.</translation>
     </message>
     <message>
+        <location filename="../ui/mainwindow.cpp" line="455"/>
+        <source>REPLY (&amp;R)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.cpp" line="457"/>
+        <source>BOOST (&amp;T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.cpp" line="458"/>
+        <source>UNBOOST (&amp;T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.cpp" line="459"/>
+        <source>FAVOURITE (&amp;F)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.cpp" line="460"/>
+        <source>UNFAVOURITE (&amp;F)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../ui/mainwindow.hpp" line="47"/>
         <source>HOME</source>
         <translation>홈</translation>

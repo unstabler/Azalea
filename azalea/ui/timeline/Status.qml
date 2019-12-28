@@ -170,6 +170,7 @@ Rectangle {
                 timeline.currentIndex = index;
             } else {
                 // right button
+                timeline.currentIndex = index;
                 statusRoot.rightClicked(status, mouse.x, mouse.y);
             }
         }
