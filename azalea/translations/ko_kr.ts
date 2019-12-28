@@ -75,22 +75,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="457"/>
+        <location filename="../ui/mainwindow.cpp" line="456"/>
         <source>BOOST (&amp;T)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="458"/>
-        <source>UNBOOST (&amp;T)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.cpp" line="459"/>
+        <location filename="../ui/mainwindow.cpp" line="457"/>
         <source>FAVOURITE (&amp;F)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.cpp" line="460"/>
+        <location filename="../ui/mainwindow.cpp" line="464"/>
+        <source>UNBOOST (&amp;T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.cpp" line="468"/>
         <source>UNFAVOURITE (&amp;F)</source>
         <translation type="unfinished"></translation>
     </message>

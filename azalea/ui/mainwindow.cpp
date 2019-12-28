@@ -453,23 +453,33 @@ void MainWindow::showContextMenu()
     
     // REPLY (&R)
     QAction replyAction(tr("REPLY (&R)"));
-    menu.addAction(&replyAction);
     QAction boostAction(tr("BOOST (&T)"));
-    QAction unboostAction(tr("UNBOOST (&T)"));
     QAction favouriteAction(tr("FAVOURITE (&F)"));
-    QAction unfavouriteAciton(tr("UNFAVOURITE (&F)"));
     
-    if (!statusAdapter->isBoosted()) {
-        menu.addAction(&boostAction);
-    } else {
-        menu.addAction(&unboostAction);
+    menu.addAction(&replyAction);
+    menu.addAction(&boostAction);
+    menu.addAction(&favouriteAction);
+    
+    if (statusAdapter->isBoosted()) {
+        boostAction.setText(tr("UNBOOST (&T)"));
     }
     
-    if (!statusAdapter->isFavourited()) {
-        menu.addAction(&favouriteAction);
-    } else {
-        menu.addAction(&unfavouriteAciton);
+    if (statusAdapter->isFavourited()) {
+        favouriteAction.setText(tr("UNFAVOURITE (&F)"));
     }
+    
+    connect(&replyAction, &QAction::triggered, [=]() {
+        ui->postArea->setReplyTo(statusAdapter);
+        ui->postArea->focusPostArea();
+    });
+    
+    connect(&boostAction, &QAction::triggered, [=]() {
+        this->toggleBoost(statusAdapter);
+    });
+    
+    connect(&favouriteAction, &QAction::triggered, [=]() {
+        this->toggleFavourite(statusAdapter);
+    });
     
     menu.exec(QCursor::pos());
 }
