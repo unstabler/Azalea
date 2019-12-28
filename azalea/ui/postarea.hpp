@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QShortcut>
 #include <QFrame>
+#include <QCompleter>
 
 #include <ui/timeline/statusadapterbase.hpp>
 
@@ -49,10 +50,13 @@ class PostArea : public QFrame
          */
         void blurPostArea();
         
-private:
-        Ui::PostArea *ui;
+        void reloadInstanceInfo();
+        
+    private:
+        QScopedPointer<Ui::PostArea> ui;
         QShortcut *_postShortcut;
         StatusAdapterBase *_replyTo;
+        QCompleter *_completer;
         
         unsigned _maxPostLength;
         unsigned _postLength;

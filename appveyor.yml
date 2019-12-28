@@ -10,7 +10,7 @@ build_script:
     - mkdir azalea-bin-windows
     - mkdir build
     - cd build
-    - cmake .. -DCMAKE_PREFIX_PATH="C:\Qt\5.13.0\msvc2017\lib\cmake" -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="C:\azalea\azalea-bin-windows" -DCMAKE_BUILD_TYPE="Release"
+    - cmake .. -DCMAKE_PREFIX_PATH="C:\Qt\5.13\msvc2017\lib\cmake" -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="C:\azalea\azalea-bin-windows" -DCMAKE_BUILD_TYPE="Release"
     - nmake
     - nmake install
     - 'copy "C:\OpenSSL-v111-Win32\bin\lib*.dll" "C:\azalea\azalea-bin-windows"'

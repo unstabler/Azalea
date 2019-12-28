@@ -21,6 +21,7 @@ class MastodonAPI : public QObject
         v1::TimelinesAPI *timelines() const;
         v1::StatusesAPI *statuses() const;
         v1::NotificationsAPI *notifications() const;
+        v1::InstanceAPI *instance() const;
 
     private:
         APIContext  *_context;
@@ -30,6 +31,6 @@ class MastodonAPI : public QObject
         v1::TimelinesAPI *_timelines;
         v1::StatusesAPI *_statuses;
         v1::NotificationsAPI *_notifications;
-
+        v1::InstanceAPI *_instance;
 };
 

@@ -74,6 +74,7 @@ class MainWindow : public QMainWindow
     signals:
         void quit();
         void initialize();
+        void initialized();
 
     public slots:
         void timelineResolved(TimelineType::Enum timelineType, QSharedPointer<ResourceList<v1::Status>> statuses);
@@ -91,20 +92,21 @@ class MainWindow : public QMainWindow
 
 
     private:
-        Ui::MainWindow *ui;
+        QScopedPointer<Ui::MainWindow> ui;
         ConfigManager &_configManager;
         
         std::map<TimelineType::Enum, QShortcut*> _timelineShortcuts;
         
-        APIContext *_apiContext;
-        std::shared_ptr<MastodonAPI> _api;
-        std::unique_ptr<StreamingClient> _streamingClient;
+        APIContext &_apiContext;
+        [[deprecated]]
+        QScopedPointer<MastodonAPI> _api;
+        [[deprecated]]
+        QScopedPointer<StreamingClient> _streamingClient;
         std::map<TimelineType::Enum, std::unique_ptr<TimelineModel>> _timelineModel;
         std::map<TimelineType::Enum, QQuickWidget*> _timelineTabs;
         TimelineType::Enum _currentTimeline;
         
         qint64 _refreshKeyPressedAt = 0;
-        
         
         void initializeWith(Credential *credential);
         void setTimeline(TimelineType::Enum timelineType);

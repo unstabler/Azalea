@@ -4,3 +4,4 @@
 #include "v1/timelinesapi.hpp"
 #include "v1/statusesapi.hpp"
 #include "v1/notificationsapi.hpp"
+#include "v1/instanceapi.hpp"

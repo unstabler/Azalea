@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     _timelineModel(),
     _configManager(Singleton<ConfigManager>::getInstance()),
-    _apiContext(new APIContext(this))
+    _apiContext(Singleton<APIContext>::getInstance())
 {
     ui->setupUi(this);
     ui->retranslateUi(this);
@@ -63,7 +63,9 @@ MainWindow::MainWindow(QWidget *parent) :
         this->initializeTimelineTabs();
         this->initializeWith(defaultCredential);
     }, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
+    
     connect(this, &MainWindow::initialize, this, &MainWindow::initializeShortcuts);
+    connect(this, &MainWindow::initialized, ui->postArea, &PostArea::reloadInstanceInfo);
     
     emit initialize();
 }
@@ -105,12 +107,12 @@ void MainWindow::initializeShortcuts()
 
 void MainWindow::initializeWith(Credential *credential)
 {
-    _apiContext->setHost(credential->instanceName());
-    _apiContext->setToken(credential->token()->accessToken);
-    _api = std::shared_ptr<MastodonAPI>(new MastodonAPI(_apiContext));
+    _apiContext.setHost(credential->instanceName());
+    _apiContext.setToken(credential->token()->accessToken);
+    _api.reset(new MastodonAPI(&_apiContext));
     
-    _streamingClient = std::unique_ptr<StreamingClient>(
-            new StreamingClient(*_apiContext, "user")
+    _streamingClient.reset(
+            new StreamingClient(_apiContext, "user")
     );
     
     connect(_streamingClient.get(), &StreamingClient::streamEvent, this, &MainWindow::streamEvent);
@@ -128,6 +130,8 @@ void MainWindow::initializeWith(Credential *credential)
     
     this->setTimeline(TimelineType::HOME);
     _streamingClient->open();
+    
+    emit initialized();
 }
 
 void MainWindow::setTimeline(TimelineType::Enum timelineType)
@@ -283,11 +287,6 @@ void MainWindow::streamEvent(QString eventType, QJsonObject payload)
     }
 }
 
-std::shared_ptr<MastodonAPI> MainWindow::api() const
-{
-    return this->_api;
-}
-
 /**
  * keyboard event handler
  * TODO: 혼동 방지를 위해 qml keyboard navigation 끄고 여기로 옮기는게 맞는 것 같다
@@ -423,7 +422,5 @@ void MainWindow::toggleFavourite(StatusAdapterBase *statusAdapter)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
-
 

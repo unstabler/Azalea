@@ -14,7 +14,7 @@ namespace v1
         public:
             static const QString NO_REDIRECT_URIS;
 
-            explicit AppsAPI(APIContext* context);
+            explicit AppsAPI(APIContext *context);
 
             APIFutureResource<oauth2::OAuthApplication>* post(
                 const QString clientName,

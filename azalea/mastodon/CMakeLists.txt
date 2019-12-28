@@ -9,6 +9,7 @@ set(AZALEA_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/timelinesapi.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/statusesapi.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/notificationsapi.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/v1/instanceapi.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/oauth2.serialization.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/v1/entities/mastodon.hpp
