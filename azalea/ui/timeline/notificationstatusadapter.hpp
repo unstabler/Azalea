@@ -24,6 +24,8 @@ class NotificationStatusAdapter : public StatusAdapterBase
         void setBoosted(bool isBoosted) override;
         bool isFavourited() override;
         void setFavourited(bool isFavourited) override;
+    
+        QUrl statusUrl() override;
         
         QSharedPointer<v1::Notification> notification();
         

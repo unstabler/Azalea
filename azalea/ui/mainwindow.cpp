@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QDesktopServices>
+#include <QClipboard>
 
 #include <QQmlContext>
 #include <QQuickItem>
@@ -480,6 +481,30 @@ void MainWindow::showContextMenu()
     connect(&favouriteAction, &QAction::triggered, [=]() {
         this->toggleFavourite(statusAdapter);
     });
+    
+    
+    auto statusUrl = statusAdapter->statusUrl();
+    
+    QAction statusUrlAction(statusUrl.toString());
+    QAction openInBrowserAction(tr("OPEN_IN_BROWSER (&O)"));
+    QAction copyUrlToClipboardAction(tr("COPY_URL_TO_CLIPBOARD (&C)"));
+    
+    connect(&openInBrowserAction, &QAction::triggered, [=]() {
+        QDesktopServices::openUrl(statusUrl);
+    });
+    
+    connect(&copyUrlToClipboardAction, &QAction::triggered, [=]() {
+        auto clipboard = QApplication::clipboard();
+        clipboard->setText(statusUrl.toString());
+    });
+    
+    statusUrlAction.setEnabled(false);
+    
+    menu.addSeparator();
+    menu.addAction(&statusUrlAction);
+    menu.addSeparator();
+    menu.addAction(&openInBrowserAction);
+    menu.addAction(&copyUrlToClipboardAction);
     
     menu.exec(QCursor::pos());
 }

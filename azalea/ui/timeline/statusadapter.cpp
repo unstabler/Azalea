@@ -98,6 +98,11 @@ void StatusAdapter::setFavourited(bool isFavourited)
     emit favouriteToggled(isFavourited);
 }
 
+QUrl StatusAdapter::statusUrl()
+{
+    return QUrl(_status->url);
+}
+
 QSharedPointer<v1::Status> StatusAdapter::status()
 {
     return _status;

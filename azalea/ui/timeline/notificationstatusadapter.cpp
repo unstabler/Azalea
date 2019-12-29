@@ -89,3 +89,14 @@ void NotificationStatusAdapter::setFavourited(bool isFavourited)
 {
 
 }
+
+QUrl NotificationStatusAdapter::statusUrl()
+{
+    if (_notification->type == "reblog" ||
+        _notification->type == "favourite") {
+        return QUrl(_notification->status->url);
+    }
+    
+    return QUrl();
+}
+

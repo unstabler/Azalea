@@ -43,6 +43,8 @@ public:
     virtual bool isFavourited() = 0;
     virtual void setFavourited(bool isFavourited) = 0;
     
+    virtual QUrl statusUrl() = 0;
+    
 signals:
     void boostToggled(bool isBoosted);
     void favouriteToggled(bool isFavourited);
